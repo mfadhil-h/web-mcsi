@@ -4,7 +4,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-const image = require('@/assets/img/pattern.png')
+const image = require('@/assets/img/pattern-tl.png')
 export default Vue.extend({
 	name: 'accent',
 	data: () => {

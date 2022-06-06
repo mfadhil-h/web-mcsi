@@ -1,0 +1,25 @@
+// 0. Variables
+$font-family: 'Open Sans', 'Roboto', 'Arial', sans-serif;
+$header-height: 80px;
+
+// 1. Base
+body {
+    font-family: $font-family !important;
+}
+
+// 2. Header
+.navbar {
+    height: $header-height;
+    z-index: 99;
+}
+.navbar.navbar--transparent {
+    background: none !important;
+}
+.navbar.navbar--sticky {
+    margin-top: -$header-height;
+}
+
+// 2. Body
+.mcsi-body {
+    margin-top: -$header-height
+}

@@ -45,14 +45,6 @@ export default Vue.extend({
         position: absolute;
         right: 0; bottom: 0;
     }
-    .test {
-        background-color: rgba(red, .1);
-        background-image: url("@/assets/img/pattern.png");
-        background-size: 33%;
-        background-repeat: no-repeat;
-        background-position: bottom right;
-    
-    }
 }
 
 </style>
