@@ -1,24 +1,28 @@
 const headerMenuId = [
     {
         label: 'Beranda',
-        link: '#'
+        link: '/'
     },
     {
         label: 'Tentang Kami',
-        link: '#',
+        link: '/profile',
         children: [
             {
                 label: 'Profil Singkat',
-                link: '#'
+                link: '/profile'
             },
             {
                 label: 'Visi & Misi',
-                link: '#'
+                link: '/vision-mission'
             },
             {
                 label: 'Struktur Organisasi',
-                link: '#'
-            }
+                link: '/organization'
+            },
+            {
+                label: 'Manajemen',
+                link: '/management'
+            },
         ]
     },
     {
