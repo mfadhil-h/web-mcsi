@@ -1,11 +1,12 @@
 <template lang="pug">
-.footer
-    //- Accent.footer__accent(position="br")
+b-container(fluid).footer
+    b-img.footer__pattern-tr(:src="patternTr")
+    b-img.footer__pattern-bl(:src="patternBl")
     b-container.py-5.test
         b-row
-            b-col(cols="4")
-                h1 One
-            b-col(cols="4")
+            b-col(cols="12" md="4")
+                b-img.logo-lighthouse(:src="logoLighthouse")
+            b-col(cols="12" md="4")
                 span.d-block Resources
                 b-link.d-block Privacy Policy
                 b-link.d-block Contact Us
@@ -19,21 +20,19 @@
                 b-link.d-block Contact Us
                 b-link.d-block Privacy Policy
                 b-link.d-block Contact Us
-            b-col(cols="3")
+            b-col(cols="12" md="4")
                 h1 Three
     
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import Accent from '~/components/Accent.vue'
 export default Vue.extend({
     name: 'footer',
-    components: {
-        Accent
-    },
     data: () => {
         return {
-        
+            logoLighthouse: require('@/assets/img/lighthouse.png'),
+            patternTr: require('@/assets/img/pattern-tr.png'),
+            patternBl: require('@/assets/img/pattern-bl.png'),
         }
     }
 })
@@ -41,10 +40,21 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .footer {
     position: relative;
-    .footer__accent {
+    background-image: linear-gradient(180deg, #CC0000 0%, #910000 100%);
+    .footer__pattern-tr {
+        filter: opacity(.8);
         position: absolute;
-        right: 0; bottom: 0;
+        top: 0; right: 0;
+        width: 33%; height: auto;
+    }
+     .footer__pattern-bl {
+        filter: opacity(.8);
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 33%; height: auto;
     }
 }
-
+.logo-lighthouse {
+    height: 120px; width: auto;
+}
 </style>
