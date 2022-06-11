@@ -1,0 +1,38 @@
+<template lang="pug">
+.thumbnail
+    b-img.thumbnail__image(:src="image")
+    p.thumbnail__heading {{heading}}
+    p.thumbnail__subheading {{subheading}}
+</template>
+<script lang="ts">
+import Vue from 'vue'
+const videotronImage = require('@/assets/img/videotron-image.jpg')
+export default Vue.extend({
+	name: 'card-management',
+    props: {
+        image: String,
+        heading: String,
+        subheading: String
+    }
+})
+</script>
+<style lang="scss" scoped>
+.thumbnail {
+    margin-bottom: 1rem;
+    text-align: center;
+    .thumbnail__image {
+        width: 100%; height: auto;
+        object-fit: cover;
+    }
+    .thumbnail__heading {
+        font-size: 24px;
+        font-weight: 700;
+        margin-top: 1.5rem;
+    }
+    .thumbnail__subheading {
+        font-size: 16px;
+        color: rgba(black, .7);
+        margin-top: .5rem;
+    }
+}
+</style>

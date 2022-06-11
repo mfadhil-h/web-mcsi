@@ -30,7 +30,7 @@ const mock = {
     sectionBody: 'Our leadership team brings together the industry’s most respected, forward-thinking individuals, whose deep experience and fresh perspectives combine to lead one of the fastest-growing, most innovative companies in the world. Together, they support a culture that is progressive, authentic and fun – while living our values and honoring our purpose every day.',
 }
 export default Vue.extend({
-    name: 'Home',
+    name: 'management',
     layout: 'SinglePage',
     components: {
         CardManagement,

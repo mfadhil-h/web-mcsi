@@ -9,7 +9,7 @@ export default Vue.extend({
 	name: 'videotron-image',
 	data: () => {
 		return {
-				videotronImage: videotronImage
+			videotronImage: videotronImage
 		}
 	}
 })

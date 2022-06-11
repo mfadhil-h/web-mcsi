@@ -1,23 +1,23 @@
 <template lang="pug">
-b-container(fluid).footer
-    b-img.footer__pattern-tr(:src="patternTr")
-    b-img.footer__pattern-bl(:src="patternBl")
+b-container(fluid).mcsi-footer
+    b-img.mcsi-footer__pattern-tr(:src="patternTr")
+    b-img.mcsi-footer__pattern-bl(:src="patternBl")
     b-container
         b-row.py-5
             b-col.mb-4(cols="12" md="4")
                 b-img.logo-lighthouse(:src="logoLighthouse")
             b-col.mb-4(cols="12" md="4")
-                .footer__item-title Sumber Informasi
-                b-link.footer__item(v-for="(item,index) of footerLinkCol2" :key="index") {{item.label}}
+                .mcsi-footer__item-title Sumber Informasi
+                b-link.mcsi-footer__item(v-for="(item,index) of footerLinkCol2" :key="index") {{item.label}}
             b-col.mb-4(cols="12" md="4")
-                .footer__item-title PT MCS Internasional
-                .footer__item.mb-0 {{addressLine1}}
-                .footer__item.mb-0 {{addressLine2}}
-                .footer__item {{addressLine3}}
-                .footer__item Phone: {{phone}}
-                .footer__item Fax: {{fax}}
-                .footer__item Email: {{email}}
-        b-row.footer__copyright.pb-4
+                .mcsi-footer__item-title PT MCS Internasional
+                .mcsi-footer__item.mb-0 {{addressLine1}}
+                .mcsi-footer__item.mb-0 {{addressLine2}}
+                .mcsi-footer__item {{addressLine3}}
+                .mcsi-footer__item Phone: {{phone}}
+                .mcsi-footer__item Fax: {{fax}}
+                .mcsi-footer__item Email: {{email}}
+        b-row.mcsi-footer__copyright.pb-4
             b-col Copyright (c) 2022 PT MCS Internasional - All Rights Reserved
 </template>
 <script lang="ts">
@@ -55,29 +55,29 @@ export default Vue.extend({
 })
 </script>
 <style lang="scss" scoped>
-.footer {
+.mcsi-footer {
     position: relative;
     background-image: linear-gradient(180deg, #CC0000 0%, #910000 100%);
-    .footer__pattern-tr {
+    .mcsi-footer__pattern-tr {
         filter: opacity(.8);
         position: absolute;
         top: 0; right: 0;
         width: 25%; height: auto;
     }
-    .footer__pattern-bl {
+    .mcsi-footer__pattern-bl {
         filter: opacity(.8);
         position: absolute;
         bottom: 0; left: 0;
         width: 25%; height: auto;
     }
-    .footer__item-title {
+    .mcsi-footer__item-title {
         color: white;
         display: block;
         font-size: 16px;
         font-weight: 700;
         margin-bottom: 1.5rem;
     }
-    .footer__item {
+    .mcsi-footer__item {
         color: rgba(white, .8);
         display: block;
         margin-bottom: 1rem;
@@ -86,7 +86,7 @@ export default Vue.extend({
             color: white;
         }
     }
-    .footer__copyright {
+    .mcsi-footer__copyright {
         color: rgba(white, .8);
         font-size: 12px;
         text-align: center;
