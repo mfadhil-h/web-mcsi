@@ -1,18 +1,22 @@
 <template lang="pug">
-.thumbnail
+.thumbnail(@click="onClick")
     b-img.thumbnail__image(:src="image")
     p.thumbnail__heading {{heading}}
     p.thumbnail__subheading {{subheading}}
 </template>
 <script lang="ts">
 import Vue from 'vue'
-const videotronImage = require('@/assets/img/videotron-image.jpg')
 export default Vue.extend({
-	name: 'card-management',
+	name: 'thumbnail',
     props: {
         image: String,
         heading: String,
         subheading: String
+    },
+    methods: {
+        onClick() {
+            this.$emit('click')
+        }
     }
 })
 </script>

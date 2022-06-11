@@ -10,8 +10,18 @@
             div(v-for="(group, index) of data.awardGroup" :key="index")
                 .display-2 {{group.label}}
                 carousel.carousel(:perPageCustom="[[768, 3], [1024, 4]]")
-                    slide.carousel__slide(v-for="(award, index) of group.awards")
-                        Thumbnail(:image="award.image" :heading="award.label" :subheading="award.year")
+                    slide.carousel__slide(v-for="(award, index) of group.awards" :key="index")
+                        Thumbnail(:image="award.image" :heading="award.label" :subheading="award.year" @click="showModalAward(award.image, award.year, award.label, award.description)")
+    b-modal(id="modal-award" size="lg" hide-footer centered)
+        b-container-fluid.award
+            b-row
+                b-col(cols="12" sm="4")
+                    b-img.award__image(:src="dataSelected.image")
+                b-col(cols="12" sm="8")
+                    .award__year {{dataSelected.year}}
+                    .award__label {{dataSelected.label}}
+            b-row.award__description
+                b-col(cols="12") {{dataSelected.description}}
 </template>
 
 <script lang="ts">
@@ -96,12 +106,50 @@ export default Vue.extend({
     },
     data: () => {
         return {
-            data: mock
+            data: mock,
+            dataSelected: {
+                image: '',
+                year: '',
+                label: '',
+                description: ''
+            }
+        }
+    },
+    methods: {
+        showModalAward(image: string, year: string, label: string, description: string) {
+            this.dataSelected = {
+                image: image,
+                year: year,
+                label: label,
+                description: description
+            }
+            console.log(this.dataSelected)
+            this.$bvModal.show('modal-award')
         }
     }
 })
 </script>
 <style lang="scss" scoped>
+.award {
+    .award__image {
+        width: 100%; height: auto;
+    }
+    .award__year {
+        color: rgba(black, .7);
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 32px;
+    }
+    .award__label {
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 32px;
+        margin-top: 1rem;
+    }
+    .award__description {
+        margin-top: 2rem;
+    }
+}
 .carousel {
     margin-left: -1rem;
     margin-right: -1rem;
