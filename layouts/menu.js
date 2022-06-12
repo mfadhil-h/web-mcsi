@@ -9,20 +9,32 @@ const headerMenuId = [
         children: [
             {
                 label: 'Profil Singkat',
-                link: '/profile'
+                link: '/about'
             },
             {
                 label: 'Visi & Misi',
                 link: '/vision-mission'
             },
             {
-                label: 'Struktur Organisasi',
+                label: 'Struktur Perusahaan',
                 link: '/organization'
             },
             {
-                label: 'Manajemen',
+                label: 'Struktur Organisasi',
                 link: '/management'
             },
+            {
+                label: 'Direksi',
+                link: '/director'
+            },
+            {
+                label: 'Jejak Langkah',
+                link: '/footprint'
+            },
+            {
+                label: 'Penghargaan',
+                link: '/achievement'
+            }
         ]
     },
     {
