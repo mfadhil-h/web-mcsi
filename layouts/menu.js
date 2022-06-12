@@ -50,6 +50,10 @@ const headerMenuId = [
                 link: '/news'
             }
         ]
+    },
+    {
+        label: 'Karir',
+        link: '/career'
     }
 ]
 
