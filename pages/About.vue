@@ -68,18 +68,7 @@ export default Vue.extend({
             }
         }
     },
-    methods: {
-        showModalAward(image: string, year: string, label: string, description: string) {
-            this.dataSelected = {
-                image: image,
-                year: year,
-                label: label,
-                description: description
-            }
-            console.log(this.dataSelected)
-            this.$bvModal.show('modal-award')
-        }
-    }
+    methods: {}
 })
 </script>
 <style lang="scss" scoped>

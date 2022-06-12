@@ -17,7 +17,7 @@ const headerMenuId = [
             },
             {
                 label: 'Struktur Perusahaan',
-                link: '/organization'
+                link: '/company-group'
             },
             {
                 label: 'Struktur Organisasi',
