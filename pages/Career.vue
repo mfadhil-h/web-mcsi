@@ -15,7 +15,7 @@
                     b-form-select.mr-2(:options="data.jobTypes")
                     b-button(variant="primary" type="submit") Search
         b-row
-            b-col(cols="12" md="4" v-for="(vacancy, index) of data.vacancies")
+            b-col(cols="12" md="4" v-for="(vacancy, index) of data.vacancies" :key="index")
                 card-vacancy(
                     :title="vacancy.title"
                     :location="vacancy.location"

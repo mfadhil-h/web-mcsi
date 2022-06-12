@@ -54,6 +54,10 @@ const headerMenuId = [
     {
         label: 'Karir',
         link: '/career'
+    },
+    {
+        label: 'Hubungi Kami',
+        link: '/contact'
     }
 ]
 
