@@ -16,8 +16,8 @@ const headerMenuId = [
                 link: '/vision-mission'
             },
             {
-                label: 'Struktur Perusahaan',
-                link: '/company-group'
+                label: 'Unit Bisnis',
+                link: '/business-unit'
             },
             {
                 label: 'Struktur Organisasi',
@@ -29,7 +29,7 @@ const headerMenuId = [
             },
             {
                 label: 'Jejak Langkah',
-                link: '/footprint'
+                link: '/timeline'
             },
             {
                 label: 'Penghargaan',
