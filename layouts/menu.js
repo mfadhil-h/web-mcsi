@@ -46,8 +46,8 @@ const headerMenuId = [
                 link: '#'
             },
             {
-                label: 'Blogs',
-                link: '#'
+                label: 'News & Insights',
+                link: '/news'
             }
         ]
     }

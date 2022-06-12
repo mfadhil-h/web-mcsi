@@ -26,7 +26,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import CardManagement from '@/components/CardManagement.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import Thumbnail from '@/components/Thumbnail.vue'
 const mock = {
@@ -100,7 +99,6 @@ export default Vue.extend({
     name: 'achievement',
     layout: 'SinglePage',
     components: {
-        CardManagement,
         PageHeader,
         Thumbnail
     },
