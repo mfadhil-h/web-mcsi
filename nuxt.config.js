@@ -45,7 +45,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@nuxtjs/axios'
   ],
 
   i18n: {
@@ -54,6 +55,23 @@ export default {
     vueI18n: {
       fallbackLocale: 'id',
       messages: {}
+    }
+  },
+
+  axios: {
+    proxy: false,
+    baseUrl: 'http://localhost:1337'
+  },
+
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL
+    }
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL
     }
   },
 
