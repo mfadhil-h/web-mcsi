@@ -64,7 +64,6 @@ export default Vue.extend({
             try {
                 let awards = await this.$axios.$get('/api/awards?populate=*')
                 this.awards = awards.data
-                console.log(this.awards)
             } catch (error) { }
         },
         async getPage() {
