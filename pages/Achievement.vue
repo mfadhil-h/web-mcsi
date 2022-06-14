@@ -2,9 +2,9 @@
 .achievement
     PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
     b-container(fluid)
-        b-container.section.section--reading.text-center
-            .section__title(v-if="page.sectionTitle") {{page.sectionTitle}}
-            .section__body(v-if="page.sectionDescription") {{page.sectionDescription}}
+        b-container.section.section--reading.text-center(v-if="page")
+            .section__title {{page.sectionTitle}}
+            .section__body {{page.sectionDescription}}
     b-container.section
         no-ssr
             div(v-for="(group, index) of awardGroups" :key="index")
@@ -32,7 +32,7 @@
 import Vue from 'vue'
 import PageHeader from '@/components/PageHeader.vue'
 import Thumbnail from '@/components/Thumbnail.vue'
-import { strapiImage } from '@/utilities/strapi-image'
+import { strapiImage } from '~/utilities/StrapiImage'
 export default Vue.extend({
     name: 'achievement',
     layout: 'SinglePage',

@@ -1,35 +1,47 @@
 <template lang="pug">
 .management-detail
-    PageHeader(:image="data.headingImage")
+    PageHeader(:image="strapiImage($axios.defaults.baseURL, management.attributes.image)" v-if="management.attributes")
     b-container(fluid)
         b-container.section.section--reading
-            .profile
-                .profile__name {{data.name}}
-                .profile__position {{data.position}}
-                .profile__html HTML here
+            .profile(v-if="management.attributes")
+                .profile__name {{management.attributes.name}}
+                .profile__position {{management.attributes.position}}
+                .profile__description(v-html="micromark(management.attributes.description)")
+
 
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import CardManagement from '@/components/CardManagement.vue'
+import { micromark } from 'micromark'
 import PageHeader from '@/components/PageHeader.vue'
-const mock = {
-    headingImage: require('@/assets/img/videotron-image.jpg'),
-    name: 'John Doe',
-    position: 'Chief Executive Officer'
-}
+import { strapiImage } from '@/utilities/StrapiImage'
+
 export default Vue.extend({
     name: 'management',
     layout: 'SinglePage',
     components: {
-        CardManagement,
-        PageHeader
+        PageHeader,
     },
     data: () => {
         return {
-            data: mock
+            management: {} as any
         }
+    },
+    methods: {
+        async getManagement() {
+            try {
+                let managements = await this.$axios.$get(`/api/managements/${this.$route.params.id}?populate=*`)
+                this.management = managements.data
+                console.log('mgmt1', this.management.attributes.description)
+                console.log('mgmt2', micromark(this.management.attributes.description))
+            } catch (error) { }
+        },
+        micromark,
+        strapiImage
+    },
+    mounted() {
+        this.getManagement()
     }
 })
 </script>
@@ -49,8 +61,13 @@ export default Vue.extend({
         margin-top: 1rem;
         text-transform: uppercase;
     }
-    .profile__html {
+    .profile__description {
         margin-top: 4rem;
+        p {
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 40px;
+        }
     }
 }
 </style>
