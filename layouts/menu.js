@@ -12,10 +12,6 @@ const headerMenuId = [
                 link: '/about'
             },
             {
-                label: 'Visi & Misi',
-                link: '/vision-mission'
-            },
-            {
                 label: 'Unit Bisnis',
                 link: '/business-unit'
             },

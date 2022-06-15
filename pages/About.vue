@@ -1,74 +1,65 @@
 <template lang="pug">
 .company-profile
-    PageHeader(:image="data.headingImage" :heading1="data.heading1" :heading2="data.heading2")
+    PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
     b-container(fluid)
-        b-container.section
+        b-container.section(v-if="page")
             b-row
                 b-col(cols="12")
-                    .section__title {{data.sectionTitle}}
+                    .section__title {{page.sectionTitle}}
             b-row.mt-4
                 b-col(cols="12" md="6")
-                    .section__body.mt-0 {{data.sectionBody}}
+                    .section__body.mt-0 {{page.sectionDescription}}
                 b-col(cols="12" md="6")
-                    b-img.company__image(:src="data.image1")
-                    b-img.company__image(:src="data.image2")
+                    b-img.company__image(:src="strapiImage($axios.defaults.baseURL, page.image1)" v-if="page.image1")
+                    b-img.company__image(:src="strapiImage($axios.defaults.baseURL, page.image2)" v-if="page.image2")
     b-container.company__vision(fluid)
-        b-container.section
+        b-container.section(v-if="page")
             b-card-group(deck)
                 b-card.vision
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="eye")
                     .vision__label Vision
-                    .vision__description {{data.vision}}
+                    .vision__description {{page.vision}}
                 b-card.vision
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="bullseye")
                     .vision__label Mission
-                    .vision__description {{data.mission}}
+                    .vision__description {{page.mission}}
                 b-card.vision
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="trophy")
                     .vision__label Company Value
-                    .vision__description {{data.mission}}
+                    .vision__description {{page.companyValue}}
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import CardManagement from '@/components/CardManagement.vue'
 import PageHeader from '@/components/PageHeader.vue'
-import Thumbnail from '@/components/Thumbnail.vue'
-const mock = {
-    headingImage: require('@/assets/img/videotron-image.jpg'),
-    heading1: 'Overview',
-    heading2: 'Company',
-    sectionTitle: 'MCSI at a glance',
-    sectionBody: 'Our leadership team brings together the industry’s most respected, forward-thinking individuals, whose deep experience and fresh perspectives combine to lead one of the fastest-growing, most innovative companies in the world. Together, they support a culture that is progressive, authentic and fun – while living our values and honoring our purpose every day.',
-    image1: require('@/assets/img/videotron-image.jpg'),
-    image2: require('@/assets/img/videotron-image.jpg'),
-    vision: 'Our leadership team brings together the industry’s most respected, forward-thinking individuals, whose deep experience and fresh perspectives combine to lead one of the fastest-growing',
-    mission: 'Our leadership team brings together the industry’s most respected, forward-thinking individuals, whose deep experience and fresh perspectives combine to lead one of the fastest-growing',
-    value: 'Our leadership team brings together the industry’s most respected, forward-thinking individuals, whose deep experience and fresh perspectives combine to lead one of the fastest-growing'
-}
+import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
     name: 'company-profile',
     layout: 'SinglePage',
     components: {
-        CardManagement,
-        PageHeader,
-        Thumbnail
+        PageHeader
     },
     data: () => {
         return {
-            data: mock,
-            dataSelected: {
-                image: '',
-                year: '',
-                label: '',
-                description: ''
-            }
+            page: {}
         }
     },
-    methods: {}
+    methods: {
+        async getPage() {
+            try {
+                let page = await this.$axios.$get('/api/page-about?populate=*')
+                this.page = page.data.attributes
+                console.log('page', this.page)
+            } catch (error) { } 
+        },
+        strapiImage
+    },
+    mounted() {
+        this.getPage()
+    }
 })
 </script>
 <style lang="scss" scoped>
