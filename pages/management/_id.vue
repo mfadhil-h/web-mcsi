@@ -7,8 +7,9 @@
                 .profile__name {{management.attributes.name}}
                 .profile__position {{management.attributes.position}}
                 .profile__description(v-html="micromark(management.attributes.description)")
-
-
+            b-button.mt-4(variant="outline-secondary" @click="goBack") 
+                font-awesome-icon.fw(icon="arrow-left")
+                span.ml-2 Back to Management
 </template>
 
 <script lang="ts">
@@ -36,6 +37,9 @@ export default Vue.extend({
                 console.log('mgmt1', this.management.attributes.description)
                 console.log('mgmt2', micromark(this.management.attributes.description))
             } catch (error) { }
+        },
+        goBack() {
+            this.$router.go(-1)
         },
         micromark,
         strapiImage
