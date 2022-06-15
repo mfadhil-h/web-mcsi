@@ -52,7 +52,6 @@ export default Vue.extend({
             try {
                 let page = await this.$axios.$get('/api/page-about?populate=*')
                 this.page = page.data.attributes
-                console.log('page', this.page)
             } catch (error) { } 
         },
         strapiImage

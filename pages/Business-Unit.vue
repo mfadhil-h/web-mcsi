@@ -1,61 +1,57 @@
 <template lang="pug">
-.company-group
-    PageHeader(:image="data.headingImage" :heading1="data.heading1" :heading2="data.heading2")
+.business-unit
+    PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
     b-container(fluid)
         b-container.section.section--reading.text-center
             b-row
                 b-col(cols="12")
-                    .section__title {{data.sectionTitle}}
-                    .section__body {{data.sectionBody}}
+                    .section__title {{page.sectionTitle}}
+                    .section__body {{page.sectionDescription}}
             b-card-group.mt-5(deck)
-                card-business-unit(v-for="(unit,index) of data.businessUnits" :key="index" :label="unit.label" :description="unit.description" :image="unit.image")
+                card-business-unit(
+                    v-for="(unit,index) of businessUnits" 
+                    :key="index" 
+                    :label="unit.attributes.name" 
+                    :description="unit.attributes.description" 
+                    :image="strapiImage($axios.defaults.baseURL, unit.attributes.image)")
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import CardBusinessUnit from '@/components/CardBusinessUnit.vue'
 import PageHeader from '@/components/PageHeader.vue'
-import Thumbnail from '@/components/Thumbnail.vue'
-const mock = {
-    headingImage: require('@/assets/img/videotron-image.jpg'),
-    heading1: 'Company',
-    heading2: 'Business Units',
-    sectionTitle: 'We build people and trust',
-    sectionBody: 'Our leadership team brings together the industry’s most respected, forward-thinking individuals, whose deep experience and fresh perspectives combine to lead one of the fastest-growing, most innovative companies in the world. Together, they support a culture that is progressive, authentic and fun – while living our values and honoring our purpose every day.',
-    businessUnits: [
-        { 
-            label: 'Manning Agency',
-            description: 'Our leadership team brings together the industry’s most respected, forward-thinking individuals.',
-            image: require('@/assets/img/videotron-image.jpg'),
-        },
-         { 
-            label: 'Training & Development',
-            description: 'Our leadership team brings together the industry’s most respected, forward-thinking individuals.',
-            image: require('@/assets/img/videotron-image.jpg'),
-        }
-    ]
-}
+import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-    name: 'company-group',
+    name: 'business-unit',
     layout: 'SinglePage',
     components: {
         CardBusinessUnit,
         PageHeader,
-        Thumbnail
     },
     data: () => {
         return {
-            data: mock,
-            dataSelected: {
-                image: '',
-                year: '',
-                label: '',
-                description: ''
-            }
+            businessUnits: [],
+            page: {}
         }
     },
+    methods: {
+        async getBusinessUnits() {
+            try {
+                let businessUnits = await this.$axios.$get('/api/business-units?populate=*')
+                this.businessUnits = businessUnits.data
+            } catch (error) { }
+        },
+        async getPage() {
+            try {
+                let page = await this.$axios.$get('/api/page-business-unit?populate=*')
+                this.page = page.data.attributes
+            } catch (error) { } 
+        },
+        strapiImage
+    },
+    mounted() {
+        this.getPage()
+        this.getBusinessUnits()
+    }
 })
 </script>
-<style lang="scss" scoped>
-
-</style>
