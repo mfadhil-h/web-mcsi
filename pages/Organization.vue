@@ -1,6 +1,10 @@
 <template lang="pug">
 .organization
-    PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
+    PageHeader(
+        :image="strapiImage($axios.defaults.baseURL, page.headerBackground)" 
+        :heading1="page.header1" 
+        :heading2="page.header2" 
+        v-if="page.headerBackground!=null")
     b-container(fluid)
         b-container.section.section--reading.text-center(v-if="page")
             .section__title {{page.sectionTitle}}
@@ -13,7 +17,7 @@
                     :image="strapiImage($axios.defaults.baseURL, person.attributes.image)" 
                     :heading="person.attributes.name" 
                     :subheading="person.attributes.position"
-                    @click="showModalProfile(person)")
+                    @click="showModalProfile(strapiImage($axios.defaults.baseURL, person.attributes.image), person.attributes.position, person.attributes.name, person.attributes.description)")
         h3.mb-4 Manajemen
         b-row
             b-col(cols="6" md="3" v-for="(person, index) of filterOrganization(people,'manager')" :key="index" v-if="people")
@@ -21,12 +25,12 @@
                     :image="strapiImage($axios.defaults.baseURL, person.attributes.image)" 
                     :heading="person.attributes.name" 
                     :subheading="person.attributes.position"
-                    @click="showModalProfile(person)")
+                    @click="showModalProfile(strapiImage($axios.defaults.baseURL, person.attributes.image), person.attributes.position, person.attributes.name, person.attributes.description)")
     b-modal(id="modal-profile" size="lg" hide-footer centered)
         b-container(fluid).profile
             b-row
                 b-col(cols="12" sm="4")
-                    b-img.profile__image(:src="strapiImage($axios.defaults.baseURL, personSelected.image)")
+                    b-img.profile__image(:src="personSelected.image")
                 b-col(cols="12" sm="8")
                     .profile__position {{personSelected.position}}
                     .profile__name {{personSelected.name}}
@@ -58,19 +62,26 @@ export default Vue.extend({
             try {
                 let page = await this.$axios.$get('/api/page-organization-mcsi?populate=*')
                 this.page = page.data.attributes
+                console.log('page', this.page)
             } catch (error) { } 
         },
         async getPeople() {
             try {
                 let people = await this.$axios.$get('/api/organization-mcsis?populate=*')
                 this.people = people.data
+                console.log('people', this.people)
             } catch (error) { }
         },
         filterOrganization(people: any, group: string) {
             return people.filter((person: any) => person.attributes.organizationGroup==group)
         },
-        showModalProfile(person: any) {
-            this.personSelected = person.attributes
+        showModalProfile(image: string, position: string, name: string, description: string) {
+            this.personSelected = {
+                image: image,
+                position: position,
+                name: name,
+                description: description
+            }
             this.$bvModal.show('modal-profile')
         },
         strapiImage
