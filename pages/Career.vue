@@ -3,26 +3,30 @@
     PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
     b-container(fluid)
         b-container.section.section--reading.text-center
-            .section__title {{data.sectionTitle}}
-            .section__body {{data.sectionBody}}
+            .section__title {{page.sectionTitle}}
+            .section__body {{page.sectionDescription}}
     b-container.section
         div.search
             b-form(inline)
                 .mx-auto
-                    span.mr-2.mb-1 I am searching for
-                    b-form-input.mr-2(type="text" placeholder="Search keyword...")
-                    b-form-select.mr-2(:options="data.locations")
-                    b-form-select.mr-2(:options="data.jobTypes")
+                    span.mr-2.mb-1 Filter search
+                    b-form-select.mr-2(v-model="careerLocationSelected" v-if="careerLocations")
+                        b-form-select-option(value="null") - Please select city -
+                        b-form-select-option(v-for="(location, index) of careerLocations" :key="index" :value="location.id") {{location.attributes.city}}
+                    b-form-select.mr-2(:options="jobTypes" v-model="jobTypeSelected")
                     b-button(variant="primary" type="submit") Search
         b-row
-            b-col(cols="12" md="4" v-for="(vacancy, index) of data.vacancies" :key="index")
+            b-col(cols="12" md="4" v-for="(career, index) of careers" :key="index")
                 card-vacancy(
-                    :title="vacancy.title"
-                    :location="vacancy.location"
-                    :job-type="vacancy.jobType"
-                    :date="vacancy.date"
-                    :link="vacancy.link"
+                    :title="career.attributes.jobTitle"
+                    :location="career.attributes.career_location.data.attributes.city"
+                    :job-type="career.attributes.jobType"
+                    :date="career.attributes.publishedAt"
+                    :link="career.attributes.link"
+                    @click="openJobPage(career.attributes.link)"
                 )
+        p {{careerLocationSelected}}
+        p {{jobTypeSelected}}
 </template>
 
 <script lang="ts">
@@ -31,31 +35,11 @@ import CardVacancy from '@/components/CardVacancy.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 import Thumbnail from '@/components/Thumbnail.vue'
-const mock = {
-    headingImage: require('@/assets/img/videotron-image.jpg'),
-    heading1: 'Job vacancy',
-    heading2: 'Come and Join Us',
-    sectionTitle: 'Available Vacancies',
-    sectionBody: 'Submit your CV and grow your career with us',
-    locations: ['- Select location -', 'Jakarta', 'Palembang', 'Yogyakarta'],
-    jobTypes: ['- Select type -', 'Manning', 'Trainer'],
-    vacancies: [
-        { 
-            title: 'Manning Agency',
-            location: 'Jakarta',
-            jobType: 'Manning',
-            date: '1-Jan-2020',
-            link: 'https://abc.def'
-        },
-        { 
-            title: 'Trainer',
-            location: 'Jakarta',
-            jobType: 'Manning',
-            date: '1-Jan-2020',
-            link: 'https://abc.def'
-        }
-    ]
-}
+const jobTypes = [
+    { value: null, text: '- Select Job Types -' },
+    { value: 'Full Time', text: 'Full Time' },
+    { value: 'Part Time', text: 'Part Time' }
+]
 export default Vue.extend({
     name: 'company-group',
     layout: 'SinglePage',
@@ -66,27 +50,47 @@ export default Vue.extend({
     },
     data: () => {
         return {
-            data: mock,
-            dataSelected: {
-                image: '',
-                year: '',
-                label: '',
-                description: ''
-            },
+            careers: [],
+            careerLocations: [],
+            careerLocationSelected: null,
+            jobTypes,
+            jobTypeSelected: null,
             page: {}
         }
     },
     methods: {
+        async getCareerLocations() {
+            try {
+                let locations = await this.$axios.get('/api/career-locations')
+                this.careerLocations = locations.data.data
+                console.log('clogs', this.careerLocations)
+            } catch (error) { }
+        },
+        async getCareers(cityId: any, jobType: any) {
+            try {
+                if (cityId==null && jobType==null) {
+                    let careers = await this.$axios.get('/api/careers?populate=*')
+                    this.careers = careers.data.data
+                    console.log('careers', this.careers)
+                }
+            } catch (error) { }
+            
+        },
         async getPage() {
             try {
                 let page = await this.$axios.$get('/api/page-career?populate=*')
                 this.page = page.data.attributes
             } catch (error) { } 
         },
+        openJobPage(link: string) {
+            window.open(link, '_blank')
+        },
         strapiImage
     },
     mounted() {
         this.getPage()
+        this.getCareerLocations()
+        this.getCareers(this.careerLocationSelected, this.jobTypeSelected)
     }
 })
 </script>

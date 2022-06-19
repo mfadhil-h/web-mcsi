@@ -4,7 +4,7 @@ b-card.card-vacancy
     .card-vacancy__meta Location: {{location}}
     .card-vacancy__meta Job Type: {{jobType}}
     .card-vacancy__meta Date Posted: {{date}}
-    b-button.card-vacancy__link(variant="primary") Apply
+    b-button.card-vacancy__link(variant="primary" @click="onClick") Apply
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -16,6 +16,11 @@ export default Vue.extend({
         jobType: String,
         date: String,
         link: String
+    },
+    methods: {
+        onClick() {
+            this.$emit('click')
+        }
     }
 })
 </script>

@@ -62,14 +62,12 @@ export default Vue.extend({
             try {
                 let page = await this.$axios.$get('/api/page-organization-mcsi?populate=*')
                 this.page = page.data.attributes
-                console.log('page', this.page)
             } catch (error) { } 
         },
         async getPeople() {
             try {
                 let people = await this.$axios.$get('/api/organization-mcsis?populate=*')
                 this.people = people.data
-                console.log('people', this.people)
             } catch (error) { }
         },
         filterOrganization(people: any, group: string) {
