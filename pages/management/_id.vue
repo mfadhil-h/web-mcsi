@@ -34,8 +34,6 @@ export default Vue.extend({
             try {
                 let managements = await this.$axios.$get(`/api/managements/${this.$route.params.id}?populate=*`)
                 this.management = managements.data
-                console.log('mgmt1', this.management.attributes.description)
-                console.log('mgmt2', micromark(this.management.attributes.description))
             } catch (error) { }
         },
         goBack() {

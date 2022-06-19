@@ -16,12 +16,12 @@ const headerMenuId = [
                 link: '/business-unit'
             },
             {
-                label: 'Struktur Organisasi',
+                label: 'Manajemen',
                 link: '/management'
             },
             {
-                label: 'Direksi',
-                link: '/director'
+                label: 'Struktur Organisasi',
+                link: '/organization'
             },
             {
                 label: 'Jejak Langkah',

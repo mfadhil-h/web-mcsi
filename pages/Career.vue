@@ -1,6 +1,6 @@
 <template lang="pug">
 .career
-    PageHeader(:image="data.headingImage" :heading1="data.heading1" :heading2="data.heading2")
+    PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
     b-container(fluid)
         b-container.section.section--reading.text-center
             .section__title {{data.sectionTitle}}
@@ -29,6 +29,7 @@
 import Vue from 'vue'
 import CardVacancy from '@/components/CardVacancy.vue'
 import PageHeader from '@/components/PageHeader.vue'
+import { strapiImage } from '@/utilities/StrapiImage'
 import Thumbnail from '@/components/Thumbnail.vue'
 const mock = {
     headingImage: require('@/assets/img/videotron-image.jpg'),
@@ -71,9 +72,22 @@ export default Vue.extend({
                 year: '',
                 label: '',
                 description: ''
-            }
+            },
+            page: {}
         }
     },
+    methods: {
+        async getPage() {
+            try {
+                let page = await this.$axios.$get('/api/page-career?populate=*')
+                this.page = page.data.attributes
+            } catch (error) { } 
+        },
+        strapiImage
+    },
+    mounted() {
+        this.getPage()
+    }
 })
 </script>
 <style lang="scss" scoped>

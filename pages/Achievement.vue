@@ -17,7 +17,7 @@
                             :subheading="award.attributes.year" 
                             @click="showModalAward(strapiImage($axios.defaults.baseURL, award.attributes.image), award.attributes.year, award.attributes.name, award.attributes.description)")
     b-modal(id="modal-award" size="lg" hide-footer centered)
-        b-container-fluid.award
+        b-container(fluid).award
             b-row
                 b-col(cols="12" sm="4")
                     b-img.award__image(:src="dataSelected.image")
