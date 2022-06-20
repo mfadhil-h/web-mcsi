@@ -34,18 +34,8 @@ const headerMenuId = [
         ]
     },
     {
-        label: 'Konten',
-        link: '#',
-        children: [
-            {
-                label: 'Podcast',
-                link: '#'
-            },
-            {
-                label: 'News & Insights',
-                link: '/news'
-            }
-        ]
+        label: 'News & Insight',
+        link: '/news'
     },
     {
         label: 'Karir',
