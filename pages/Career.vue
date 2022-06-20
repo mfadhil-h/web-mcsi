@@ -37,10 +37,6 @@
                     :link="career.attributes.link"
                     @click="openJobPage(career.attributes.link)"
                 )
-        //- p Location: {{careerLocationSelected}}
-        //- p Job Type: {{jobTypeSelected}}
-        //- p Bool: {{isFilteredCareers}}
-        //- p {{filteredCareers}}
 </template>
 
 <script lang="ts">
@@ -48,7 +44,6 @@ import Vue from 'vue'
 import CardVacancy from '@/components/CardVacancy.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
-import Thumbnail from '@/components/Thumbnail.vue'
 const jobTypes = [
     { value: 'Full Time', text: 'Full Time' },
     { value: 'Part Time', text: 'Part Time' }
@@ -59,7 +54,6 @@ export default Vue.extend({
     components: {
         CardVacancy,
         PageHeader,
-        Thumbnail
     },
     data: () => {
         return {
