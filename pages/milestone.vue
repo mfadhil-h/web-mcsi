@@ -13,11 +13,21 @@
                 :title="item.attributes.title" 
                 icon="calendar" 
                 :timestamp="dayjs(item.attributes.date).format('YYYY')"
-                :right="index%2==0")
+                :right="index%2==0"
+                @click="showModalMilestone(strapiImage($axios.defaults.baseURL, item.attributes.image), item.attributes.date, item.attributes.title, item.attributes.description)")
                 b-img.timeline__image(:src="strapiImage($axios.defaults.baseURL, item.attributes.image)")
                 .timeline__description {{item.attributes.description}}
+    b-modal(id="modal-milestone" size="lg" hide-footer centered)
+        b-container(fluid).milestone-detail
+            b-row
+                b-col(cols="12" sm="4")
+                    b-img.milestone-detail__image(:src="milestoneSelected.image")
+                b-col(cols="12" sm="8")
+                    .milestone-detail__date {{dayjs(milestoneSelected.date).format('YYYY')}}
+                    .milestone-detail__title {{milestoneSelected.title}}
+            b-row.milestone-detail__description
+                b-col(cols="12") {{milestoneSelected.description}}
 </template>
-
 <script lang="ts">
 import Vue from 'vue'
 import * as dayjs from 'dayjs'
@@ -32,6 +42,7 @@ export default Vue.extend({
     data: () => {
         return {
             milestones: [],
+            milestoneSelected: {},
             page: {}
         }
     },
@@ -49,6 +60,15 @@ export default Vue.extend({
                 let page = await this.$axios.$get('/api/page-milestone?populate=*')
                 this.page = page.data.attributes
             } catch (error) { } 
+        },
+        showModalMilestone(image: string, date: string, title: string, description: string) {
+            this.milestoneSelected = {
+                image: image,
+                date: date,
+                title: title,
+                description: description
+            }
+            this.$bvModal.show('modal-milestone')
         },
         strapiImage
     },
@@ -71,6 +91,26 @@ export default Vue.extend({
     .timeline__description {
         display: inline-block;
         vertical-align: top;
+    }
+}
+.milestone-detail {
+    .milestone-detail__image {
+        width: 100%; height: auto;
+    }
+    .milestone-detail__date {
+        color: rgba(black, .7);
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 32px;
+    }
+    .milestone-detail__title {
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 32px;
+        margin-top: 1rem;
+    }
+    .milestone-detail__description {
+        margin-top: 2rem;
     }
 }
 </style>

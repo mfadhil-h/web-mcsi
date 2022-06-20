@@ -2,7 +2,7 @@
 b-card.card-management
     .card-management__name {{name}}
     .card-management__position {{position}}
-    .card-management__link(@click="onClick")
+    .card-management__link
         NuxtLink(:to="`/management/${id}`") Meet {{name}}
         font-awesome-icon.link__arrow(icon="circle-arrow-right")
 </template>
@@ -14,11 +14,6 @@ export default Vue.extend({
         name: String,
         position: String,
         id: Number
-    },
-    methods: {
-        onClick() {
-            this.$emit('click')
-        }
     }
 })
 </script>

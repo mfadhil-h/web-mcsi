@@ -5,7 +5,9 @@
             font-awesome-icon.fw(:icon="icon")
         .timeline-panel
             .timeline-heading
-                .timeline-title {{title}}
+                .timeline-title(@click="onClick") 
+                    span {{title}}
+                    font-awesome-icon.fw.timeline-title__arrow(icon="circle-arrow-right")
                 small.text-muted {{timestamp}}
             .timeline-body
                 slot
@@ -156,11 +158,22 @@ export default Vue.extend({
     background-color: #5bc0de !important;
 }
 .timeline-title {
+    cursor: default;
+    font-weight: 700;
     margin-top: 0;
     color: inherit;
 }
-.timeline-heading {
-    font-weight: 700;
+.timeline-title:hover {
+    color: #154D6D;
+}
+.timeline-title > .timeline-title__arrow {
+    opacity: 0;
+    transition-duration: 100ms;
+}
+.timeline:hover .timeline-title > .timeline-title__arrow {
+    opacity: 1;
+    transition-duration: 300ms;
+    transform: translateX(8px);
 }
 .timeline-body {
     margin-top: 1.5rem;
