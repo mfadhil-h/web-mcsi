@@ -11,22 +11,36 @@
                 .mx-auto
                     span.mr-2.mb-1 Filter search
                     b-form-select.mr-2(v-model="careerLocationSelected" v-if="careerLocations")
-                        b-form-select-option(value="null") - Please select city -
+                        b-form-select-option(value="0") - Please select city -
                         b-form-select-option(v-for="(location, index) of careerLocations" :key="index" :value="location.id") {{location.attributes.city}}
-                    b-form-select.mr-2(:options="jobTypes" v-model="jobTypeSelected")
-                    b-button(variant="primary" type="submit") Search
-        b-row
+                    b-form-select.mr-2(v-model="jobTypeSelected")
+                        b-form-select-option(value="") - Please select job type -
+                        b-form-select-option(v-for="(jobType, index) of jobTypes" :key="index" :value="jobType.value") {{jobType.text}}
+                    b-button(variant="primary" @click="filterCareer(careerLocationSelected, jobTypeSelected)") Search
+        b-row(v-if="isFilteredCareers == false")
             b-col(cols="12" md="4" v-for="(career, index) of careers" :key="index")
                 card-vacancy(
                     :title="career.attributes.jobTitle"
-                    :location="career.attributes.career_location.data.attributes.city"
+                    :location="career.attributes.location.data.attributes.city"
                     :job-type="career.attributes.jobType"
                     :date="career.attributes.publishedAt"
                     :link="career.attributes.link"
                     @click="openJobPage(career.attributes.link)"
                 )
-        p {{careerLocationSelected}}
-        p {{jobTypeSelected}}
+        b-row(v-if="isFilteredCareers == true")
+            b-col(cols="12" md="4" v-for="(career, index) of filteredCareers" :key="index")
+                card-vacancy(
+                    :title="career.attributes.jobTitle"
+                    :location="career.attributes.location.data.attributes.city"
+                    :job-type="career.attributes.jobType"
+                    :date="career.attributes.publishedAt"
+                    :link="career.attributes.link"
+                    @click="openJobPage(career.attributes.link)"
+                )
+        //- p Location: {{careerLocationSelected}}
+        //- p Job Type: {{jobTypeSelected}}
+        //- p Bool: {{isFilteredCareers}}
+        //- p {{filteredCareers}}
 </template>
 
 <script lang="ts">
@@ -36,7 +50,6 @@ import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 import Thumbnail from '@/components/Thumbnail.vue'
 const jobTypes = [
-    { value: null, text: '- Select Job Types -' },
     { value: 'Full Time', text: 'Full Time' },
     { value: 'Part Time', text: 'Part Time' }
 ]
@@ -52,9 +65,11 @@ export default Vue.extend({
         return {
             careers: [],
             careerLocations: [],
-            careerLocationSelected: null,
+            careerLocationSelected: 0,
+            filteredCareers: [],
+            isFilteredCareers: false,
             jobTypes,
-            jobTypeSelected: null,
+            jobTypeSelected: "",
             page: {}
         }
     },
@@ -66,13 +81,11 @@ export default Vue.extend({
                 console.log('clogs', this.careerLocations)
             } catch (error) { }
         },
-        async getCareers(cityId: any, jobType: any) {
+        async getCareers() {
             try {
-                if (cityId==null && jobType==null) {
-                    let careers = await this.$axios.get('/api/careers?populate=*')
-                    this.careers = careers.data.data
-                    console.log('careers', this.careers)
-                }
+                let careers = await this.$axios.get('/api/careers?populate=*')
+                this.careers = careers.data.data
+                console.log('careers', this.careers)
             } catch (error) { }
             
         },
@@ -82,6 +95,22 @@ export default Vue.extend({
                 this.page = page.data.attributes
             } catch (error) { } 
         },
+        filterCareer(city: number, jobType: string) {
+            let tempCareers = this.careers
+            this.isFilteredCareers = false
+            if (city==0 && jobType=="") {
+                tempCareers = this.careers
+            }
+            if (city!=0) {
+                tempCareers = tempCareers.filter((career: any) => career.attributes.location.data.id == city)
+                this.isFilteredCareers = true
+            }
+            if (jobType!="") {
+                tempCareers = tempCareers.filter((career: any) => career.attributes.jobType == jobType)
+                this.isFilteredCareers = true
+            }
+            this.filteredCareers = tempCareers
+        },
         openJobPage(link: string) {
             window.open(link, '_blank')
         },
@@ -90,7 +119,7 @@ export default Vue.extend({
     mounted() {
         this.getPage()
         this.getCareerLocations()
-        this.getCareers(this.careerLocationSelected, this.jobTypeSelected)
+        this.getCareers()
     }
 })
 </script>
