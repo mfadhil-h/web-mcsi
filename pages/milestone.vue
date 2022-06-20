@@ -81,7 +81,9 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .timeline {
     .timeline__image {
+        border-radius: 8px;
         display: inline-block;
+        margin-bottom: 1rem;
         margin-right: 1rem;
         object-fit: cover;
         vertical-align: top;
