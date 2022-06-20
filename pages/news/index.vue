@@ -1,22 +1,27 @@
 <template lang="pug">
 .news
-    PageHeader(:image="data.headingImage" :heading1="data.heading1" :heading2="data.heading2")
-    b-container.section
+    PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
+    b-container(fluid).section
         b-row
-            b-col(cols="12" sm="6" md="4" v-for="(item, index) of data.news" :key="index")
-                card-news(
-                    :image="item.image" 
-                    :title="item.title" 
-                    :description="item.description" 
-                    :timestamp="item.timestamp"
-                    :author="item.author"
-                )            
+            b-col(cols="12" lg="6" offset-lg="3")
+                b-row(v-if="blogs")
+                    b-col(cols="12" lg="6" v-for="(blog, index) of blogs" :key="index")
+                        card-news(
+                            :image="strapiImage($axios.defaults.baseURL, blog.attributes.featuredImage)" 
+                            :title="blog.attributes.title" 
+                            :description="blog.attributes.contentShort" 
+                            :timestamp="blog.attributes.author"
+                            :author="blog.attributes.author"
+                        )
+            b-col(cols="12" lg="3")
+                p.font-weight-bold Categories
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import CardNews from '@/components/CardNews.vue'
 import PageHeader from '@/components/PageHeader.vue'
+import { strapiImage } from '@/utilities/StrapiImage'
 import Thumbnail from '@/components/Thumbnail.vue'
 const mock = {
     headingImage: require('@/assets/img/videotron-image.jpg'),
@@ -65,16 +70,40 @@ export default Vue.extend({
     },
     data: () => {
         return {
+            blogs: [],
             data: mock,
             dataSelected: {
                 image: '',
                 year: '',
                 label: '',
                 description: ''
-            }
+            },
+            page: {}
         }
     },
-    methods: {}
+    methods: {
+        async getBlogs() {
+            try {
+                let blogs = await this.$axios.$get('/api/blogs?populate=*')
+                this.blogs = blogs.data
+                console.log(this.blogs)
+            } catch (error) { }
+        },
+        async getFilteredBlogs(filter: string) {
+
+        },
+        async getPage() {
+            try {
+                let page = await this.$axios.$get('/api/page-blog?populate=*')
+                this.page = page.data.attributes
+            } catch (error) { } 
+        },
+        strapiImage
+    },
+    mounted() {
+        this.getPage()
+        this.getBlogs()
+    }
 })
 </script>
 <style lang="scss" scoped>
