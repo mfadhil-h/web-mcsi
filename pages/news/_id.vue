@@ -1,27 +1,20 @@
 <template lang="pug">
 .news-detail
-    PageHeader(:image="data.headingImage")
+    PageHeader(:image="strapiImage(this.$axios.defaults.baseURL, blog.attributes.featuredImage)" v-if="blog.attributes")
     b-container(fluid)
         b-container.section.section--reading
-            .news
-                .news__title {{data.newsTitle}}
-                .news__attr By {{data.newsAuthor}}, {{data.newsTimestamp}}
-                .news__html(v-html="data.newsHtml")
-
+            .news(v-if="blog.attributes")
+                .news__title {{blog.attributes.title}}
+                .news__attr By {{blog.attributes.author}}, published at {{dayjs(blog.attributes.publishedAt).format('DD-MMM-YYYY')}}
+                .news__html(v-html="micromark(blog.attributes.content)")
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import * as dayjs from 'dayjs'
+import { micromark } from 'micromark'
 import PageHeader from '@/components/PageHeader.vue'
-const mock = {
-    headingImage: require('@/assets/img/videotron-image.jpg'),
-    name: 'John Doe',
-    position: 'Chief Executive Officer',
-    newsTitle: '20 Years Ago, Steve Jobs Built the ‘Coolest Computer Ever, It Bombed',
-    newsHtml: '<p>Article in <strong>HTML</strong> format</p>',
-    newsAuthor: 'John Doe',
-    newsTimestamp: '12-Jun-2022'
-}
+import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
     name: 'news-detail',
     layout: 'SinglePage',
@@ -30,8 +23,23 @@ export default Vue.extend({
     },
     data: () => {
         return {
-            data: mock
+            blog: {}
         }
+    },
+    methods: {
+        dayjs,
+        async getBlog() {
+            try {
+                let blog = await this.$axios.$get(`/api/blogs/${this.$route.params.id}?populate=*`)
+                this.blog = blog.data
+                console.log('blog', this.blog)
+            } catch (error) { }
+        },
+        micromark,
+        strapiImage
+    },
+    mounted() {
+        this.getBlog()
     }
 })
 </script>
