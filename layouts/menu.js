@@ -25,7 +25,7 @@ const headerMenuId = [
             },
             {
                 label: 'Jejak Langkah',
-                link: '/timeline'
+                link: '/milestone'
             },
             {
                 label: 'Penghargaan',

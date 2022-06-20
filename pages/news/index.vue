@@ -23,7 +23,6 @@
                             :timestamp="dayjs(blog.attributes.publishedAt).format('DD-MMM-YYYY')"
                             :author="blog.attributes.author"
                         )
-            
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -85,6 +84,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .category {
     cursor: default;
+    margin-bottom: 1.5rem;
     .category__header {
         font-weight: 700;
         margin-bottom: 1.5rem;
