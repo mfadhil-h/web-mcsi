@@ -16,7 +16,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap'}
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap' }
     ]
   },
 
@@ -60,7 +60,7 @@ export default {
 
   axios: {
     proxy: false,
-    baseUrl: 'http://localhost:1337'
+    baseUrl: process.env.NODE_ENV == "dev" ? 'http://localhost:1337' : "/"
   },
 
   publicRuntimeConfig: {
