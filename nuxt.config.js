@@ -49,6 +49,12 @@ export default {
     '@nuxtjs/axios'
   ],
 
+  // Modify Bootstrap variables
+  bootstrapVue: {
+    bootstrapCSS: false,
+    bootstrapVueCSS: false
+  },
+
   i18n: {
     locales: ['id', 'en'],
     defaultLocale: 'id',
