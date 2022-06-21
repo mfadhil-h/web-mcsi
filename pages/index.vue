@@ -1,18 +1,153 @@
 <template lang="pug">
 .index
-	videotron
-
-//- tutorial
+	videotron(
+		:video-image="strapiImage($axios.defaults.baseURL, page.videoImage)"
+		:video="strapiImage($axios.defaults.baseURL, page.video)"
+		:header1="page.header1"
+		:header2="page.header2"
+		v-if="page.videoImage!=null")
+	b-container.section
+		.display-1 {{page.sectionBusinessUnitTitle}}
+		.display-2 {{page.sectionBusinessUnitDescription}}
+	b-container.p-0(fluid)
+		b-row(no-gutters v-if="companies")
+			b-col.company-group(cols="12" sm="6" v-for="(company, index) of companies" :key="index")
+				b-img.company-group__image(:src="strapiImage($axios.defaults.baseURL, company.attributes.image)")
+				.company-group__labels
+					b-img.company-group__icon(:src="strapiImage($axios.defaults.baseURL, company.attributes.icon)")
+					.company-group__name {{company.attributes.name}}
+					.company-group__description {{company.attributes.description}}
+	//- b-container.section
+		.display-1 {{page.sectionNumbersTitle}}
+		.display-2 {{page.sectionNumbersDescription}}
+	b-container.section--numbers(fluid)
+		video-background.section--numbers__background(:src="strapiImage($axios.defaults.baseURL, page.sectionNumbersBackground)" v-if="page.sectionNumbersBackground")
+		.section--numbers__panels
+			b-container.section
+				.display-1.text-white {{page.sectionNumbersTitle}}
+				.display-2.text-white {{page.sectionNumbersDescription}}
+				b-row.mt-5(v-if="page.numbers")
+					b-col(v-for="(number, index) of page.numbers" cols="6" md="3")
+						b-card.panel
+							.panel__line1 {{number.line1}}
+							.panel__number {{number.number}}
+							.panel__line2 {{number.line2}}
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { strapiImage } from '@/utilities/StrapiImage'
 import Videotron from '@/components/Videotron.vue'
 export default Vue.extend({
 	name: 'IndexPage',
 	layout: 'SinglePage',
 	components: {
 		Videotron
+	},
+	data: () => {
+		return {
+			companies: [],
+			page: {}
+		}
+	},
+	methods: {
+		async getCompanyGroup() {
+            try {
+                let companies = await this.$axios.$get('/api/company-groups?populate=*')
+                this.companies = companies.data
+				console.log(this.companies)
+            } catch (error) { } 
+        },
+		async getPage() {
+            try {
+                let page = await this.$axios.$get('/api/page-home?populate=*')
+                this.page = page.data.attributes
+				console.log(this.page)
+            } catch (error) { } 
+        },
+		strapiImage
+	},
+	mounted() {
+		this.getCompanyGroup()
+		this.getPage()
 	}
 })
 </script>
+<style lang="scss" scoped>
+.company-group {
+	cursor: default;
+	position: relative;
+	.company-group__image {
+		filter: brightness(50%);
+		height: 480px; width: 100%;
+		object-fit: cover;
+	}
+	.company-group__labels {
+		color: white;
+		position: absolute;
+		text-align: center;
+		top: 50%; left: 50%;
+		transform: translate(-50%, -50%);
+		.company-group__icon {
+			height: 80px; width: auto;
+			margin-bottom: 1rem;
+		}
+		.company-group__name {
+			font-size: 24px;
+			font-weight: 700;
+			margin-bottom: 1rem;
+		}
+		.company-group__description {
+			opacity: .8;
+		}
+	}
+}
+.section--numbers{
+	padding-left: 0;
+	padding-right: 0;
+	position: relative;
+	height: 640px;
+	.section--numbers__background {
+		filter: brightness(25%);
+		height: inherit; width: 100%;
+	}
+	.section--numbers__panels {
+		position: absolute;
+		top: 0; left: 0;
+		width: 100%; height: auto;
+	}
+}
+.panel {
+	background: transparent;
+	border: 1px solid white;
+	border-radius: 8px;
+	cursor: default;
+	margin-bottom: 1rem;
+	transition-duration: 100ms;
+	&:hover {
+		border: 2px solid #CC0000;
+		box-shadow: 0 0 8px 0 rgba(#CC0000,.2);
+		transition-duration: 100ms;
+		.panel__number {
+			color: #CC0000;
+			transition-duration: 100ms;
+		}
+	}
+	.panel__line1 {
+		color: rgba(white, .8);
+		font-size: 14px;
+		margin-bottom: .5rem;
+	}
+	.panel__number {
+		color: white;
+		font-size: 40px;
+		font-weight: 700;
+		margin-bottom: .1rem;
+		transition-duration: 100ms;
+	}
+	.panel__line2 {
+		color: rgba(white, .6);
+		font-size: 12px;
+	}
+}
+</style>

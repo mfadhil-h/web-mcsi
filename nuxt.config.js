@@ -29,7 +29,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/fontawesome.js',
-    { src: '~/plugins/ui-components.js', ssr: false },
+    { src: '~/plugins/ui-components.js', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
