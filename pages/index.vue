@@ -7,8 +7,9 @@
 		:header2="page.header2"
 		v-if="page.videoImage!=null")
 	b-container.section
-		.display-1 {{page.sectionBusinessUnitTitle}}
-		.display-2 {{page.sectionBusinessUnitDescription}}
+		b-card.section__bg(no-body)
+			.display-1 {{page.sectionBusinessUnitTitle}}
+			.display-2 {{page.sectionBusinessUnitDescription}}
 	b-container.p-0(fluid)
 		b-row(no-gutters v-if="companies")
 			b-col.company-group(cols="12" sm="6" v-for="(company, index) of companies" :key="index")
