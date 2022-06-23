@@ -3,13 +3,14 @@
     PageHeader(:image="strapiImage($axios.defaults.baseURL, management.attributes.image)" v-if="management.attributes")
     b-container(fluid)
         b-container.section.section--reading
-            .profile(v-if="management.attributes")
-                .profile__name {{management.attributes.name}}
-                .profile__position {{management.attributes.position}}
-                .profile__description(v-html="micromark(management.attributes.description)")
-            b-button.mt-4(variant="outline-secondary" @click="goBack") 
-                font-awesome-icon.fw(icon="arrow-left")
-                span.ml-2 Back to Management
+            b-card.section__bg(no-body)
+                .profile(v-if="management.attributes")
+                    .profile__name {{management.attributes.name}}
+                    .profile__position {{management.attributes.position}}
+                    .profile__description(v-html="micromark(management.attributes.description)")
+                b-button.mt-4(variant="outline-secondary" @click="goBack") 
+                    font-awesome-icon.fw(icon="arrow-left")
+                    span.ml-2 Back to Management
 </template>
 
 <script lang="ts">
@@ -52,13 +53,13 @@ export default Vue.extend({
     .profile__name {
         font-size: 48px;
         font-weight: 700;
-        letter-spacing: -5%;
+        letter-spacing: -2px;
         line-height: 64px;
     }
     .profile__position {
         color: rgba(black, .54);
         font-size: 24px;
-        letter-spacing: -5%;
+        letter-spacing: -1px;
         line-height: 32px;
         margin-top: 1rem;
         text-transform: uppercase;

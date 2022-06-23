@@ -29,8 +29,9 @@ export default Vue.extend({
         object-fit: cover;
     }
     .thumbnail__heading {
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 700;
+        letter-spacing: -1px;
         margin-top: 1.5rem;
     }
     .thumbnail__subheading {

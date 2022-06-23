@@ -3,10 +3,11 @@
     PageHeader(:image="strapiImage(this.$axios.defaults.baseURL, blog.attributes.featuredImage)" v-if="blog.attributes")
     b-container(fluid)
         b-container.section.section--reading
-            .news(v-if="blog.attributes")
-                .news__title {{blog.attributes.title}}
-                .news__attr By {{blog.attributes.author}}, published at {{dayjs(blog.attributes.publishedAt).format('DD-MMM-YYYY')}}
-                .news__html(v-html="micromark(blog.attributes.content)")
+            b-card.section__bg(no-body)
+                .news(v-if="blog.attributes")
+                    .news__title {{blog.attributes.title}}
+                    .news__attr By {{blog.attributes.author}}, published at {{dayjs(blog.attributes.publishedAt).format('DD-MMM-YYYY')}}
+                    .news__html(v-html="micromark(blog.attributes.content)")
 </template>
 
 <script lang="ts">

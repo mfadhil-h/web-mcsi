@@ -157,6 +157,9 @@ export default Vue.extend({
 .timeline-badge.info {
     background-color: #5bc0de !important;
 }
+.timeline-panel {
+    background-color: white !important;
+}
 .timeline-title {
     cursor: default;
     font-weight: 700;

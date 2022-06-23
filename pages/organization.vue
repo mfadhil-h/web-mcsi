@@ -7,10 +7,12 @@
         v-if="page.headerBackground!=null")
     b-container(fluid)
         b-container.section.section--reading.text-center(v-if="page")
-            .section__title {{page.sectionTitle}}
-            .section__body {{page.sectionDescription}}
+            b-card.section__bg(no-body)
+                .section__title {{page.sectionTitle}}
+                .section__body {{page.sectionDescription}}
     b-container.section
-        h3.mb-4 Dewan Komisaris dan Direksi
+        b-card.section__bg(no-body)
+            h3.mb-4 Dewan Komisaris dan Direksi
         b-row.mb-5
             b-col(cols="6" md="3" v-for="(person, index) of filterOrganization(people,'commissioner-director')" :key="index" v-if="people")
                 thumbnail(
@@ -18,7 +20,8 @@
                     :heading="person.attributes.name" 
                     :subheading="person.attributes.position"
                     @click="showModalProfile(strapiImage($axios.defaults.baseURL, person.attributes.image), person.attributes.position, person.attributes.name, person.attributes.description)")
-        h3.mb-4 Manajemen
+        b-card.section__bg(no-body)
+            h3.mb-4 Manajemen
         b-row
             b-col(cols="6" md="3" v-for="(person, index) of filterOrganization(people,'manager')" :key="index" v-if="people")
                 thumbnail(
@@ -94,21 +97,27 @@ export default Vue.extend({
 .management__org-chart {
     background-color: #EAEAEA;
 }
+.section {
+    .section__title {
+        color: black;
+    }
+}
 .profile {
     .profile__image {
         width: 100%; height: auto;
     }
     .profile__position {
         color: rgba(black, .7);
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 500;
-        line-height: 32px;
+        line-height: 24px;
     }
     .profile__name {
-        font-size: 24px;
-        font-weight: 500;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -1px;
         line-height: 32px;
-        margin-top: 1rem;
+        margin-top: .25rem;
     }
     .profile__description {
         margin-top: 2rem;

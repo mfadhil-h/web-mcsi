@@ -8,11 +8,12 @@
                     .section__title {{page.sectionTitle}}
             b-row.mt-4
                 b-col(cols="12" md="6")
-                    .section__body.mt-0 {{page.sectionDescription}}
+                    .section__body.mt-0.mb-4 {{page.sectionDescription}}
                 b-col(cols="12" md="6")
                     b-img.company__image(:src="strapiImage($axios.defaults.baseURL, page.image1)" v-if="page.image1")
                     b-img.company__image(:src="strapiImage($axios.defaults.baseURL, page.image2)" v-if="page.image2")
     b-container.company__vision(fluid)
+        .ribbon
         b-container.section(v-if="page")
             b-card-group(deck)
                 b-card.vision
@@ -68,7 +69,16 @@ export default Vue.extend({
         width: 100%; height: auto
     }
     .company__vision {
-        background: #EAEAEA;
+        background: rgba(#EAEAEA, .5);
+        padding-left: 0;
+        padding-right: 0;
+        position: relative;
+        .ribbon {
+            position: absolute;
+            top: 200px;
+            background-color: #CC0000;
+            height: 20px; width: 100%;
+        }
     }
 }
 .vision {
@@ -92,7 +102,7 @@ export default Vue.extend({
     }
     .vision__label {
         color: #CC0000;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 700;
         margin-top: 1.5rem;
     }

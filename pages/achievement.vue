@@ -3,8 +3,9 @@
     PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
     b-container(fluid)
         b-container.section.section--reading.text-center(v-if="page")
-            .section__title {{page.sectionTitle}}
-            .section__body {{page.sectionDescription}}
+            b-card.section__bg(no-body)
+                .section__title {{page.sectionTitle}}
+                .section__body {{page.sectionDescription}}
     b-container.section
         no-ssr
             div(v-for="(group, index) of awardGroups" :key="index")
@@ -101,15 +102,16 @@ export default Vue.extend({
     }
     .award__year {
         color: rgba(black, .7);
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 500;
-        line-height: 32px;
+        line-height: 24px;
     }
     .award__label {
-        font-size: 24px;
-        font-weight: 500;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -1px;
         line-height: 32px;
-        margin-top: 1rem;
+        margin-top: .25rem;
     }
     .award__description {
         margin-top: 2rem;
