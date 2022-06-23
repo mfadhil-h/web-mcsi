@@ -1,5 +1,6 @@
 <template lang="pug">
 .layout
+    particles(id="tsparticles" :particlesInit="particlesInit" :options="options")
     //- 01.1 Fixed Navbar
     b-navbar.navbar.navbar--transparent(toggleable="md" type="dark" variant="dark" fixed)
         b-container
@@ -39,9 +40,87 @@
 import Vue from 'vue'
 import headerMenuId from './menu.js'
 import McsiFooter from '@/components/McsiFooter.vue'
-const logoColor = require('@/assets/img/mcsi-color.png')
-const logoWhite = require('@/assets/img/mcsi-white.png')
 const scrollPositionBound = 80
+import type { Engine } from 'tsparticles-engine'
+import { loadFull } from 'tsparticles'
+const options = {
+    background: {
+        color: {
+            value: '#ebf2fd'
+        }
+    },
+    fpsLimit: 60,
+    interactivity: {
+        detectsOn: 'canvas',
+        events: {
+            onClick: {
+                enable: true,
+                mode: 'push'
+            },
+            onHover: {
+                enable: true,
+                mode: 'repulse'
+            },
+            resize: true
+        },
+        modes: {
+            bubble: {
+                distance: 400,
+                duration: 2,
+                opacity: 0.8,
+                size: 40
+            },
+            push: {
+                quantity: 4
+            },
+            repulse: {
+                distance: 200,
+                duration: 0.4
+            }
+        }
+    },
+    particles: {
+        color: {
+            value: '#1a6183'
+        },
+        links: {
+            color: '#1a6183',
+            distance: 150,
+            enable: true,
+            opacity: 0.5,
+            width: 1
+        },
+        collisions: {
+            enable: true
+        },
+        move: {
+            direction: 'none',
+            enable: true,
+            outMode: 'bounce',
+            random: false,
+            speed: 6,
+            straight: false
+        },
+        number: {
+            density: {
+                enable: true,
+                value_area: 800
+            },
+            value: 80
+        },
+        opacity: {
+            value: 0.5
+        },
+        shape: {
+            type: 'circle'
+        },
+        size: {
+            random: true,
+            value: 5
+        }
+    },
+    detectRetina: true
+}
 export default Vue.extend({
     name: 'SinglePageLayout',
     components: {
@@ -49,14 +128,18 @@ export default Vue.extend({
     },
     data: () => {
         return {
-            logoColor,
-            logoWhite,
+            logoColor: require('@/assets/img/mcsi-color.png'),
+            logoWhite: require('@/assets/img/mcsi-white.png'),
             menu: headerMenuId,
+            options,
             scrollPosition: 0,
             scrollPositionBound
         }
     },
     methods: {
+        async particlesInit(engine: Engine): Promise<void> {
+            await loadFull(engine);
+        },
         onScroll(e: any) {
             this.scrollPosition = e.target.documentElement.scrollTop
         }
