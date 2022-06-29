@@ -20,8 +20,8 @@ const headerMenuId = [
                 link: '/management'
             },
             {
-                label: 'Struktur Organisasi',
-                link: '/organization'
+                label: 'Struktur Organisasi MCSI',
+                link: '/organization-mcsi'
             },
             {
                 label: 'Jejak Langkah',

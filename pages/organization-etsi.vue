@@ -47,7 +47,7 @@ import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 import Thumbnail from '@/components/Thumbnail.vue'
 export default Vue.extend({
-    name: 'management',
+    name: 'organization-etsi',
     layout: 'SinglePage',
     components: {
         PageHeader,
@@ -63,13 +63,13 @@ export default Vue.extend({
     methods: {
         async getPage() {
             try {
-                let page = await this.$axios.$get('/api/page-organization-mcsi?populate=*')
+                let page = await this.$axios.$get('/api/page-organization-etsi?populate=*')
                 this.page = page.data.attributes
             } catch (error) { } 
         },
         async getPeople() {
             try {
-                let people = await this.$axios.$get('/api/organization-mcsis?populate=*')
+                let people = await this.$axios.$get('/api/organization-etsis?populate=*')
                 this.people = people.data
             } catch (error) { }
         },
