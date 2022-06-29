@@ -5,7 +5,7 @@ b-container(fluid).mcsi-footer
     b-container(v-if="footerInfo")
         b-row.py-5
             b-col.mb-4(cols="12" md="4")
-                b-img.logo-lighthouse(:src="logoLighthouse")
+                b-img.logo-lighthouse(:src="strapiImage($axios.defaults.baseURL, footerInfo.lighthouseLogo)" v-if="footerInfo.lighthouseLogo")
             b-col.mb-4(cols="12" md="4")
                 .mcsi-footer__item-title Sumber Informasi
                 b-link.mcsi-footer__item(v-for="(item,index) of footerLinkCol2" :key="index") {{item.label}}
@@ -35,9 +35,9 @@ b-container(fluid).mcsi-footer
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import { strapiImage } from '@/utilities/StrapiImage'
 const mockFooterLinkCol2 = [
     { label: 'Kebijakan Privasi', link: '#' },
-    { label: 'Kebijakan Kuki', link: '#' },
     { label: 'Syarat dan Ketentuan', link: '#' },
     { label: 'Hubungi Kami', link: '#' },
 ]
@@ -63,7 +63,8 @@ export default Vue.extend({
         },
         openSocial(url: string) {
             window.open(url, '_blank')
-        }
+        },
+        strapiImage
     },
     mounted() {
         this.getFooter()
