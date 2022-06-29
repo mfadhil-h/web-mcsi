@@ -26,15 +26,17 @@
                         font-awesome-icon.icon__fa(icon="bullseye")
                     .vision__label Mission
                     .vision__description {{page.mission}}
-                b-card.vision
+                b-card.vision(v-b-modal.modal-company-value)
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="trophy")
                     .vision__label Company Value
                     .vision__description {{page.companyValue}}
+    b-modal(id="modal-company-value" size="lg" hide-footer centered)
+        div(v-html="micromark(companyValue.description)" v-if="companyValue.description")
 </template>
-
 <script lang="ts">
 import Vue from 'vue'
+import { micromark } from 'micromark'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
@@ -45,20 +47,30 @@ export default Vue.extend({
     },
     data: () => {
         return {
+            companyValue: {},
             page: {}
         }
     },
     methods: {
+        async getCompanyValue() {
+            try {
+                let companyValue = await this.$axios.$get('/api/company-value?populate=*')
+                this.companyValue = companyValue.data.attributes
+                console.log('cv', this.companyValue)
+            } catch (error) { }
+        },
         async getPage() {
             try {
                 let page = await this.$axios.$get('/api/page-about?populate=*')
                 this.page = page.data.attributes
             } catch (error) { } 
         },
+        micromark,
         strapiImage
     },
     mounted() {
         this.getPage()
+        this.getCompanyValue()
     }
 })
 </script>

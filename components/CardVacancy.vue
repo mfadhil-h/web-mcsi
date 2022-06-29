@@ -1,8 +1,7 @@
 <template lang="pug">
 b-card.card-vacancy
     .card-vacancy__title {{title}}
-    .card-vacancy__meta Location: {{location}}
-    .card-vacancy__meta Job Type: {{jobType}}
+    .card-vacancy__meta {{type}}
     .card-vacancy__meta Date Posted: {{date}}
     b-button.card-vacancy__link(variant="primary" @click="onClick") Apply
 </template>
@@ -12,8 +11,7 @@ export default Vue.extend({
 	name: 'card-vacancy',
     props: {
         title: String,
-        location: String,
-        jobType: String,
+        type: String,
         date: String,
         link: String
     },

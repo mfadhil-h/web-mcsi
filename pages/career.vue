@@ -11,20 +11,16 @@
             b-form(inline)
                 .mx-auto
                     span.mr-2.mb-1 Filter search
-                    b-form-select.mr-2(v-model="careerLocationSelected" v-if="careerLocations")
-                        b-form-select-option(value="0") - Please select city -
-                        b-form-select-option(v-for="(location, index) of careerLocations" :key="index" :value="location.id") {{location.attributes.city}}
-                    b-form-select.mr-2(v-model="jobTypeSelected")
-                        b-form-select-option(value="") - Please select job type -
-                        b-form-select-option(v-for="(jobType, index) of jobTypes" :key="index" :value="jobType.value") {{jobType.text}}
-                    b-button(variant="primary" @click="filterCareer(careerLocationSelected, jobTypeSelected)") Search
+                    b-form-select.mr-2(v-model="careerTypeSelected" v-if="careerTypes")
+                        b-form-select-option(value="0") - Please select type -
+                        b-form-select-option(v-for="(careerType, index) of careerTypes" :key="index" :value="careerType.id") {{careerType.attributes.description}}
+                    b-button(variant="primary" @click="filterCareer(careerTypeSelected)") Search
         b-row(v-if="isFilteredCareers == false")
             b-col(cols="12" md="4" v-for="(career, index) of careers" :key="index")
                 card-vacancy(
                     :title="career.attributes.jobTitle"
-                    :location="career.attributes.location.data.attributes.city"
-                    :job-type="career.attributes.jobType"
-                    :date="career.attributes.publishedAt"
+                    :type="career.attributes.career_type.data.attributes.description"
+                    :date="dayjs(career.attributes.publishedAt).format('DD-MMM-YYYY')"
                     :link="career.attributes.link"
                     @click="openJobPage(career.attributes.link)"
                 )
@@ -32,9 +28,8 @@
             b-col(cols="12" md="4" v-for="(career, index) of filteredCareers" :key="index")
                 card-vacancy(
                     :title="career.attributes.jobTitle"
-                    :location="career.attributes.location.data.attributes.city"
-                    :job-type="career.attributes.jobType"
-                    :date="career.attributes.publishedAt"
+                    :type="career.attributes.career_type.data.attributes.description"
+                    :date="dayjs(career.attributes.publishedAt).format('DD-MMM-YYYY')"
                     :link="career.attributes.link"
                     @click="openJobPage(career.attributes.link)"
                 )
@@ -43,12 +38,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import CardVacancy from '@/components/CardVacancy.vue'
+import * as dayjs from 'dayjs'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
-const jobTypes = [
-    { value: 'Full Time', text: 'Full Time' },
-    { value: 'Part Time', text: 'Part Time' }
-]
 export default Vue.extend({
     name: 'company-group',
     layout: 'SinglePage',
@@ -59,21 +51,20 @@ export default Vue.extend({
     data: () => {
         return {
             careers: [],
-            careerLocations: [],
-            careerLocationSelected: 0,
+            careerTypes: [],
+            careerTypeSelected: 0,
             filteredCareers: [],
             isFilteredCareers: false,
-            jobTypes,
-            jobTypeSelected: "",
             page: {}
         }
     },
     methods: {
-        async getCareerLocations() {
+        dayjs,
+        async getCareerTypes() {
             try {
-                let locations = await this.$axios.get('/api/career-locations')
-                this.careerLocations = locations.data.data
-                console.log('clogs', this.careerLocations)
+                let careerTypes = await this.$axios.get('/api/career-types')
+                this.careerTypes = careerTypes.data.data
+                console.log('clogs', this.careerTypes)
             } catch (error) { }
         },
         async getCareers() {
@@ -90,18 +81,14 @@ export default Vue.extend({
                 this.page = page.data.attributes
             } catch (error) { } 
         },
-        filterCareer(city: number, jobType: string) {
+        filterCareer(type: number) {
             let tempCareers = this.careers
             this.isFilteredCareers = false
-            if (city==0 && jobType=="") {
+            if (type==0) {
                 tempCareers = this.careers
             }
-            if (city!=0) {
-                tempCareers = tempCareers.filter((career: any) => career.attributes.location.data.id == city)
-                this.isFilteredCareers = true
-            }
-            if (jobType!="") {
-                tempCareers = tempCareers.filter((career: any) => career.attributes.jobType == jobType)
+            if (type!=0) {
+                tempCareers = tempCareers.filter((career: any) => career.attributes.career_type.data.id == type)
                 this.isFilteredCareers = true
             }
             this.filteredCareers = tempCareers
@@ -113,7 +100,7 @@ export default Vue.extend({
     },
     mounted() {
         this.getPage()
-        this.getCareerLocations()
+        this.getCareerTypes()
         this.getCareers()
     }
 })

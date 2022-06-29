@@ -28,7 +28,7 @@
 				.display-1.text-white {{page.sectionNumbersTitle}}
 				.display-2.text-white {{page.sectionNumbersDescription}}
 				b-row.mt-5(v-if="page.numbers")
-					b-col(v-for="(number, index) of page.numbers" cols="6" md="3")
+					b-col(v-for="(number, index) of page.numbers" cols="6" md="3" :key="index")
 						b-card.panel
 							.panel__line1 {{number.line1}}
 							.panel__number {{number.number}}

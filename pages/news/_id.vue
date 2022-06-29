@@ -33,7 +33,6 @@ export default Vue.extend({
             try {
                 let blog = await this.$axios.$get(`/api/blogs/${this.$route.params.id}?populate=*`)
                 this.blog = blog.data
-                console.log('blog', this.blog)
             } catch (error) { }
         },
         micromark,
