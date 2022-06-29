@@ -26,14 +26,18 @@
                             b-form-input(type="number"  v-model="message.phone")
                         b-form-group(label="Email")
                             b-form-input(type="email" v-model="message.email")
+                        b-form-group(label="Category")
+                            b-form-select(v-model="contactCategorySelected" v-if="contactCategories")
+                                b-form-select-option(value="0") - Please select type -
+                                b-form-select-option(v-for="(category, index) of contactCategories" :key="index" :value="category.attributes.description") {{category.attributes.description}}
                     b-col(cols="12" sm="6")
                         b-form-group(label="Subject")
                             b-form-input(type="text"  v-model="message.subject")
                         b-form-group(label="Message")
-                            b-form-textarea(type="text" rows="3" v-model="message.message")
+                            b-form-textarea(type="text" rows="8" v-model="message.message")
                 b-button.float-right(
                     variant="primary"
-                    @click="sendEmail(message.subject, message.message, message.name, message.phone, message.email)") Submit
+                    @click="sendEmail(page.headOffice.email, contactCategorySelected, message.subject, message.message, message.name, message.phone, message.email)") Submit
 </template>
 
 <script lang="ts">
@@ -48,6 +52,9 @@ export default Vue.extend({
     },
     data: () => {
         return {
+            contactCategories: [],
+            contactCategorySelected: '',
+            contactEmail: '',
             message: {
                 name: '',
                 phone: '',
@@ -59,15 +66,23 @@ export default Vue.extend({
         }
     },
     methods: {
+        async getContactCategories() {
+            try {
+                let contactCategories = await this.$axios.$get('/api/contact-categories')
+                this.contactCategories = contactCategories.data
+                console.log('cat', this.contactCategories)
+            } catch (error) { }
+        },
         async getPage() {
             try {
                 let page = await this.$axios.$get('/api/page-contact-us?populate=*')
                 this.page = page.data.attributes
             } catch (error) { } 
         },
-        sendEmail(subject: string, message: string, name: string, phone: string, email: string) {
-            let mailLink = 'mailto:yacob.huang@gmail.com' 
-                            + '?subject=' + encodeURIComponent(subject)
+        sendEmail(to: string, category: string, subject: string, message: string, name: string, phone: string, email: string) {
+            let mailLink = 'mailto:'
+                            + to
+                            + '?subject=' + encodeURIComponent(category) + ' - ' + encodeURIComponent(subject)
                             + '&body=' +  encodeURIComponent(name) + ' - (' + encodeURIComponent(phone) + ', ' + encodeURIComponent(email) + ')%0D%0D'
                             + encodeURIComponent(message);
             window.location.href = mailLink
@@ -76,6 +91,7 @@ export default Vue.extend({
     },
     mounted() {
         this.getPage()
+        this.getContactCategories()
     }
 })
 </script>
