@@ -36,10 +36,10 @@ export default {
     },
     particles: {
         color: {
-            value: '#DADADA'
+            value: '#666666'
         },
         links: {
-            color: '#CACACA',
+            color: '#666666',
             distance: 200,
             enable: true,
             opacity: 0.2,
