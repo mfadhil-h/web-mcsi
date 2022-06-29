@@ -20,7 +20,7 @@ import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 
 export default Vue.extend({
-    name: 'orgchart-mcsi-id',
+    name: 'orgchart-etsi-id',
     layout: 'SinglePage',
     components: {
         PageHeader,
@@ -33,7 +33,7 @@ export default Vue.extend({
     methods: {
         async getManagement() {
             try {
-                let managements = await this.$axios.$get(`/api/organization-chart-mcsis/${this.$route.params.id}?populate=*`)
+                let managements = await this.$axios.$get(`/api/organization-chart-etsis/${this.$route.params.id}?populate=*`)
                 this.management = managements.data
             } catch (error) { }
         },

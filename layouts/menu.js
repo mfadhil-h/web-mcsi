@@ -20,6 +20,10 @@ const headerMenuId = [
                 link: '/orgchart-mcsi'
             },
             {
+                label: 'Struktur Organisasi ETSI',
+                link: '/orgchart-etsi'
+            },
+            {
                 label: 'Manajemen MCSI',
                 link: '/management-mcsi'
             },
