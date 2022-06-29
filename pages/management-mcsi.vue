@@ -47,7 +47,7 @@ import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 import Thumbnail from '@/components/Thumbnail.vue'
 export default Vue.extend({
-    name: 'organization-mcsi',
+    name: 'management-mcsi',
     layout: 'SinglePage',
     components: {
         PageHeader,

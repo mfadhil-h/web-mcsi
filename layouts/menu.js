@@ -16,16 +16,16 @@ const headerMenuId = [
                 link: '/business-unit'
             },
             {
-                label: 'Manajemen',
-                link: '/management'
-            },
-            {
                 label: 'Struktur Organisasi MCSI',
-                link: '/organization-mcsi'
+                link: '/orgchart-mcsi'
             },
             {
-                label: 'Struktur Organisasi ETSI',
-                link: '/organization-etsi'
+                label: 'Manajemen MCSI',
+                link: '/management-mcsi'
+            },
+            {
+                label: 'Manajemen ETSI',
+                link: '/management-etsi'
             },
             {
                 label: 'Jejak Langkah',

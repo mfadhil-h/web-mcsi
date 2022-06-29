@@ -20,7 +20,7 @@ import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 
 export default Vue.extend({
-    name: 'management',
+    name: 'orgchart-mcsi-id',
     layout: 'SinglePage',
     components: {
         PageHeader,

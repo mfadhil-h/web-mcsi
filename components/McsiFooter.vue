@@ -58,7 +58,6 @@ export default Vue.extend({
             try {
                 let footerInfo = await this.$axios.$get('/api/footer?populate=*')
                 this.footerInfo = footerInfo.data.attributes
-				console.log('footer', this.footerInfo)
             } catch (error) { } 
         },
         openSocial(url: string) {
