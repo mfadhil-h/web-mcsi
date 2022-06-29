@@ -24,6 +24,10 @@ const headerMenuId = [
                 link: '/organization-mcsi'
             },
             {
+                label: 'Struktur Organisasi ETSI',
+                link: '/organization-etsi'
+            },
+            {
                 label: 'Jejak Langkah',
                 link: '/milestone'
             },
