@@ -71,6 +71,14 @@ img {
         padding-bottom: .5rem;
         border-bottom: 4px solid #CC0000;
     }
+    .navbar-collapse {
+        .nav-item {
+            padding: .25rem 1.5rem;
+        }
+    }
+    .navbar-collapse.collapse.show {
+        background-color: rgba(black, .5);
+    }
     .dropdown-menu {
         background: rgba(black, .5) !important;
         border: none;
@@ -97,6 +105,14 @@ img {
         font-weight: 700;
         padding-bottom: .5rem;
         border-bottom: 4px solid #CC0000;
+    }
+    .navbar-collapse {
+        .nav-item {
+            padding: .25rem 1.5rem;
+        }
+    }
+    .navbar-collapse.collapse.show {
+        background-color: #f8f9fa;
     }
     .dropdown-menu {
         .dropdown-item {
