@@ -17,7 +17,7 @@
 				.company-group__labels
 					b-img.company-group__icon(:src="strapiImage($axios.defaults.baseURL, company.attributes.icon)")
 					.company-group__name {{company.attributes.name}}
-					.company-group__description {{company.attributes.description}}
+					.company-group__description(v-html="micromark(company.attributes.descriptionHtml)")
 	//- b-container.section
 		.display-1 {{page.sectionNumbersTitle}}
 		.display-2 {{page.sectionNumbersDescription}}
@@ -37,6 +37,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { micromark } from 'micromark'
 import { strapiImage } from '@/utilities/StrapiImage'
 import Videotron from '@/components/Videotron.vue'
 export default Vue.extend({
@@ -66,6 +67,7 @@ export default Vue.extend({
 				console.log(this.page)
             } catch (error) { } 
         },
+		micromark,
 		strapiImage
 	},
 	mounted() {
@@ -150,5 +152,10 @@ export default Vue.extend({
 		color: rgba(white, .6);
 		font-size: 12px;
 	}
+}
+</style>
+<style scoped>
+.company-group__description >>> * {
+	color: white !important;
 }
 </style>

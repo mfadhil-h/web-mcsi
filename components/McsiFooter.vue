@@ -2,21 +2,34 @@
 b-container(fluid).mcsi-footer
     b-img.mcsi-footer__pattern-tr(:src="patternTr")
     b-img.mcsi-footer__pattern-bl(:src="patternBl")
-    b-container
+    b-container(v-if="footerInfo")
         b-row.py-5
             b-col.mb-4(cols="12" md="4")
                 b-img.logo-lighthouse(:src="logoLighthouse")
             b-col.mb-4(cols="12" md="4")
                 .mcsi-footer__item-title Sumber Informasi
                 b-link.mcsi-footer__item(v-for="(item,index) of footerLinkCol2" :key="index") {{item.label}}
-            b-col.mb-4(cols="12" md="4")
-                .mcsi-footer__item-title PT MCS Internasional
-                .mcsi-footer__item.mb-0 {{addressLine1}}
-                .mcsi-footer__item.mb-0 {{addressLine2}}
-                .mcsi-footer__item {{addressLine3}}
-                .mcsi-footer__item Phone: {{phone}}
-                .mcsi-footer__item Fax: {{fax}}
-                .mcsi-footer__item Email: {{email}}
+                .mcsi_footer__social
+                    a.mr-4(:href="footerInfo.facebook" target="blank" v-if="footerInfo.facebook")
+                        font-awesome-icon.fw(:icon="['fab', 'facebook']")
+                    a.mr-4(:href="footerInfo.twitter" target="blank" v-if="footerInfo.twitter")
+                        font-awesome-icon.fw(:icon="['fab', 'twitter']")
+                    a.mr-4(:href="footerInfo.instagram" target="blank" v-if="footerInfo.instagram")
+                        font-awesome-icon.fw(:icon="['fab', 'instagram']")
+                    a.mr-4(:href="footerInfo.tiktok" target="blank" v-if="footerInfo.tiktok")
+                        font-awesome-icon.fw(:icon="['fab', 'tiktok']")
+                    a.mr-4(:href="footerInfo.youtube" target="blank" v-if="footerInfo.youtube")
+                        font-awesome-icon.fw(:icon="['fab', 'youtube']")
+                    a.mr-4(:href="footerInfo.linkedin" target="blank" v-if="footerInfo.linkedin")
+                        font-awesome-icon.fw(:icon="['fab', 'linkedin']")
+            b-col.mb-4(cols="12" md="4" v-if="footerInfo.address")
+                .mcsi-footer__item-title {{footerInfo.address.label}}
+                .mcsi-footer__item.mb-0 {{footerInfo.address.addressLine1}}
+                .mcsi-footer__item.mb-0 {{footerInfo.address.addressLine2}}
+                .mcsi-footer__item {{footerInfo.address.addressLine3}}
+                .mcsi-footer__item Phone: {{footerInfo.address.phone}}
+                .mcsi-footer__item Fax: {{footerInfo.address.fax}}
+                .mcsi-footer__item Email: {{footerInfo.address.email}}
         b-row.mcsi-footer__copyright.pb-4
             b-col Copyright (c) 2022 PT MCS Internasional - All Rights Reserved
 </template>
@@ -28,29 +41,32 @@ const mockFooterLinkCol2 = [
     { label: 'Syarat dan Ketentuan', link: '#' },
     { label: 'Hubungi Kami', link: '#' },
 ]
-const mockContact = {
-    addressLine1: 'Granadi Building 5th floor',
-    addressLine2: 'Jl. HR Rasuna Said Blok X-1',
-    addressLine3: 'Kav 8-9, Jakarta 12950, Indonesia',
-    phone: '+62212525196',
-    fax: '+622152964555',
-    email: 'crewing@mcs-international.com',
-}
+
 export default Vue.extend({
     name: 'footer',
     data: () => {
         return {
-            addressLine1: mockContact.addressLine1,
-            addressLine2: mockContact.addressLine2,
-            addressLine3: mockContact.addressLine3,
+            footerInfo: {},
             footerLinkCol2: mockFooterLinkCol2,
             logoLighthouse: require('@/assets/img/lighthouse.png'),
             patternTr: require('@/assets/img/pattern-tr.png'),
-            patternBl: require('@/assets/img/pattern-bl.png'),
-            phone: mockContact.phone,
-            fax: mockContact.fax,
-            email: mockContact.email,
+            patternBl: require('@/assets/img/pattern-bl.png')
         }
+    },
+    methods: {
+        async getFooter() {
+            try {
+                let footerInfo = await this.$axios.$get('/api/footer?populate=*')
+                this.footerInfo = footerInfo.data.attributes
+				console.log('footer', this.footerInfo)
+            } catch (error) { } 
+        },
+        openSocial(url: string) {
+            window.open(url, '_blank')
+        }
+    },
+    mounted() {
+        this.getFooter()
     }
 })
 </script>
@@ -85,6 +101,15 @@ export default Vue.extend({
         &:hover {
             color: white;
         }
+    }
+    .mcsi_footer__social {
+        a {
+            color: rgba(white, .8);
+            &:hover {
+                color: white;
+            }
+        }
+        
     }
     .mcsi-footer__copyright {
         color: rgba(white, .8);
