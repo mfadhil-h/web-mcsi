@@ -4,7 +4,7 @@ b-container(fluid).mcsi-footer
     b-img.mcsi-footer__pattern-bl(:src="patternBl")
     b-container(v-if="footerInfo")
         b-row.py-5
-            b-col.mb-4(cols="12" md="4")
+            b-col.mb-4.text-center(cols="12" md="4")
                 b-img.logo-lighthouse(:src="strapiImage($axios.defaults.baseURL, footerInfo.lighthouseLogo)" v-if="footerInfo.lighthouseLogo")
             b-col.mb-4(cols="12" md="4")
                 .mcsi-footer__item-title Sumber Informasi
