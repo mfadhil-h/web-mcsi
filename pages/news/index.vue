@@ -5,12 +5,12 @@
         b-row
             b-col(cols="12" lg="3")
                 b-card.category
-                    .category__header Labels
+                    .category__header Tags
                     .category__label(@click="getBlogs")
-                        font-awesome-icon.fw.mr-2(icon="folder")
-                        span All labels
+                        font-awesome-icon.fw.mr-2(icon="tag")
+                        span All tags
                     .category__label(v-for="(category, index) of blogCategories" :key="index" @click="getFilteredBlogs(category.attributes.category)") 
-                        font-awesome-icon.fw.mr-2(icon="folder")
+                        font-awesome-icon.fw.mr-2(icon="tag")
                         span {{category.attributes.category}}
             b-col(cols="12" lg="8")
                 b-row(v-if="blogs")
