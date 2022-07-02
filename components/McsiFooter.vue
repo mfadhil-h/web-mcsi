@@ -5,7 +5,8 @@ b-container(fluid).mcsi-footer
     b-container(v-if="footerInfo")
         b-row.py-5
             b-col.mb-4.text-center(cols="12" md="4")
-                b-img.logo-lighthouse(:src="strapiImage($axios.defaults.baseURL, footerInfo.lighthouseLogo)" v-if="footerInfo.lighthouseLogo")
+                a(:href="footerInfo.youtube" target="blank" v-if="footerInfo.youtube")
+                    b-img.logo-lighthouse(:src="strapiImage($axios.defaults.baseURL, footerInfo.lighthouseLogo)" v-if="footerInfo.lighthouseLogo")
             b-col.mb-4(cols="12" md="4")
                 .mcsi-footer__item-title Sumber Informasi
                 b-link.mcsi-footer__item(v-for="(item,index) of footerLinkCol2" :key="index") {{item.label}}
@@ -18,7 +19,7 @@ b-container(fluid).mcsi-footer
                         font-awesome-icon.fw(:icon="['fab', 'instagram']")
                     a.mr-4(:href="footerInfo.tiktok" target="blank" v-if="footerInfo.tiktok")
                         font-awesome-icon.fw(:icon="['fab', 'tiktok']")
-                    a.mr-4(:href="footerInfo.youtube" target="blank" v-if="footerInfo.youtube")
+                    //- a.mr-4(:href="footerInfo.youtube" target="blank" v-if="footerInfo.youtube")
                         font-awesome-icon.fw(:icon="['fab', 'youtube']")
                     a.mr-4(:href="footerInfo.linkedin" target="blank" v-if="footerInfo.linkedin")
                         font-awesome-icon.fw(:icon="['fab', 'linkedin']")
