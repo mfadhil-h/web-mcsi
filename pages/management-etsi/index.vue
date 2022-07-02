@@ -54,18 +54,18 @@ export default Vue.extend({
         },
         async getPage() {
             try {
-                let page = await this.$axios.$get('/api/page-organization-chart-mcsi?populate=*')
+                let page = await this.$axios.$get('/api/page-organization-chart-etsi?populate=*')
                 this.page = page.data.attributes
             } catch (error) { } 
         },
         async getOrgCharts() {
             try {
-                let orgcharts = await this.$axios.$get('/api/organization-chart-mcsis?populate=*&sort[0]=order')
+                let orgcharts = await this.$axios.$get('/api/organization-chart-etsis?populate=*&sort[0]=order')
                 this.orgcharts = orgcharts.data
             } catch (error) { }
         },
         goToPage(id: number) {
-            this.$router.push({path: `orgchart-mcsi/${id}`})
+            this.$router.push({path: `management-etsi/${id}`})
         },
         strapiImage
     },

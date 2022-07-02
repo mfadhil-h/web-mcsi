@@ -16,20 +16,20 @@ const headerMenuId = [
                 link: '/business-unit'
             },
             {
-                label: 'Struktur Organisasi MCSI',
-                link: '/orgchart-mcsi'
-            },
-            {
-                label: 'Struktur Organisasi ETSI',
-                link: '/orgchart-etsi'
-            },
-            {
                 label: 'Manajemen MCSI',
                 link: '/management-mcsi'
             },
             {
                 label: 'Manajemen ETSI',
                 link: '/management-etsi'
+            },
+            {
+                label: 'Struktur Organisasi MCSI',
+                link: '/organization-mcsi'
+            },
+            {
+                label: 'Struktur Organisasi ETSI',
+                link: '/organization-etsi'
             },
             {
                 label: 'Jejak Langkah',
