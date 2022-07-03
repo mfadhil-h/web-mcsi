@@ -16,23 +16,27 @@
         .ribbon
         b-container.section(v-if="page")
             b-card-group(deck)
-                b-card.vision
+                b-card.vision(v-b-modal.modal-vision)
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="eye")
-                    .vision__label Vision
-                    .vision__description {{page.vision}}
-                b-card.vision
+                    .vision__label Visi
+                    .vision__description {{page.visionShort}}
+                b-card.vision(v-b-modal.modal-mission)
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="bullseye")
-                    .vision__label Mission
-                    .vision__description {{page.mission}}
+                    .vision__label Misi
+                    .vision__description {{page.missionShort}}
                 b-card.vision(v-b-modal.modal-company-value)
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="trophy")
-                    .vision__label Company Value
-                    .vision__description {{page.companyValue}}
-    b-modal(id="modal-company-value" size="lg" hide-footer centered)
-        div(v-html="micromark(companyValue.description)" v-if="companyValue.description")
+                    .vision__label Nilai Perusahaan
+                    .vision__description {{page.companyValueShort}}
+    b-modal(id="modal-vision" size="lg" hide-footer centered title="Visi")
+        .modal-vision__content(v-html="micromark(page.visionLong)" v-if="page.visionLong")
+    b-modal(id="modal-mission" size="lg" hide-footer centered title="Misi")
+        .modal-vision__content(v-html="micromark(page.missionLong)" v-if="page.missionLong")
+    b-modal(id="modal-company-value" size="lg" hide-footer centered title="Nilai Perusahaan")
+        .modal-vision__content(v-html="micromark(page.companyValueLong)" v-if="page.companyValueLong")
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -121,5 +125,10 @@ export default Vue.extend({
     .vision__description {
         margin-top: 3rem;
     }
+}
+</style>
+<style scoped>
+.modal-vision__content >>> * {
+    width: 100%;
 }
 </style>

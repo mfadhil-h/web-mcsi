@@ -15,9 +15,10 @@
 			b-col.company-group(cols="12" sm="6" v-for="(company, index) of companies" :key="index")
 				b-img.company-group__image(:src="strapiImage($axios.defaults.baseURL, company.attributes.image)")
 				.company-group__labels
-					b-img.company-group__icon(:src="strapiImage($axios.defaults.baseURL, company.attributes.icon)")
-					.company-group__name {{company.attributes.name}}
-					.company-group__description(v-html="micromark(company.attributes.descriptionHtml)")
+					b-img.company-group__icon.left(:src="strapiImage($axios.defaults.baseURL, company.attributes.icon)")
+					.right
+						.company-group__name {{company.attributes.name}}
+						.company-group__description(v-html="micromark(company.attributes.descriptionHtml)")
 	//- b-container.section
 		.display-1 {{page.sectionNumbersTitle}}
 		.display-2 {{page.sectionNumbersDescription}}
@@ -87,21 +88,27 @@ export default Vue.extend({
 	}
 	.company-group__labels {
 		color: white;
+		display: inline-flex;
+		left: 0; bottom: 0;
+		padding: 4rem;
 		position: absolute;
-		text-align: center;
-		top: 50%; left: 50%;
-		transform: translate(-50%, -50%);
+		// text-align: center;
+		// top: 50%; left: 50%;
+		// transform: translate(-50%, -50%);
 		.company-group__icon {
-			height: 80px; width: auto;
+			height: 100px; width: auto;
 			margin-bottom: 1rem;
 		}
-		.company-group__name {
-			font-size: 24px;
-			font-weight: 700;
-			margin-bottom: 1rem;
-		}
-		.company-group__description {
-			opacity: .8;
+		.right {
+			margin-left: 2rem;
+			.company-group__name {
+				font-size: 24px;
+				font-weight: 700;
+				margin-bottom: 1rem;
+			}
+			.company-group__description {
+				opacity: .8;
+			}
 		}
 	}
 }
