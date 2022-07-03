@@ -74,7 +74,7 @@ export default Vue.extend({
     },
     mounted() {
         this.getPage()
-        this.getCompanyValue()
+        // this.getCompanyValue()
     }
 })
 </script>
