@@ -127,8 +127,3 @@ export default Vue.extend({
     }
 }
 </style>
-<style scoped>
-.modal-vision__content >>> * {
-    width: 100%;
-}
-</style>

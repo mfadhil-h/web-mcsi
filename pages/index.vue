@@ -90,7 +90,7 @@ export default Vue.extend({
 		color: white;
 		display: inline-flex;
 		left: 0; bottom: 0;
-		padding: 4rem;
+		padding: 2rem;
 		position: absolute;
 		// text-align: center;
 		// top: 50%; left: 50%;
