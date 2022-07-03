@@ -30,6 +30,9 @@
       "@nuxtjs/axios"
     ]
   },
+  "vueCompilerOptions": {
+    "experimentalDisableTemplateSupport": true
+  },
   "exclude": [
     "node_modules",
     ".nuxt",

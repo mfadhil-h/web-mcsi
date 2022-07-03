@@ -1,3 +1,6 @@
+import en from './locales/en'
+import id from './locales/id'
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -56,14 +59,14 @@ export default {
   },
 
   i18n: {
+    vueI18nLoader: true,
     locales: ['id', 'en'],
     defaultLocale: 'id',
     vueI18n: {
       fallbackLocale: 'id',
-      messages: {}
+      messages: { en, id }
     }
   },
-
   axios: {
     proxy: false,
     baseUrl: process.env.NODE_ENV == "dev" ? 'http://localhost:1337' : "/"
