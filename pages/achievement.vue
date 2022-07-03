@@ -9,7 +9,8 @@
     b-container.section
         no-ssr
             div(v-for="(group, index) of awardGroups" :key="index")
-                .display-2 {{group.attributes.awardPeriod}}
+                b-card.section__bg(no-body)
+                    .display-2 {{group.attributes.awardPeriod}}
                 carousel.carousel(:perPageCustom="[[768, 3], [1024, 4]]")
                     slide.carousel__slide(v-for="(award, index) of filterAward(group.id)" :key="index")
                         Thumbnail(
