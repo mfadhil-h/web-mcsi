@@ -1,100 +1,123 @@
 <template lang="pug">
 .layout
-    particles.layout__particles(id="tsparticles" :particlesInit="particlesInit" :options="options")
-    //- 01.1 Fixed Navbar
-    b-navbar.navbar.navbar--transparent(toggleable="md" type="dark" variant="dark" fixed)
-        b-container
-            b-navbar-brand.brand(href="#")
-                b-img.brand__logo(:src="logoWhite" alt="MCS International")
-            b-navbar-toggle(target="nav-collapse")
-            b-collapse(id="nav-collapse" is-nav)
-                b-navbar-nav.ml-auto
-                    div(v-for="(item, index) of menu" :key="index")
-                        b-nav-item(v-if="!item.children")
-                            NuxtLink(:to="item.link") {{item.label}}
-                        b-nav-item-dropdown(:text="item.label" v-if="item.children")
-                            b-dropdown-item(v-for="(item, index) of item.children" :key="index")
-                                NuxtLink(:to="item.link") {{item.label}}
-    //- 01.2 Sticky Navbar
-    Transition
-        b-navbar.navbar.navbar--sticky(toggleable="md" type="light" variant="light" sticky v-if="scrollPosition > scrollPositionBound")
-            b-container
-                b-navbar-brand.brand(href="#")
-                    b-img.brand__logo(:src="logoColor" alt="MCS International")
-                b-navbar-toggle(target="nav-collapse")
-                b-collapse(id="nav-collapse" is-nav)
-                    b-navbar-nav.ml-auto
-                        div(v-for="(item, index) of menu" :key="index")
-                            b-nav-item(v-if="!item.children")
-                                NuxtLink(:to="item.link") {{item.label}}
-                            b-nav-item-dropdown(:text="item.label" v-if="item.children")
-                                b-dropdown-item(v-for="(item, index) of item.children" :key="index")
-                                    NuxtLink(:to="item.link") {{item.label}}
-    //- 02. Body
-    .mcsi-body
-        Nuxt
-    //- 03. Footer
-    McsiFooter
+  particles#tsparticles.layout__particles(
+    :particlesInit="particlesInit",
+    :options="options"
+  )
+  //- 01.1 Fixed Navbar
+  b-navbar.navbar.navbar--transparent(
+    toggleable="md",
+    type="dark",
+    variant="dark",
+    fixed
+  )
+    b-container
+      b-navbar-brand.brand(href="#")
+        b-img.brand__logo(:src="logoWhite", alt="MCS International")
+      b-navbar-toggle(target="nav-collapse")
+      b-collapse#nav-collapse(is-nav)
+        b-navbar-nav.ml-auto
+          div(v-for="(item, index) of menu", :key="index")
+            b-nav-item(v-if="!item.children")
+              NuxtLink(:to="item.link") {{ item.label }}
+            b-nav-item-dropdown(:text="item.label", v-if="item.children")
+              b-dropdown-item(
+                v-for="(item, index) of item.children",
+                :key="index"
+              )
+                NuxtLink(:to="item.link") {{ item.label }}
+  //- 01.2 Sticky Navbar
+  Transition
+    b-navbar.navbar.navbar--sticky(
+      toggleable="md",
+      type="light",
+      variant="light",
+      sticky,
+      v-if="scrollPosition > scrollPositionBound"
+    )
+      b-container
+        b-navbar-brand.brand(href="#")
+          b-img.brand__logo(:src="logoColor", alt="MCS International")
+        b-navbar-toggle(target="nav-collapse")
+        b-collapse#nav-collapse(is-nav)
+          b-navbar-nav.ml-auto
+            div(v-for="(item, index) of menu", :key="index")
+              b-nav-item(v-if="!item.children")
+                NuxtLink(:to="item.link") {{ item.label }}
+              b-nav-item-dropdown(:text="item.label", v-if="item.children")
+                b-dropdown-item(
+                  v-for="(item, index) of item.children",
+                  :key="index"
+                )
+                  NuxtLink(:to="item.link") {{ item.label }}
+  //- 02. Body
+  .mcsi-body
+    Nuxt
+  //- 03. Footer
+  McsiFooter
 </template>
+
 <script lang="ts">
-import Vue from 'vue'
-import headerMenuId from './menu.js'
-import McsiFooter from '@/components/McsiFooter.vue'
-import type { Engine } from 'tsparticles-engine' // TS Particles
-import { loadFull } from 'tsparticles' // TS Particles
-import particleOptions from '~/utilities/ParticleOptions'
+import Vue from "vue";
+import headerMenuId, { translatedMenu } from "./menu.js";
+import McsiFooter from "@/components/McsiFooter.vue";
+import type { Engine } from "tsparticles-engine"; // TS Particles
+import { loadFull } from "tsparticles"; // TS Particles
+import particleOptions from "~/utilities/ParticleOptions";
 export default Vue.extend({
-    name: 'SinglePageLayout',
-    components: {
-        McsiFooter
+  name: "SinglePageLayout",
+  components: {
+    McsiFooter,
+  },
+  data: () => {
+    return {
+      logoColor: require("@/assets/img/mcsi-color.png"),
+      logoWhite: require("@/assets/img/mcsi-white.png"),
+      menu: headerMenuId,
+      options: particleOptions,
+      scrollPosition: 0,
+      scrollPositionBound: 80,
+    };
+  },
+  methods: {
+    async particlesInit(engine: Engine): Promise<void> {
+      await loadFull(engine);
     },
-    data: () => {
-        return {
-            logoColor: require('@/assets/img/mcsi-color.png'),
-            logoWhite: require('@/assets/img/mcsi-white.png'),
-            menu: headerMenuId,
-            options: particleOptions,
-            scrollPosition: 0,
-            scrollPositionBound: 80
-        }
+    onScroll(e: any) {
+      this.scrollPosition = e.target.documentElement.scrollTop;
     },
-    methods: {
-        async particlesInit(engine: Engine): Promise<void> {
-            await loadFull(engine);
-        },
-        onScroll(e: any) {
-            this.scrollPosition = e.target.documentElement.scrollTop
-        }
-    },
-    mounted() {
-        window.addEventListener("scroll", this.onScroll)
-    }
-})
+  },
+  mounted() {
+    this.menu = translatedMenu(this);
+    window.addEventListener("scroll", this.onScroll);
+  },
+});
 </script>
 <style lang="scss" scoped>
 .layout {
-    .layout__particles {
-        z-index: -10;
-    }
-    .mcsi-body {
-        z-index: 99;
-    }
+  .layout__particles {
+    z-index: -10;
+  }
+  .mcsi-body {
+    z-index: 99;
+  }
 }
 // Brand
 .brand {
-    .brand__logo {
-        height: 48px; width: auto;
-    }
+  .brand__logo {
+    height: 48px;
+    width: auto;
+  }
 }
 
 // Header animation
 .v-enter-active,
 .v-leave-active {
-    transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
 }
 
 .v-enter-from,
 .v-leave-to {
-    opacity: 0;
+  opacity: 0;
 }
 </style>

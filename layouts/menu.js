@@ -59,4 +59,68 @@ const headerMenuId = [
     }
 ]
 
+export function translatedMenu(app) {
+    return [
+        {
+            label: app.$t('home'),
+            link: '/'
+        },
+        {
+            label: app.$t('aboutUs'),
+            link: '/profile',
+            children: [
+                {
+                    label: app.$t('shortProfile'),
+                    link: '/about'
+                },
+                {
+                    label: app.$t('businessUnit'),
+                    link: '/business-unit'
+                },
+                {
+                    label: app.$t('MCSIManagement'),
+                    link: '/management-mcsi'
+                },
+                {
+                    label: app.$t('ETSIManagement'),
+                    link: '/management-etsi'
+                },
+                {
+                    label: app.$t('MCSIOrgChart'),
+                    link: '/organization-mcsi'
+                },
+                {
+                    label: app.$t('ETSIOrgChart'),
+                    link: '/organization-etsi'
+                },
+                {
+                    label: app.$t('milestone'),
+                    link: '/milestone'
+                },
+                {
+                    label: app.$t('achievement'),
+                    link: '/achievement'
+                }
+            ]
+        },
+        {
+            label: app.$t('newsAndInsight'),
+            link: '/news'
+        },
+        {
+            label: app.$t('client'),
+            link: '/client'
+        },
+        {
+            label: app.$t('career'),
+            link: '/career'
+        },
+        {
+            label: app.$t('contactUs'),
+            link: '/contact'
+        }
+    ]
+
+}
+
 export default headerMenuId
