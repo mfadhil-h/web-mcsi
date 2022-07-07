@@ -16,9 +16,10 @@ b-container.mcsi-footer(fluid)
           )
       b-col.mb-4(cols="12", md="4")
         .mcsi-footer__item-title {{ $t('source') }}
-        b-link.mcsi-footer__item(
+        NuxtLink.mcsi-footer__item(
           v-for="(item,index) of footerLinkCol2",
           :key="index"
+          :to="item.link"
         ) {{ item.label }}
         .mcsi_footer__social
           a.mr-4(
@@ -62,24 +63,8 @@ b-container.mcsi-footer(fluid)
         .mcsi-footer__item Fax: {{ footerInfo.address.fax }}
         .mcsi-footer__item Email: {{ footerInfo.address.email }}
     b-row.mcsi-footer__copyright.pb-4
-      b-col Copyright (c) 2022 PT MCS Internasional - All Rights Reserved
+      b-col Copyright © 2022 PT MCS Internasional - All Rights Reserved
 </template>
-<i18n> 
-{   
-  "id": {     
-    "source": "Sumber Informasi",
-    "privacyPolicy":"Kebijakan Privasi",
-    "termConditions":"Syarat dan Ketentuan",
-    "contactUs":"Hubungi Kami"   
-  },   
-  "en": {     
-    "source": "Source",
-    "privacyPolicy":"Privacy Policy",
-    "termConditions":"Term and Conditions",
-    "contactUs":"Contact Us"   
-   } 
-} 
-</i18n> 
 <script lang="ts">
 import Vue from "vue";
 import { strapiImage } from "@/utilities/StrapiImage";
@@ -109,7 +94,7 @@ export default Vue.extend({
     },
     openSocial(url: string) {
       window.open(url, "_blank");
-    },
+    },  
     strapiImage,
   },
   mounted() {
@@ -117,6 +102,7 @@ export default Vue.extend({
       { label: this.$t("privacyPolicy") as string, link: "#" },
       { label: this.$t("termConditions") as string, link: "#" },
       { label: this.$t("contactUs") as string, link: "#" },
+      { label: this.$t("sitemap") as string, link: '/sitemap'}
     ];
     this.getFooter();
   },
@@ -177,3 +163,21 @@ export default Vue.extend({
   width: auto;
 }
 </style>
+<i18n> 
+{   
+  "id": {     
+    "source": "Sumber Informasi",
+    "privacyPolicy":"Kebijakan Privasi",
+    "termConditions":"Syarat dan Ketentuan",
+    "contactUs":"Hubungi Kami",
+    "sitemap": "Peta Situs"
+  },   
+  "en": {     
+    "source": "Source",
+    "privacyPolicy":"Privacy Policy",
+    "termConditions":"Term and Conditions",
+    "contactUs":"Contact Us",
+    "sitemap": "Site map"
+   } 
+} 
+</i18n>
