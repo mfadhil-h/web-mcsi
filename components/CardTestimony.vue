@@ -1,10 +1,10 @@
 <template lang="pug">
 b-card.card-testimony
     b-img.card-testimony__avatar(:src="avatar")
-    .card-testimony__person {{person}}
-    .card-testimony__position {{position}}
     font-awesome-icon.fa-2xl.card-testimony__quote(icon="quote-left")
     .card-testimony__testimony {{testimony}}
+    .card-testimony__person {{person}}
+    .card-testimony__position {{position}}
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -32,6 +32,15 @@ export default Vue.extend({
         margin-bottom: 1rem;
         object-fit: cover;
     }
+    .card-testimony__quote {
+        color: #CC0000;
+        display: block;
+        margin: 1rem auto;
+    }
+    .card-testimony__testimony {
+        margin-bottom: 2rem;
+        font-size: 16px;
+    }
     .card-testimony__person {
         font-size: 24px;
         font-weight: 700;
@@ -44,10 +53,6 @@ export default Vue.extend({
         font-style: italic;
         margin-bottom: 2rem;
     }
-    .card-testimony__quote {
-        color: #CC0000;
-        display: block;
-        margin: 1rem auto;
-    }
+    
 }
 </style>
