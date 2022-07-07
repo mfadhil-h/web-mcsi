@@ -68,18 +68,12 @@ b-container.mcsi-footer(fluid)
 <script lang="ts">
 import Vue from "vue";
 import { strapiImage } from "@/utilities/StrapiImage";
-const mockFooterLinkCol2 = [
-  { label: "Kebijakan Privasi", link: "#" },
-  { label: "Syarat dan Ketentuan", link: "#" },
-  { label: "Hubungi Kami", link: "#" },
-];
-
 export default Vue.extend({
   name: "footer",
   data: () => {
     return {
       footerInfo: {},
-      footerLinkCol2: mockFooterLinkCol2,
+      footerLinkCol2: [] as any,
       logoLighthouse: require("@/assets/img/lighthouse.png"),
       patternTr: require("@/assets/img/pattern-tr.png"),
       patternBl: require("@/assets/img/pattern-bl.png"),
@@ -99,9 +93,9 @@ export default Vue.extend({
   },
   mounted() {
     this.footerLinkCol2 = [
-      { label: this.$t("privacyPolicy") as string, link: "#" },
-      { label: this.$t("termConditions") as string, link: "#" },
-      { label: this.$t("contactUs") as string, link: "#" },
+      { label: this.$t("privacyPolicy") as string, link: "/privacy-policy" },
+      { label: this.$t("termConditions") as string, link: "/terms-conditions" },
+      { label: this.$t("contactUs") as string, link: "/contact" },
       { label: this.$t("sitemap") as string, link: '/sitemap'}
     ];
     this.getFooter();
