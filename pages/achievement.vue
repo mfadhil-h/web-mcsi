@@ -20,14 +20,11 @@
                             @click="showModalAward(strapiImage($axios.defaults.baseURL, award.attributes.image), award.attributes.year, award.attributes.name, award.attributes.description)")
     b-modal(id="modal-award" size="lg" hide-footer centered)
         b-container(fluid).award
-            b-row
-                b-col(cols="12" sm="4")
-                    b-img.award__image(:src="dataSelected.image")
-                b-col(cols="12" sm="8")
-                    .award__year {{dataSelected.year}}
-                    .award__label {{dataSelected.label}}
-            b-row.award__description
-                b-col(cols="12") {{dataSelected.description}}
+            .text-center
+                b-img.award__image(:src="dataSelected.image")
+                .award__label {{dataSelected.label}}
+                .award__year {{dataSelected.year}}
+            .award__description {{dataSelected.description}}
 </template>
 
 <script lang="ts">
@@ -99,20 +96,23 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .award {
     .award__image {
+        margin-bottom: 2rem;
+        max-width: 320px;
         width: 100%; height: auto;
-    }
-    .award__year {
-        color: rgba(black, .7);
-        font-size: 20px;
-        font-weight: 500;
-        line-height: 24px;
     }
     .award__label {
         font-size: 28px;
         font-weight: 700;
         letter-spacing: -1px;
         line-height: 32px;
-        margin-top: .25rem;
+        margin-bottom: .5rem;
+    }
+    .award__year {
+        color: rgba(black, .7);
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 24px;
+        margin-bottom: 2rem;
     }
     .award__description {
         margin-top: 2rem;

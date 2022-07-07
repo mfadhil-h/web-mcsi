@@ -154,3 +154,10 @@ img {
 .section.section--reading {
     max-width: $bp-reading;
 }
+
+// 4. Modal
+.modal-dialog {
+    .modal-header {
+        border-bottom: none;
+    }
+}

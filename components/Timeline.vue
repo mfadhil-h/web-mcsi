@@ -3,13 +3,14 @@
     li(:class="{ 'timeline-inverted': right==true }")
         .timeline-badge
             font-awesome-icon.fw(:icon="icon")
-        .timeline-panel
-            .timeline-heading
+        .timeline-panel(@click="onClick")
+            slot
+            //- .timeline-heading
                 .timeline-title(@click="onClick") 
                     span {{title}}
                     font-awesome-icon.fw.timeline-title__arrow(icon="circle-arrow-right")
                 small.text-muted {{timestamp}}
-            .timeline-body
+            //- .timeline-body
                 slot
 </template>
 <script lang="ts">
@@ -160,7 +161,7 @@ export default Vue.extend({
 .timeline-panel {
     background-color: white !important;
 }
-.timeline-title {
+/* .timeline-title {
     cursor: default;
     font-weight: 700;
     margin-top: 0;
@@ -180,7 +181,7 @@ export default Vue.extend({
 }
 .timeline-body {
     margin-top: 1.5rem;
-}
+} */
 .timeline-body > p,
 .timeline-body > ul {
     margin-bottom: 0;

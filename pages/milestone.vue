@@ -17,17 +17,19 @@
                 :right="index%2==0"
                 @click="showModalMilestone(strapiImage($axios.defaults.baseURL, item.attributes.image), item.attributes.date, item.attributes.title, item.attributes.description)")
                 b-img.timeline__image(:src="strapiImage($axios.defaults.baseURL, item.attributes.image)")
-                .timeline__description {{item.attributes.description}}
+                .timeline__details
+                    .timeline__title
+                        span {{item.attributes.title}}
+                        font-awesome-icon.fw.title__arrow(icon="circle-arrow-right")
+                    small.text-muted.timeline__timestamp {{dayjs(item.attributes.date).format('YYYY')}}
+                    .timeline__description {{item.attributes.description.substring(0,48)}}...
     b-modal(id="modal-milestone" size="lg" hide-footer centered)
         b-container(fluid).milestone-detail
-            b-row
-                b-col(cols="12" sm="4")
-                    b-img.milestone-detail__image(:src="milestoneSelected.image")
-                b-col(cols="12" sm="8")
-                    .milestone-detail__date {{dayjs(milestoneSelected.date).format('YYYY')}}
-                    .milestone-detail__title {{milestoneSelected.title}}
-            b-row.milestone-detail__description
-                b-col(cols="12") {{milestoneSelected.description}}
+            .text-center
+                b-img.milestone-detail__image(:src="milestoneSelected.image")
+                .milestone-detail__title {{milestoneSelected.title}}
+                .milestone-detail__date {{dayjs(milestoneSelected.date).format('YYYY')}}
+            .milestone-detail__description {{milestoneSelected.description}}
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -81,37 +83,64 @@ export default Vue.extend({
 </script>
 <style lang="scss" scoped>
 .timeline {
+    cursor: default;
     .timeline__image {
         border-radius: 8px;
         display: inline-block;
-        margin-bottom: 1rem;
         margin-right: 1rem;
         object-fit: cover;
         vertical-align: top;
-        width: 140px; height: 140px;
+        width: 96px; height: 96px;
 
     }
-    .timeline__description {
+    .timeline__details {
         display: inline-block;
         vertical-align: top;
+        .timeline__title {
+            cursor: default;
+            font-weight: 700;
+            margin-top: 0;
+            color: inherit;
+            .title__arrow {
+                opacity: 0;
+                transition-duration: 100ms;
+            }
+            &:hover {
+                color: #154D6D;
+                .title__arrow {
+                    opacity: 1;
+                    transition-duration: 300ms;
+                    transform: translateX(8px);
+                }
+            }
+        }
+        .timeline__description {
+            margin-top: 1rem;
+            overflow: hidden;
+            width: 100%;
+        }
     }
+    
 }
 .milestone-detail {
     .milestone-detail__image {
+        margin-bottom: 2rem;
+        max-width: 320px;
         width: 100%; height: auto;
+    }
+    .milestone-detail__title {
+         font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -1px;
+        line-height: 32px;
+        margin-bottom: .5rem;
     }
     .milestone-detail__date {
         color: rgba(black, .7);
         font-size: 20px;
         font-weight: 500;
         line-height: 24px;
-    }
-    .milestone-detail__title {
-        font-size: 28px;
-        font-weight: 700;
-        letter-spacing: -1px;
-        line-height: 32px;
-        margin-top: .25rem;
+        margin-bottom: 2rem;
     }
     .milestone-detail__description {
         margin-top: 2rem;

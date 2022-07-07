@@ -14,7 +14,7 @@
                         b-img.client__logo(:src="strapiImage($axios.defaults.baseURL, client.attributes.logo)" :alt="client.attributes.name")
         b-container.section.section--reading(v-if="testimonies")
             carousel(:perPageCustom="[[768, 1], [1024, 2]]")
-                slide.testimony(v-for="(testimony, index) of testimonies")
+                slide.testimony(v-for="(testimony, index) of testimonies" :key="index")
                     card-testimony.testimony__card(
                         :key="index"
                         :person="testimony.attributes.person"

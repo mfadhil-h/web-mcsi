@@ -31,14 +31,11 @@
                     @click="showModalProfile(strapiImage($axios.defaults.baseURL, person.attributes.image), person.attributes.position, person.attributes.name, person.attributes.description)")
     b-modal(id="modal-profile" size="lg" hide-footer centered)
         b-container(fluid).profile
-            b-row
-                b-col(cols="12" sm="4")
-                    b-img.profile__image(:src="personSelected.image")
-                b-col(cols="12" sm="8")
-                    .profile__position {{personSelected.position}}
-                    .profile__name {{personSelected.name}}
-            b-row.profile__description
-                b-col(cols="12") {{personSelected.description}}
+            .text-center
+                b-img.profile__image(:src="personSelected.image")
+                .profile__name {{personSelected.name}}
+                .profile__position {{personSelected.position}}
+            .profile__description {{personSelected.description}}
 
 </template>
 <script lang="ts">
@@ -104,21 +101,25 @@ export default Vue.extend({
 }
 .profile {
     .profile__image {
+        margin-bottom: 2rem;
+        max-width: 320px;
         width: 100%; height: auto;
-    }
-    .profile__position {
-        color: rgba(black, .7);
-        font-size: 20px;
-        font-weight: 500;
-        line-height: 24px;
     }
     .profile__name {
         font-size: 28px;
         font-weight: 700;
         letter-spacing: -1px;
         line-height: 32px;
-        margin-top: .25rem;
+        margin-bottom: .5rem;
     }
+    .profile__position {
+        color: rgba(black, .7);
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 24px;
+        margin-bottom: 2rem;
+    }
+    
     .profile__description {
         margin-top: 2rem;
     }
