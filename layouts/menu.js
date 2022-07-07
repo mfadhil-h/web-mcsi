@@ -16,20 +16,12 @@ const headerMenuId = [
                 link: '/business-unit'
             },
             {
-                label: 'Manajemen MCSI',
+                label: 'Manajemen',
                 link: '/management-mcsi'
             },
             {
-                label: 'Manajemen ETSI',
-                link: '/management-etsi'
-            },
-            {
-                label: 'Struktur Organisasi MCSI',
+                label: 'Struktur Organisasi',
                 link: '/organization-mcsi'
-            },
-            {
-                label: 'Struktur Organisasi ETSI',
-                link: '/organization-etsi'
             },
             {
                 label: 'Jejak Langkah',
@@ -82,16 +74,8 @@ export function translatedMenu(app) {
                     link: '/management-mcsi'
                 },
                 {
-                    label: app.$t('ETSIManagement'),
-                    link: '/management-etsi'
-                },
-                {
                     label: app.$t('MCSIOrgChart'),
                     link: '/organization-mcsi'
-                },
-                {
-                    label: app.$t('ETSIOrgChart'),
-                    link: '/organization-etsi'
                 },
                 {
                     label: app.$t('milestone'),
