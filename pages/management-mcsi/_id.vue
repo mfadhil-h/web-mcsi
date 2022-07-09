@@ -51,10 +51,14 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .profile {
     .profile__name {
-        font-size: 48px;
+        font-size: 40px;
         font-weight: 700;
         letter-spacing: -2px;
-        line-height: 64px;
+        line-height: 48px;
+        @media screen and (max-width: 767px) {
+            font-size: 32px;
+            line-height: 40px;
+        }
     }
     .profile__position {
         color: rgba(black, .54);

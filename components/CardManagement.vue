@@ -43,8 +43,9 @@ export default Vue.extend({
     .card-management__name {
         font-size: 24px;
         font-weight: 700;
-        letter-spacing: -5%;
+        letter-spacing: -1px;
         line-height: 32px;
+        min-height: 64px;
     }
     .card-management__position {
         color: rgba(black, .54);
@@ -53,6 +54,7 @@ export default Vue.extend({
         line-height: 24px;
         margin-top: 8px;
         margin-bottom: 24px;
+        min-height: 48px;
         text-transform: capitalize;
     }
     .card-management__link {
