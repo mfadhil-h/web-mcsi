@@ -22,7 +22,9 @@
                         span {{item.attributes.title}}
                         font-awesome-icon.fw.title__arrow(icon="circle-arrow-right")
                     small.text-muted.timeline__timestamp {{dayjs(item.attributes.date).format('YYYY')}}
-                    .timeline__description {{item.attributes.description.substring(0,48)}}...
+                    .timeline__description 
+                        span {{item.attributes.description.substring(0,32)}}
+                        small.ml-2.text-muted Read more...
     b-modal(id="modal-milestone" size="lg" hide-footer centered)
         b-container(fluid).milestone-detail
             .text-center
