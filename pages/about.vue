@@ -21,16 +21,19 @@
                         font-awesome-icon.icon__fa(icon="eye")
                     .vision__label Visi
                     .vision__description {{page.visionShort}}
+                    font-awesome-icon.float-left.mt-4.text-muted(icon="arrow-right")
                 b-card.vision(v-b-modal.modal-mission)
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="bullseye")
                     .vision__label Misi
                     .vision__description {{page.missionShort}}
+                    font-awesome-icon.float-left.mt-4.text-muted(icon="arrow-right")
                 b-card.vision(v-b-modal.modal-company-value)
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="trophy")
                     .vision__label Nilai Perusahaan
                     .vision__description {{page.companyValueShort}}
+                    font-awesome-icon.float-left.mt-4.text-muted(icon="arrow-right")
     b-modal(id="modal-vision" size="lg" hide-footer centered title="Visi")
         .modal-vision__content(v-html="micromark(page.visionLong)" v-if="page.visionLong")
     b-modal(id="modal-mission" size="lg" hide-footer centered title="Misi")
@@ -124,6 +127,12 @@ export default Vue.extend({
     }
     .vision__description {
         margin-top: 3rem;
+        text-align: justify;
     }
+}
+</style>
+<style scoped>
+.modal-vision__content >>> * {
+    text-align: justify;
 }
 </style>
