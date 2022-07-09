@@ -123,7 +123,7 @@ export default Vue.extend({
 	padding-left: 0;
 	padding-right: 0;
 	position: relative;
-	height: 640px;
+	height: 720px;
 	.section--numbers__background {
 		filter: brightness(25%);
 		height: inherit; width: 100%;
