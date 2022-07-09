@@ -18,10 +18,8 @@
 					b-img.company-group__icon(:src="strapiImage($axios.defaults.baseURL, company.attributes.icon)")
 					.company-group__label
 						.company-group__name {{company.attributes.name}}
-						.company-group__description(v-html="micromark(company.attributes.descriptionHtml)")
-	//- b-container.section
-		.display-1 {{page.sectionNumbersTitle}}
-		.display-2 {{page.sectionNumbersDescription}}
+						.company-group__description(v-html="micromark(company.attributes.descriptionHtml.substring(0,120))")
+						small.company-group__read-more(@click="showModalCompanyGroupDescription(company.attributes.descriptionHtml)") Read more...
 	b-container.section--numbers(fluid)
 		video-background.section--numbers__background(:src="strapiImage($axios.defaults.baseURL, page.sectionNumbersBackground)" v-if="page.sectionNumbersBackground")
 		.section--numbers__panels
@@ -34,6 +32,8 @@
 							.panel__line1 {{number.line1}}
 							.panel__number {{number.number}}
 							.panel__line2 {{number.line2}}
+	b-modal.modal-company-group(id="modal-company-group" size="lg" hide-footer centered)
+		.company-group__description-full(v-html="micromark(companyDescription)")
 </template>
 
 <script lang="ts">
@@ -50,6 +50,7 @@ export default Vue.extend({
 	data: () => {
 		return {
 			companies: [],
+			companyDescription: '',
 			page: {}
 		}
 	},
@@ -58,17 +59,19 @@ export default Vue.extend({
             try {
                 let companies = await this.$axios.$get('/api/company-groups?populate=*')
                 this.companies = companies.data
-				console.log(this.companies)
             } catch (error) { } 
         },
 		async getPage() {
             try {
                 let page = await this.$axios.$get('/api/page-home?populate=*')
                 this.page = page.data.attributes
-				console.log(this.page)
             } catch (error) { } 
         },
 		micromark,
+		showModalCompanyGroupDescription(description: string) {
+            this.companyDescription = description
+            this.$bvModal.show('modal-company-group')
+        },
 		strapiImage
 	},
 	mounted() {
@@ -93,17 +96,25 @@ export default Vue.extend({
 		top: 0; left: 0;
 		width: 100%;
 		.company-group__icon {
-			height: 100px; width: auto;
+			height: 72px; width: auto;
 		}
 		.company-group__label {
-			margin-top: 10rem;
+			margin-top: 11rem;
 			.company-group__name {
 				font-size: 24px;
 				font-weight: 700;
-				margin-bottom: 1rem;
+				margin-bottom: .5rem;
 			}
 			.company-group__description {
+				min-height: 72px;
 				opacity: .8;
+			}
+			.company-group__read-more {
+				opacity: .5;
+			}
+			@media screen and (max-width: 767px) {
+				margin-top: 10rem;
+
 			}
 		}
 	}
@@ -160,5 +171,8 @@ export default Vue.extend({
 <style scoped>
 .company-group__description >>> * {
 	color: white !important;
+}
+.company-group__description-full >>> * {
+	text-align: justify;
 }
 </style>
