@@ -28,12 +28,14 @@
 				.display-2.text-white {{page.sectionNumbersDescription}}
 				b-row.mt-5(v-if="page.numbers")
 					b-col(v-for="(number, index) of page.numbers" cols="6" md="3" :key="index")
-						b-card.panel
+						b-card.panel(@click="showModalNumbers(number.description)")
 							.panel__line1 {{number.line1}}
 							.panel__number {{number.number}}
 							.panel__line2 {{number.line2}}
 	b-modal.modal-company-group(id="modal-company-group" size="lg" hide-footer centered)
 		.company-group__description-full(v-html="micromark(companyDescription)")
+	b-modal.modal-numbers(id="modal-numbers" size="lg" hide-footer centered)
+		.numbers__description(v-html="micromark(numberDescription)")
 </template>
 
 <script lang="ts">
@@ -51,6 +53,7 @@ export default Vue.extend({
 		return {
 			companies: [],
 			companyDescription: '',
+			numberDescription: '',
 			page: {}
 		}
 	},
@@ -72,6 +75,10 @@ export default Vue.extend({
             this.companyDescription = description
             this.$bvModal.show('modal-company-group')
         },
+		showModalNumbers(description: string) {
+			this.numberDescription = description
+			this.$bvModal.show('modal-numbers')
+		},
 		strapiImage
 	},
 	mounted() {
@@ -123,7 +130,10 @@ export default Vue.extend({
 	padding-left: 0;
 	padding-right: 0;
 	position: relative;
-	height: 720px;
+	height: 640px;
+	@media screen and (max-width: 767px) {
+		height: 800px;
+	}
 	.section--numbers__background {
 		filter: brightness(25%);
 		height: inherit; width: 100%;

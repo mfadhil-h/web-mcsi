@@ -8,12 +8,12 @@
                     .section__title {{page.sectionTitle}}
                     .section__body {{page.sectionDescription}}
         b-container.section.section--reading
-            carousel(:perPageCustom="[[768, 3], [1024, 4]]")
+            carousel(:perPageCustom="[[0, 2], [768, 3], [1024, 4]]")
                 slide.client(v-for="(client, index) of clients" :key="index")
                     a(:href="client.attributes.link" target="blank")
                         b-img.client__logo(:src="strapiImage($axios.defaults.baseURL, client.attributes.logo)" :alt="client.attributes.name")
         b-container.section.section--reading(v-if="testimonies")
-            carousel(:perPageCustom="[[768, 1], [1024, 2]]")
+            carousel(:perPageCustom="[[0, 1], [768, 2]]")
                 slide.testimony(v-for="(testimony, index) of testimonies" :key="index")
                     card-testimony.testimony__card(
                         :key="index"
