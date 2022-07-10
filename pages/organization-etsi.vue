@@ -13,7 +13,7 @@
     b-container.section
         b-card.section__bg(no-body)
             h3.mb-4 Dewan Komisaris dan Direksi
-        b-row.mb-5
+        b-row.mb-4
             b-col(cols="6" md="3" v-for="(person, index) of filterOrganization(people,'commissioner-director')" :key="index" v-if="people")
                 thumbnail(
                     :image="strapiImage($axios.defaults.baseURL, person.attributes.image)" 
@@ -29,6 +29,13 @@
                     :heading="person.attributes.name" 
                     :subheading="person.attributes.position"
                     @click="showModalProfile(strapiImage($axios.defaults.baseURL, person.attributes.image), person.attributes.position, person.attributes.name, person.attributes.description)")
+    //- Link to MCSI Org Chart
+    b-container.section
+        b-card.section__bg(no-body)
+            h3.mb-4 Organisasi Terkait
+            b-link(:to="'/organization-mcsi'") 
+                font-awesome-icon.fa-fw(icon="sitemap")
+                span.ml-2 Struktur Organisasi MCSI
     b-modal(id="modal-profile" size="lg" hide-footer centered)
         b-container(fluid).profile
             b-row

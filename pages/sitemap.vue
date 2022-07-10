@@ -3,7 +3,8 @@
     PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
     b-container(fluid)
         b-container.section.section--reading
-            b-card.section__bg(no-body v-if="page.sitemap")
+            b-card.card-sitemap(v-if="page.sitemap")
+                p.font-weight-bold Peta Situs
                 .sitemap(v-html="micromark(page.sitemap)")
 </template>
 
@@ -39,3 +40,19 @@ export default Vue.extend({
     }
 })
 </script>
+<style scoped>
+.card-sitemap {
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1);
+    margin-bottom: 1rem;
+}
+.sitemap >>> li {
+    list-style-type: none !important;
+    margin: .5rem 0;
+}
+.sitemap >>> li::before {
+    content: '❯';
+    margin-right: 1rem;
+    opacity: .5;
+}
+</style>
