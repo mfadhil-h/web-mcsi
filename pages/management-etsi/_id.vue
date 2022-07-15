@@ -48,6 +48,7 @@ export default Vue.extend({
     }
 })
 </script>
+<style lang="scss" scoped>
 .profile {
     .profile__name {
         font-size: 30px;
