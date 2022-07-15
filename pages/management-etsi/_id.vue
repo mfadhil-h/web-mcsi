@@ -48,13 +48,16 @@ export default Vue.extend({
     }
 })
 </script>
-<style lang="scss" scoped>
 .profile {
     .profile__name {
-        font-size: 48px;
+        font-size: 30px;
         font-weight: 700;
         letter-spacing: -2px;
-        line-height: 64px;
+        line-height: 32px;
+        @media screen and (max-width: 767px) {
+            font-size: 28px;
+            line-height: 32px;
+        }
     }
     .profile__position {
         color: rgba(black, .54);
@@ -72,5 +75,18 @@ export default Vue.extend({
             margin-bottom: 40px;
         }
     }
+}
+</style>
+<style scoped>
+.profile__description >>> * {
+    text-align: justify;
+}
+.profile__description >>> h1,
+.profile__description >>> h2,
+.profile__description >>> h3,
+.profile__description >>> h4,
+.profile__description >>> h5,
+.profile__description >>> h6 {
+    letter-spacing: -1px;
 }
 </style>

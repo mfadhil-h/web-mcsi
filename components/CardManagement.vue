@@ -49,7 +49,7 @@ export default Vue.extend({
     }
     .card-management__position {
         color: rgba(black, .54);
-        font-size: 16px;
+        font-size: 18px;
         letter-spacing: -5%;
         line-height: 24px;
         margin-top: 8px;
@@ -60,7 +60,7 @@ export default Vue.extend({
     .card-management__link {
         color: #154D6D;
         cursor: default;
-        font-size: 12px;
+        font-size: 16px;
         font-weight: 500;
         line-height: 16px;
         a {

@@ -51,13 +51,13 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .profile {
     .profile__name {
-        font-size: 40px;
+        font-size: 30px;
         font-weight: 700;
         letter-spacing: -2px;
-        line-height: 48px;
+        line-height: 32px;
         @media screen and (max-width: 767px) {
-            font-size: 32px;
-            line-height: 40px;
+            font-size: 28px;
+            line-height: 32px;
         }
     }
     .profile__position {
@@ -76,5 +76,18 @@ export default Vue.extend({
             margin-bottom: 40px;
         }
     }
+}
+</style>
+<style scoped>
+.profile__description >>> * {
+    text-align: justify;
+}
+.profile__description >>> h1,
+.profile__description >>> h2,
+.profile__description >>> h3,
+.profile__description >>> h4,
+.profile__description >>> h5,
+.profile__description >>> h6 {
+    letter-spacing: -1px;
 }
 </style>

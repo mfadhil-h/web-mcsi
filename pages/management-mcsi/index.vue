@@ -9,7 +9,7 @@
     b-container(fluid).management__org-chart
         b-container.section
             b-row
-                b-col(cols="12" md="4" offset-md="4")
+                b-col(cols="12" md="6" offset-md="3")
                     card-management(
                         v-if="filterOrgchart(orgcharts, true)[0]"
                         :name="filterOrgchart(orgcharts, true)[0].attributes.name" 
@@ -17,7 +17,7 @@
                         :id="filterOrgchart(orgcharts, true)[0].id"
                         @click="goToPage(filterOrgchart(orgcharts, true)[0].id)")
             b-row(v-if="filterOrgchart(orgcharts, false)")
-                b-col(cols="12" md="4" v-for="(orgchart, index) of filterOrgchart(orgcharts, false)" :key="index")
+                b-col(cols="12" md="6" v-for="(orgchart, index) of filterOrgchart(orgcharts, false)" :key="index")
                     card-management(
                         :name="orgchart.attributes.name" 
                         :position="orgchart.attributes.position" 
