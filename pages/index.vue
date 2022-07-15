@@ -6,6 +6,7 @@
 		:header1="page.header1"
 		:header2="page.header2"
 		@onClickArrow="onClickArrow"
+		@onClickPlay="showModalVideoYoutube"
 		v-if="page.videoImage!=null"
 	)
 	b-container.section(id="scrollTarget")
@@ -38,6 +39,8 @@
 		.company-group__description-full(v-html="micromark(companyDescription)")
 	b-modal.modal-numbers(id="modal-numbers" size="lg" hide-footer centered)
 		.numbers__description(v-html="micromark(numberDescription)")
+	b-modal.modal-video-youtube(id="modal-video-youtube" size="xl" hide-footer centered)
+		youtube-player(:src="page.youtubeLink")
 </template>
 
 <script lang="ts">
@@ -45,11 +48,13 @@ import Vue from 'vue'
 import { micromark } from 'micromark'
 import { strapiImage } from '@/utilities/StrapiImage'
 import Videotron from '@/components/Videotron.vue'
+import YoutubePlayer from '@/components/YoutubePlayer.vue'
 export default Vue.extend({
 	name: 'IndexPage',
 	layout: 'SinglePage',
 	components: {
-		Videotron
+		Videotron,
+		YoutubePlayer
 	},
 	data: () => {
 		return {
@@ -83,6 +88,9 @@ export default Vue.extend({
 		showModalNumbers(description: string) {
 			this.numberDescription = description
 			this.$bvModal.show('modal-numbers')
+		},
+		showModalVideoYoutube() {
+			this.$bvModal.show('modal-video-youtube')
 		},
 		strapiImage
 	},

@@ -6,6 +6,9 @@
 			.display-2 {{header1}}
 			.display-1 {{header2}}
 			font-awesome-icon.labels__arrow-down(icon="arrow-down" @click="onClickArrow")
+			b-button.play-button(size="lg" variant="outline-primary" @click="onClickPlay") 
+				span Play Video
+				font-awesome-icon.ml-4(icon="play")
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -15,11 +18,15 @@ export default Vue.extend({
 		header1: String,
 		header2: String,
 		video: String,
-		videoImage: String
+		videoImage: String,
+		youtubeLink: String
 	},
 	methods: {
 		onClickArrow() {
 			this.$emit('onClickArrow')
+		},
+		onClickPlay() {
+			this.$emit('onClickPlay')
 		}
 	}
 })
@@ -50,6 +57,13 @@ export default Vue.extend({
 				transition-duration: 300ms;
 				transform: translateY(8px);
 			}
+		}
+		.play-button {
+			border-radius: 28px;
+			color: white;
+			float: right;
+			height: 56px;
+			padding: .5rem 1.5rem;
 		}
 	}
 }
