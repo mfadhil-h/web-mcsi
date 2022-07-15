@@ -157,7 +157,15 @@ img {
 
 // 4. Modal
 .modal-dialog {
-    .modal-header {
-        border-bottom: none;
+    .modal-content {
+        background-color: #DDDDDD;
+        border-radius: 1rem;
+        .modal-header {
+            border-bottom: none;
+            padding: 1.5rem;
+        }
+        .modal-body {
+            padding: 1.5rem;
+        }
     }
 }
