@@ -10,7 +10,7 @@
         b-container.section.section--reading
             carousel(
                 autoplay
-                autoplayTimeout="3000"
+                :autoplayTimeout="3000"
                 loop
                 paginationActiveColor="#CC0000FF"
                 paginationColor="#CC000066"
@@ -22,7 +22,7 @@
         b-container.section.section--reading(v-if="testimonies")
             carousel(
                 autoplay
-                autoplayTimeout="3000"
+                :autoplayTimeout="3000"
                 loop
                 paginationActiveColor="#CC0000FF"
                 paginationColor="#CC000066"
@@ -63,7 +63,6 @@ export default Vue.extend({
             try {
                 let clients = await this.$axios.$get('/api/clients?populate=*&sort[0]=order')
                 this.clients = clients.data
-                console.log('test', this.clients)
             } catch (error) { }
         },
         async getPage() {

@@ -13,7 +13,7 @@
                     .display-2 {{group.attributes.awardPeriod}}
                 carousel.carousel(
                     autoplay
-                    autoplayTimeout="3000"
+                    :autoplayTimeout="3000"
                     loop
                     paginationActiveColor="#CC0000FF"
                     paginationColor="#CC000066"
