@@ -21,28 +21,28 @@
         .ribbon
         b-container.section(v-if="page")
             b-card-group(deck)
-                b-card.vision(v-b-modal.modal-vision)
+                b-card.vision
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="eye")
                     .vision__label Visi
                     .vision__description {{page.visionShort}}
-                    small.float-left.mt-4.text-muted 
+                    small.vision__link(v-b-modal.modal-vision)
                         span Selengkapnya
                         font-awesome-icon.ml-2(icon="circle-arrow-right")
-                b-card.vision(v-b-modal.modal-mission)
+                b-card.vision
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="bullseye")
                     .vision__label Misi
                     .vision__description {{page.missionShort}}
-                    small.float-left.mt-4.text-muted 
+                    small.vision__link(v-b-modal.modal-mission)
                         span Selengkapnya
                         font-awesome-icon.ml-2(icon="circle-arrow-right")
-                b-card.vision(v-b-modal.modal-company-value)
+                b-card.vision
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="trophy")
                     .vision__label Nilai Perusahaan
                     .vision__description {{page.companyValueShort}}
-                    small.float-left.mt-4.text-muted 
+                    small.vision__link(v-b-modal.modal-company-value)
                         span Selengkapnya
                         font-awesome-icon.ml-2(icon="circle-arrow-right")
     b-modal(id="modal-vision" size="lg" hide-footer centered title="Visi")
@@ -109,7 +109,6 @@ export default Vue.extend({
     box-shadow: 0 4px 8px 0 rgba(black, .1);
     padding: 1rem;
     text-align: center;
-    user-select: none;
     .vision__icon {
         background-color: #EAEAEA;
         border-radius: 32px;
@@ -132,6 +131,16 @@ export default Vue.extend({
     .vision__description {
         margin-top: 3rem;
         text-align: justify;
+    }
+    .vision__link {
+        color: rgba(black, .6);
+        float: left;
+        margin-top: 1.5rem;
+        transition-duration: 100ms;
+        &:hover {
+            color: #CC0000;
+            transition-duration: 300ms;
+        }
     }
 }
 </style>
