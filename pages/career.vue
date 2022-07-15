@@ -64,14 +64,12 @@ export default Vue.extend({
             try {
                 let careerTypes = await this.$axios.get('/api/career-types')
                 this.careerTypes = careerTypes.data.data
-                console.log('clogs', this.careerTypes)
             } catch (error) { }
         },
         async getCareers() {
             try {
-                let careers = await this.$axios.get('/api/careers?populate=*')
+                let careers = await this.$axios.get('/api/careers?populate=*&filters[isOpen][$eq]=true')
                 this.careers = careers.data.data
-                console.log('careers', this.careers)
             } catch (error) { }
             
         },
