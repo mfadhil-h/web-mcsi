@@ -11,7 +11,14 @@
             div(v-for="(group, index) of awardGroups" :key="index")
                 b-card.section__bg(no-body)
                     .display-2 {{group.attributes.awardPeriod}}
-                carousel.carousel(:perPageCustom="[[768, 3], [1024, 4]]")
+                carousel.carousel(
+                    autoplay
+                    autoplayTimeout="3000"
+                    loop
+                    paginationActiveColor="#CC0000FF"
+                    paginationColor="#CC000066"
+                    :perPageCustom="[[768, 3], [1024, 4]]"
+                )
                     slide.carousel__slide(v-for="(award, index) of filterAward(group.id)" :key="index")
                         Thumbnail(
                             :image="strapiImage($axios.defaults.baseURL, award.attributes.image)" 
