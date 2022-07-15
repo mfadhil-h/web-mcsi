@@ -5,7 +5,7 @@
 		b-container
 			.display-2 {{header1}}
 			.display-1 {{header2}}
-			font-awesome-icon.labels__arrow-down(icon="arrow-down")
+			font-awesome-icon.labels__arrow-down(icon="arrow-down" @click="onClickArrow")
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -17,6 +17,11 @@ export default Vue.extend({
 		video: String,
 		videoImage: String
 	},
+	methods: {
+		onClickArrow() {
+			this.$emit('onClickArrow')
+		}
+	}
 })
 </script>
 <style lang="scss" scoped>

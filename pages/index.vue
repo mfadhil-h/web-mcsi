@@ -5,8 +5,10 @@
 		:video="strapiImage($axios.defaults.baseURL, page.video)"
 		:header1="page.header1"
 		:header2="page.header2"
-		v-if="page.videoImage!=null")
-	b-container.section
+		@onClickArrow="onClickArrow"
+		v-if="page.videoImage!=null"
+	)
+	b-container.section(id="scrollTarget")
 		b-card.section__bg(no-body)
 			.display-1 {{page.sectionBusinessUnitTitle}}
 			.display-2 {{page.sectionBusinessUnitDescription}}
@@ -71,6 +73,9 @@ export default Vue.extend({
             } catch (error) { } 
         },
 		micromark,
+		onClickArrow() {
+			document.getElementById('scrollTarget')?.scrollIntoView({behavior: 'smooth'})
+		},
 		showModalCompanyGroupDescription(description: string) {
             this.companyDescription = description
             this.$bvModal.show('modal-company-group')
