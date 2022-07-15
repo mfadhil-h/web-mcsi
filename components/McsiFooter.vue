@@ -153,7 +153,7 @@ export default Vue.extend({
   }
 }
 .logo-lighthouse {
-  height: 120px;
+  height: 200px;
   width: auto;
 }
 </style>
