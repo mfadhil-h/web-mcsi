@@ -7,11 +7,16 @@
                 b-col(cols="12")
                     .section__title {{page.sectionTitle}}
             b-row.mt-4
-                b-col(cols="12" md="6")
+                b-col(cols="12" md="5")
                     .section__body.mt-0.mb-4 {{page.sectionDescription}}
-                b-col(cols="12" md="6")
-                    b-img.company__image(:src="strapiImage($axios.defaults.baseURL, page.image1)" v-if="page.image1")
-                    b-img.company__image(:src="strapiImage($axios.defaults.baseURL, page.image2)" v-if="page.image2")
+                b-col(cols="12" md="7")
+                    b-row
+                        b-col(cols="12")
+                            youtube-player(:src="page.youtubeLink")
+                        b-col(cols="12" md="6")
+                            b-img.company__image(:src="strapiImage($axios.defaults.baseURL, page.image1)" v-if="page.image1")
+                        b-col(cols="12" md="6")
+                            b-img.company__image(:src="strapiImage($axios.defaults.baseURL, page.image2)" v-if="page.image2")
     b-container.company__vision(fluid)
         .ribbon
         b-container.section(v-if="page")
@@ -21,19 +26,25 @@
                         font-awesome-icon.icon__fa(icon="eye")
                     .vision__label Visi
                     .vision__description {{page.visionShort}}
-                    font-awesome-icon.float-left.mt-4.text-muted(icon="circle-arrow-right")
+                    small.float-left.mt-4.text-muted 
+                        span Selengkapnya
+                        font-awesome-icon.ml-2(icon="circle-arrow-right")
                 b-card.vision(v-b-modal.modal-mission)
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="bullseye")
                     .vision__label Misi
                     .vision__description {{page.missionShort}}
-                    font-awesome-icon.float-left.mt-4.text-muted(icon="circle-arrow-right")
+                    small.float-left.mt-4.text-muted 
+                        span Selengkapnya
+                        font-awesome-icon.ml-2(icon="circle-arrow-right")
                 b-card.vision(v-b-modal.modal-company-value)
                     .vision__icon
                         font-awesome-icon.icon__fa(icon="trophy")
                     .vision__label Nilai Perusahaan
                     .vision__description {{page.companyValueShort}}
-                    font-awesome-icon.float-left.mt-4.text-muted(icon="circle-arrow-right")
+                    small.float-left.mt-4.text-muted 
+                        span Selengkapnya
+                        font-awesome-icon.ml-2(icon="circle-arrow-right")
     b-modal(id="modal-vision" size="lg" hide-footer centered title="Visi")
         .modal-vision__content(v-html="micromark(page.visionLong)" v-if="page.visionLong")
     b-modal(id="modal-mission" size="lg" hide-footer centered title="Misi")
@@ -46,26 +57,20 @@ import Vue from 'vue'
 import { micromark } from 'micromark'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
+import YoutubePlayer from '@/components/YoutubePlayer.vue'
 export default Vue.extend({
     name: 'company-profile',
     layout: 'SinglePage',
     components: {
-        PageHeader
+        PageHeader,
+        YoutubePlayer
     },
     data: () => {
         return {
-            companyValue: {},
             page: {}
         }
     },
     methods: {
-        async getCompanyValue() {
-            try {
-                let companyValue = await this.$axios.$get('/api/company-value?populate=*')
-                this.companyValue = companyValue.data.attributes
-                console.log('cv', this.companyValue)
-            } catch (error) { }
-        },
         async getPage() {
             try {
                 let page = await this.$axios.$get('/api/page-about?populate=*')
@@ -77,14 +82,13 @@ export default Vue.extend({
     },
     mounted() {
         this.getPage()
-        // this.getCompanyValue()
     }
 })
 </script>
 <style lang="scss" scoped>
 .company-profile {
     .company__image {
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
         width: 100%; height: auto
     }
     .company__vision {
