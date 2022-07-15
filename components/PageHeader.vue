@@ -27,7 +27,7 @@ export default Vue.extend({
 }
 .page-header__image {
     filter: brightness(50%);
-    height: auto; max-height: 480px;
+    height: auto; max-height: 360px;
     width: 100%; 
     object-fit: cover;
 }
