@@ -1,6 +1,11 @@
 <template lang="pug">
 .news
     PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
+    b-container(fluid)
+        b-container.section.section--reading.text-center(v-if="page")
+            b-card.section__bg(no-body)
+                .section__title {{page.sectionTitle}}
+                .section__body {{page.sectionDescription}}
     b-container.section
         b-row
             b-col(cols="12" lg="3")
