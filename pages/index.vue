@@ -22,7 +22,9 @@
 					.company-group__label
 						.company-group__name {{company.attributes.name}}
 						.company-group__description(v-html="micromark(company.attributes.descriptionHtml.substring(0,120))")
-						small.company-group__read-more(@click="showModalCompanyGroupDescription(company.attributes.descriptionHtml)") Read more...
+						small.company-group__read-more(@click="showModalCompanyGroupDescription(company.attributes.descriptionHtml)")
+							span Selengkapnya
+							font-awesome-icon.fw.title__arrow.ml-2(icon="circle-arrow-right")
 	b-container.section--numbers(fluid)
 		video-background.section--numbers__background(:src="strapiImage($axios.defaults.baseURL, page.sectionNumbersBackground)" v-if="page.sectionNumbersBackground")
 		.section--numbers__panels

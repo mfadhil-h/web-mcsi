@@ -28,7 +28,7 @@ const headerMenuId = [
                 link: '/milestone'
             },
             {
-                label: 'Penghargaan',
+                label: 'Sertifikat',
                 link: '/achievement'
             }
         ]

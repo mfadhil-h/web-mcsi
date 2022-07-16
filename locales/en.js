@@ -6,7 +6,7 @@ export default {
     "MCSIManagement": "Management",
     "MCSIOrgChart": "Organization Chart",
     "milestone": "Milestone",
-    "achievement": "Achievement",
+    "achievement": "Certificate",
     "newsAndInsight": "News & Insight",
     "client": "Client",
     "career": "Career",

@@ -6,7 +6,7 @@ export default {
     "MCSIManagement": "Manajemen",
     "MCSIOrgChart": "Struktur Organisasi",
     "milestone": "Jejak Langkah",
-    "achievement": "Penghargaan",
+    "achievement": "Sertifikat",
     "newsAndInsight": "News & Insight",
     "client": "Klien",
     "career": "Karir",

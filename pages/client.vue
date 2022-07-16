@@ -90,7 +90,7 @@ export default Vue.extend({
 .client {
     text-align: center;
     .client__logo {
-        height: 48px; width: auto;
+        height: 80px; width: auto;
     }
 }
 .testimony {

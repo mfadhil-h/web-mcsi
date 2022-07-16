@@ -21,8 +21,8 @@
                     .timeline__title {{item.attributes.title}}
                     small.text-muted.timeline__timestamp {{dayjs(item.attributes.date).format('YYYY')}}
                     .timeline__description 
-                        span {{item.attributes.description.substring(0,50)}}
-                        small.ml-2.text-muted
+                        p.mb-0 {{item.attributes.description.substring(0,40)}}
+                        small.text-muted
                             span Selengkapnya
                             font-awesome-icon.fw.title__arrow.ml-2(icon="circle-arrow-right")
     b-modal(id="modal-milestone" size="lg" hide-footer centered)
@@ -90,10 +90,13 @@ export default Vue.extend({
         border-radius: 8px;
         display: inline-block;
         margin-right: 1rem;
+        margin-bottom: 1rem;
         object-fit: cover;
         vertical-align: top;
-        width: 96px; height: 96px;
-
+        width: 120px; height: 120px;
+        @media screen and (min-width: 1200px) {
+            margin-bottom: 0;
+        }
     }
     .timeline__details {
         display: inline-block;
@@ -106,6 +109,7 @@ export default Vue.extend({
         }
         .timeline__description {
             margin-top: 1rem;
+            overflow: hidden;
             width: 100%;
         }
     }
