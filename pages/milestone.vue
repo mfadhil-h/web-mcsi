@@ -18,13 +18,13 @@
                 @click="showModalMilestone(strapiImage($axios.defaults.baseURL, item.attributes.image), item.attributes.date, item.attributes.title, item.attributes.description)")
                 b-img.timeline__image(:src="strapiImage($axios.defaults.baseURL, item.attributes.image)")
                 .timeline__details
-                    .timeline__title
-                        span {{item.attributes.title}}
-                        font-awesome-icon.fw.title__arrow(icon="circle-arrow-right")
+                    .timeline__title {{item.attributes.title}}
                     small.text-muted.timeline__timestamp {{dayjs(item.attributes.date).format('YYYY')}}
                     .timeline__description 
-                        span {{item.attributes.description.substring(0,32)}}
-                        small.ml-2.text-muted Read more...
+                        span {{item.attributes.description.substring(0,50)}}
+                        small.ml-2.text-muted
+                            span Selengkapnya
+                            font-awesome-icon.fw.title__arrow.ml-2(icon="circle-arrow-right")
     b-modal(id="modal-milestone" size="lg" hide-footer centered)
         b-container(fluid).milestone-detail
             .text-center
@@ -103,22 +103,9 @@ export default Vue.extend({
             font-weight: 700;
             margin-top: 0;
             color: inherit;
-            .title__arrow {
-                opacity: 0;
-                transition-duration: 100ms;
-            }
-            &:hover {
-                color: #154D6D;
-                .title__arrow {
-                    opacity: 1;
-                    transition-duration: 300ms;
-                    transform: translateX(8px);
-                }
-            }
         }
         .timeline__description {
             margin-top: 1rem;
-            overflow: hidden;
             width: 100%;
         }
     }

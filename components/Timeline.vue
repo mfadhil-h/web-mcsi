@@ -5,13 +5,6 @@
             font-awesome-icon.fw(:icon="icon")
         .timeline-panel(@click="onClick")
             slot
-            //- .timeline-heading
-                .timeline-title(@click="onClick") 
-                    span {{title}}
-                    font-awesome-icon.fw.timeline-title__arrow(icon="circle-arrow-right")
-                small.text-muted {{timestamp}}
-            //- .timeline-body
-                slot
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -19,8 +12,6 @@ export default Vue.extend({
 	name: 'timeline',
     props: {
         icon: String,
-        title: String,
-        timestamp: String,
         right: Boolean
     },
     methods: {
@@ -161,27 +152,6 @@ export default Vue.extend({
 .timeline-panel {
     background-color: white !important;
 }
-/* .timeline-title {
-    cursor: default;
-    font-weight: 700;
-    margin-top: 0;
-    color: inherit;
-}
-.timeline-title:hover {
-    color: #154D6D;
-}
-.timeline-title > .timeline-title__arrow {
-    opacity: 0;
-    transition-duration: 100ms;
-}
-.timeline:hover .timeline-title > .timeline-title__arrow {
-    opacity: 1;
-    transition-duration: 300ms;
-    transform: translateX(8px);
-}
-.timeline-body {
-    margin-top: 1.5rem;
-} */
 .timeline-body > p,
 .timeline-body > ul {
     margin-bottom: 0;

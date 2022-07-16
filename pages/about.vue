@@ -4,7 +4,7 @@
     b-container(fluid)
         b-container.section(v-if="page")
             b-row
-                b-col(cols="12")
+                b-col.text-center.mb-4(cols="12")
                     .section__title {{page.sectionTitle}}
             b-row.mt-4
                 b-col(cols="12" md="5")
@@ -21,30 +21,36 @@
         .ribbon
         b-container.section(v-if="page")
             b-card-group(deck)
-                b-card.vision
-                    .vision__icon
-                        font-awesome-icon.icon__fa(icon="eye")
-                    .vision__label Visi
-                    .vision__description {{page.visionShort}}
-                    small.vision__link(v-b-modal.modal-vision)
-                        span Selengkapnya
-                        font-awesome-icon.ml-2(icon="circle-arrow-right")
-                b-card.vision
-                    .vision__icon
-                        font-awesome-icon.icon__fa(icon="bullseye")
-                    .vision__label Misi
-                    .vision__description {{page.missionShort}}
-                    small.vision__link(v-b-modal.modal-mission)
-                        span Selengkapnya
-                        font-awesome-icon.ml-2(icon="circle-arrow-right")
-                b-card.vision
-                    .vision__icon
-                        font-awesome-icon.icon__fa(icon="trophy")
-                    .vision__label Nilai Perusahaan
-                    .vision__description {{page.companyValueShort}}
-                    small.vision__link(v-b-modal.modal-company-value)
-                        span Selengkapnya
-                        font-awesome-icon.ml-2(icon="circle-arrow-right")
+                b-card.vision(no-body)
+                    b-card-body
+                        .vision__icon
+                            font-awesome-icon.icon__fa(icon="eye")
+                        .vision__label Visi
+                        .vision__description {{page.visionShort}}
+                    b-card-footer
+                        small.vision__link(v-b-modal.modal-vision)
+                            span Selengkapnya
+                            font-awesome-icon.ml-2(icon="circle-arrow-right")
+                b-card.vision(no-body)
+                    b-card-body
+                        .vision__icon
+                            font-awesome-icon.icon__fa(icon="bullseye")
+                        .vision__label Misi
+                        .vision__description {{page.missionShort}}
+                    b-card-footer
+                        small.vision__link(v-b-modal.modal-mission)
+                            span Selengkapnya
+                            font-awesome-icon.ml-2(icon="circle-arrow-right")
+                b-card.vision(no-body)
+                    b-card-body
+                        .vision__icon
+                            font-awesome-icon.icon__fa(icon="trophy")
+                        .vision__label Nilai Perusahaan
+                        .vision__description {{page.companyValueShort}}
+                    b-card-footer
+                        small.vision__link(v-b-modal.modal-company-value)
+                            span Selengkapnya
+                            font-awesome-icon.ml-2(icon="circle-arrow-right")
     b-modal(id="modal-vision" size="lg" hide-footer centered title="Visi")
         .modal-vision__content(v-html="micromark(page.visionLong)" v-if="page.visionLong")
     b-modal(id="modal-mission" size="lg" hide-footer centered title="Misi")
@@ -107,7 +113,6 @@ export default Vue.extend({
 .vision {
     border-radius: 16px;
     box-shadow: 0 4px 8px 0 rgba(black, .1);
-    padding: 1rem;
     text-align: center;
     .vision__icon {
         background-color: #EAEAEA;
@@ -135,7 +140,6 @@ export default Vue.extend({
     .vision__link {
         color: rgba(black, .6);
         float: left;
-        margin-top: 1.5rem;
         transition-duration: 100ms;
         &:hover {
             color: #CC0000;

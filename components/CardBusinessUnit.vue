@@ -1,10 +1,12 @@
 <template lang="pug">
-b-card.card-business-unit(:img-src="image")
-    .card-business-unit__label {{label}}
-    .card-business-unit__description.mb-4 {{description}}
-    small.card-business-unit__link(@click="onClick")
-        span Selengkapnya
-        font-awesome-icon.ml-2(icon="circle-arrow-right")
+b-card.card-business-unit(:img-src="image" no-body)
+    b-card-body
+        .card-business-unit__label {{label}}
+        .card-business-unit__description.mb-4 {{description}}
+    b-card-footer
+        small.card-business-unit__link(@click="onClick")
+            span Selengkapnya
+            font-awesome-icon.ml-2(icon="circle-arrow-right")
 </template>
 <script lang="ts">
 import Vue from 'vue'
