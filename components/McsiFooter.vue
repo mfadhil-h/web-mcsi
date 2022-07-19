@@ -74,9 +74,8 @@ export default Vue.extend({
     return {
       footerInfo: {},
       footerLinkCol2: [] as any,
-      logoLighthouse: require("@/assets/img/lighthouse.png"),
-      patternTr: require("@/assets/img/pattern-tr.png"),
-      patternBl: require("@/assets/img/pattern-bl.png"),
+      patternTr: require("@/static/pattern-tr.png"),
+      patternBl: require("@/static/pattern-bl.png"),
     };
   },
   methods: {

@@ -71,8 +71,8 @@ export default Vue.extend({
   },
   data: () => {
     return {
-      logoColor: require("@/assets/img/mcsi-color.png"),
-      logoWhite: require("@/assets/img/mcsi-white.png"),
+      logoColor: require("@/static/logo-color.png"),
+      logoWhite: require("@/static/logo-color.png"),
       menu: headerMenuId,
       options: particleOptions,
       scrollPosition: 0,
