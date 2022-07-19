@@ -22,7 +22,7 @@
 					.company-group__label
 						.company-group__name {{company.attributes.name}}
 						.company-group__description(v-html="micromark(company.attributes.descriptionHtml.substring(0,120))")
-						small.company-group__read-more(@click="showModalCompanyGroupDescription(company.attributes.descriptionHtml)")
+						.company-group__read-more(@click="showModalCompanyGroupDescription(company.attributes.descriptionHtml)")
 							span Selengkapnya
 							font-awesome-icon.fw.title__arrow.ml-2(icon="circle-arrow-right")
 	b-container.section--numbers(fluid)
@@ -132,6 +132,7 @@ export default Vue.extend({
 				opacity: .8;
 			}
 			.company-group__read-more {
+				font-size: 14px;
 				opacity: .5;
 			}
 			@media screen and (max-width: 767px) {

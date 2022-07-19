@@ -22,7 +22,7 @@
                     small.text-muted.timeline__timestamp {{dayjs(item.attributes.date).format('YYYY')}}
                     .timeline__description 
                         p.mb-0 {{item.attributes.description.substring(0,40)}}
-                        small.text-muted
+                        .timeline__link
                             span Selengkapnya
                             font-awesome-icon.fw.title__arrow.ml-2(icon="circle-arrow-right")
     b-modal(id="modal-milestone" size="lg" hide-footer centered)
@@ -111,6 +111,11 @@ export default Vue.extend({
             margin-top: 1rem;
             overflow: hidden;
             width: 100%;
+        }
+        .timeline__link {
+            font-size: 14px;
+            margin-top: .5rem;
+            opacity: .7;
         }
     }
     

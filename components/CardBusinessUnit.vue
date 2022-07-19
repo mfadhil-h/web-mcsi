@@ -4,7 +4,7 @@ b-card.card-business-unit(:img-src="image" no-body)
         .card-business-unit__label {{label}}
         .card-business-unit__description.mb-4 {{description}}
     b-card-footer
-        small.card-business-unit__link(@click="onClick")
+        .card-business-unit__link(@click="onClick")
             span Selengkapnya
             font-awesome-icon.ml-2(icon="circle-arrow-right")
 </template>
@@ -48,6 +48,7 @@ export default Vue.extend({
     }
     .card-business-unit__link {
         color: rgba(black, .6);
+        font-size: 14px;
         transition-duration: 100ms;
         &:hover {
             color: #CC0000;

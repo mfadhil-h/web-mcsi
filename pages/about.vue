@@ -28,7 +28,7 @@
                         .vision__label Visi
                         .vision__description {{page.visionShort}}
                     b-card-footer
-                        small.vision__link(v-b-modal.modal-vision)
+                        .vision__link(v-b-modal.modal-vision)
                             span Selengkapnya
                             font-awesome-icon.ml-2(icon="circle-arrow-right")
                 b-card.vision(no-body)
@@ -38,7 +38,7 @@
                         .vision__label Misi
                         .vision__description {{page.missionShort}}
                     b-card-footer
-                        small.vision__link(v-b-modal.modal-mission)
+                        .vision__link(v-b-modal.modal-mission)
                             span Selengkapnya
                             font-awesome-icon.ml-2(icon="circle-arrow-right")
                 b-card.vision(no-body)
@@ -48,7 +48,7 @@
                         .vision__label Nilai Perusahaan
                         .vision__description {{page.companyValueShort}}
                     b-card-footer
-                        small.vision__link(v-b-modal.modal-company-value)
+                        .vision__link(v-b-modal.modal-company-value)
                             span Selengkapnya
                             font-awesome-icon.ml-2(icon="circle-arrow-right")
     b-modal(id="modal-vision" size="lg" hide-footer centered title="Visi")
@@ -140,6 +140,7 @@ export default Vue.extend({
     .vision__link {
         color: rgba(black, .6);
         float: left;
+        font-size: 14px;
         transition-duration: 100ms;
         &:hover {
             color: #CC0000;
