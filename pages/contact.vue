@@ -1,13 +1,17 @@
 <template lang="pug">
 .contact
     PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
+    b-container.section.section--reading.text-center
+        b-card.section__bg(no-body v-if="page")
+            .section__title {{page.sectionTitle}}
+            .section__body {{page.sectionDescription}}
     b-container.section
         b-card.contact__office.mb-4
             b-row
                 b-col(cols="12" sm="6")
                     b-img.office__map(:src="strapiImage($axios.defaults.baseURL, page.mapImage)" v-if="page.mapImage!=null")
                 b-col(cols="12" sm="6" v-if="page.headOffice")
-                    .office__title Head Office
+                    .office__title Kantor Pusat
                     .office__name.mb-2 {{page.headOffice.label}}
                     .office__item {{page.headOffice.addressLine1}}
                     .office__item {{page.headOffice.addressLine2}}
@@ -16,28 +20,29 @@
                     .office__item Fax: {{page.headOffice.fax}}
                     .office__item Email: {{page.headOffice.email}}
         b-card.contact__email
-            .email__heading Reach Us on Email
+            .email__heading Hubungi Kami Melalui Email
             b-form.email__form
                 b-row
                     b-col(cols="12" sm="6")
-                        b-form-group(label="Full Name")
+                        b-form-group(label="Nama")
                             b-form-input(type="text" v-model="message.name")
-                        b-form-group(label="Phone")
+                        b-form-group(label="Nomor Telepon")
                             b-form-input(type="number"  v-model="message.phone")
                         b-form-group(label="Email")
                             b-form-input(type="email" v-model="message.email")
-                        b-form-group(label="Category")
+                        b-form-group(label="Kategori")
                             b-form-select(v-model="contactCategorySelected" v-if="contactCategories")
-                                b-form-select-option(value="0") - Please select type -
+                                b-form-select-option(value="0") - Pilih salah satu -
                                 b-form-select-option(v-for="(category, index) of contactCategories" :key="index" :value="category.attributes.description") {{category.attributes.description}}
                     b-col(cols="12" sm="6")
-                        b-form-group(label="Subject")
+                        b-form-group(label="Judul")
                             b-form-input(type="text"  v-model="message.subject")
-                        b-form-group(label="Message")
+                        b-form-group(label="Pesan")
                             b-form-textarea(type="text" rows="8" v-model="message.message")
                 b-button.float-right(
                     variant="primary"
-                    @click="sendEmail(page.headOffice.email, contactCategorySelected, message.subject, message.message, message.name, message.phone, message.email)") Submit
+                    size="lg"
+                    @click="sendEmail(page.headOffice.email, contactCategorySelected, message.subject, message.message, message.name, message.phone, message.email)") Kirim
 </template>
 
 <script lang="ts">

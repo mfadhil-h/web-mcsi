@@ -21,7 +21,7 @@
 					b-img.company-group__icon(:src="strapiImage($axios.defaults.baseURL, company.attributes.icon)")
 					.company-group__label
 						.company-group__name {{company.attributes.name}}
-						.company-group__description(v-html="micromark(company.attributes.descriptionHtml.substring(0,120))")
+						.company-group__description(v-html="micromark(company.attributes.descriptionHtml.substring(0,120)+' ...')")
 						.company-group__read-more(@click="showModalCompanyGroupDescription(company.attributes.descriptionHtml)")
 							span Selengkapnya
 							font-awesome-icon.fw.title__arrow.ml-2(icon="circle-arrow-right")

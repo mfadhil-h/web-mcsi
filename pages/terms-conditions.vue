@@ -2,6 +2,10 @@
 .terms-conditions
     PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
     b-container(fluid)
+        b-container.section.section--reading.text-center
+            b-card.section__bg(no-body v-if="page")
+                .section__title {{page.sectionTitle}}
+                .section__body {{page.sectionDescription}}
         b-container.section.section--reading
             b-card.section__bg(no-body v-if="page.termCondition")
                 .sitemap(v-html="micromark(page.termCondition)")
