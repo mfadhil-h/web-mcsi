@@ -35,8 +35,10 @@
                         :avatar="strapiImage($axios.defaults.baseURL, testimony.attributes.avatar)"
                         :position="testimony.attributes.position"
                         :testimony="testimony.attributes.testimony"
+                        @click="showModalTestimony(testimony.attributes.testimony)"
                     )
-                
+    b-modal(id="modal-testimony" size="lg" hide-footer centered)
+        p.text-center {{testimonySelected}}    
 </template>
 
 <script lang="ts">
@@ -55,6 +57,7 @@ export default Vue.extend({
         return {
             clients: [],
             testimonies: [],
+            testimonySelected: '',
             page: {}
         }
     },
@@ -76,6 +79,10 @@ export default Vue.extend({
                 let testimonies = await this.$axios.$get('/api/testimonies?populate=*')
                 this.testimonies = testimonies.data
             } catch (error) { }
+        },
+        showModalTestimony(description: string) {
+            this.testimonySelected = description
+            this.$bvModal.show('modal-testimony')
         },
         strapiImage
     },
