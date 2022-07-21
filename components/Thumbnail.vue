@@ -22,8 +22,10 @@ export default Vue.extend({
 </script>
 <style lang="scss" scoped>
 .thumbnail {
+    cursor: pointer;
     margin-bottom: 1rem;
     text-align: center;
+    transition-duration: 100ms;
     .thumbnail__image {
         width: 100%; height: auto;
         object-fit: cover;
@@ -38,6 +40,12 @@ export default Vue.extend({
         font-size: 16px;
         color: rgba(black, .7);
         margin-top: .5rem;
+    }
+    &:hover {
+        transition-duration: 300ms;
+        .thumbnail__image {
+            outline: 2px solid #CC0000;
+        }
     }
 }
 </style>

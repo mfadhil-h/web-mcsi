@@ -1,5 +1,5 @@
 <template lang="pug">
-.client
+.client-page
     PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
     b-container(fluid)
         b-container.section.section--reading.text-center
@@ -97,7 +97,8 @@ export default Vue.extend({
 .client {
     text-align: center;
     .client__logo {
-        height: 80px; width: auto;
+        height: 80px;
+        object-fit: contain;
     }
 }
 .testimony {
