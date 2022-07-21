@@ -6,7 +6,7 @@
   )
   //- 01.1 Fixed Navbar
   b-navbar.navbar.navbar--transparent(
-    toggleable="md",
+    toggleable="lg",
     type="dark",
     variant="dark",
     fixed

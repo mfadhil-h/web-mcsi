@@ -56,6 +56,7 @@ export default Vue.extend({
     .card-testimony__testimony {
         margin-bottom: 2rem;
         font-size: 16px;
+        text-align: left;
     }
     .card-testimony__person {
         font-size: 24px;

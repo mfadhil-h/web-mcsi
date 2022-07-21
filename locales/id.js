@@ -7,8 +7,8 @@ export default {
     "MCSIOrgChart": "Struktur Organisasi",
     "milestone": "Jejak Langkah",
     "achievement": "Sertifikat",
-    "newsAndInsight": "Berita & Wawasan",
-    "client": "Klien",
+    "newsAndInsight": "Berita",
+    "client": "Pelanggan",
     "career": "Karir",
     "contactUs": "Hubungi Kami"
 }
