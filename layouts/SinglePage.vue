@@ -18,18 +18,17 @@
       b-collapse#nav-collapse(is-nav)
         b-navbar-nav.ml-auto
           div(v-for="(item, index) of menu", :key="index")
-            b-nav-item(v-if="!item.children")
-              NuxtLink(:to="item.link") {{ item.label }}
+            b-nav-item(v-if="!item.children" :to="item.link") {{ item.label }}
             b-nav-item-dropdown(:text="item.label", v-if="item.children")
               b-dropdown-item(
                 v-for="(item, index) of item.children",
                 :key="index"
-              )
-                NuxtLink(:to="item.link") {{ item.label }}
+                :to="item.link"
+              ) {{ item.label }}
   //- 01.2 Sticky Navbar
   Transition
     b-navbar.navbar.navbar--sticky(
-      toggleable="md",
+      toggleable="lg",
       type="light",
       variant="light",
       sticky,
@@ -42,14 +41,13 @@
         b-collapse#nav-collapse(is-nav)
           b-navbar-nav.ml-auto
             div(v-for="(item, index) of menu", :key="index")
-              b-nav-item(v-if="!item.children")
-                NuxtLink(:to="item.link") {{ item.label }}
+              b-nav-item(v-if="!item.children" :to="item.link") {{item.label}}
               b-nav-item-dropdown(:text="item.label", v-if="item.children")
                 b-dropdown-item(
                   v-for="(item, index) of item.children",
                   :key="index"
-                )
-                  NuxtLink(:to="item.link") {{ item.label }}
+                  :to="item.link"
+                ) {{ item.label }}
   //- 02. Body
   .mcsi-body
     Nuxt

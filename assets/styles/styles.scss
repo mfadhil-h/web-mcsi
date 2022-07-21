@@ -51,10 +51,6 @@ img {
 .navbar {
     height: $header-height;
     z-index: 99;
-    // .nav-item {
-    //     padding-left: .5rem;
-    //     padding-right: .5rem;
-    // }
 }
 .navbar.navbar--transparent {
     background: none !important;
@@ -87,11 +83,18 @@ img {
                 background: none;
             }
             a.nuxt-link-exact-active {
+                // Not used
                 border-left: 4px solid #CC0000;
                 border-bottom: none;
                 padding-bottom: 0;
                 padding-left: 1rem;
             }
+        }
+        .dropdown-item.nuxt-link-exact-active {
+            border-left: 4px solid #CC0000;
+            border-bottom: none;
+            padding-bottom: 0;
+            padding-left: 1rem;
         }
     }
 }
@@ -117,11 +120,18 @@ img {
     .dropdown-menu {
         .dropdown-item {
             a.nuxt-link-exact-active {
+                // Not used
                 border-left: 4px solid #CC0000;
                 border-bottom: none;
                 padding-bottom: 0;
                 padding-left: 1rem;
             }
+        }
+        .dropdown-item.nuxt-link-exact-active {
+            border-left: 4px solid #CC0000;
+            border-bottom: none;
+            padding-bottom: 0;
+            padding-left: 1rem;
         }
     }
 }
