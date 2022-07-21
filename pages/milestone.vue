@@ -55,7 +55,7 @@ export default Vue.extend({
         dayjs,
         async getMilestones() {
             try {
-                let milestones = await this.$axios.$get('/api/milestones?populate=*')
+                let milestones = await this.$axios.$get('/api/milestones?populate=*&sort[0]=order')
                 this.milestones = milestones.data
                 console.log(this.milestones)
             } catch (error) { } 
