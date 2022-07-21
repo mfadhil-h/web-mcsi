@@ -49,7 +49,7 @@ export default Vue.extend({
         line-height: 48px;
     }
     @media screen and (max-width: 767px) {
-        background-color: rgba(black, .7);
+        // background-color: rgba(black, .7);
         padding: 1rem;
         top: inherit; bottom: 0; left: 0;
         text-align: left;

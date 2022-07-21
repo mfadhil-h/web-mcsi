@@ -3,7 +3,7 @@ b-card.card-management
     .card-management__name {{name}}
     .card-management__position {{position}}
     .card-management__link(@click="onClick")
-        span Meet {{name}}
+        span Pendapat dari {{name}}
         font-awesome-icon.link__arrow(icon="circle-arrow-right")
 </template>
 <script lang="ts">
@@ -45,7 +45,6 @@ export default Vue.extend({
         font-weight: 700;
         letter-spacing: -1px;
         line-height: 32px;
-        min-height: 64px;
     }
     .card-management__position {
         color: rgba(black, .54);

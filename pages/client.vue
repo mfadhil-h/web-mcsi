@@ -38,7 +38,7 @@
                         @click="showModalTestimony(testimony.attributes.testimony)"
                     )
     b-modal(id="modal-testimony" size="lg" hide-footer centered)
-        p.text-center {{testimonySelected}}    
+        p.text-justify {{testimonySelected}}    
 </template>
 
 <script lang="ts">
