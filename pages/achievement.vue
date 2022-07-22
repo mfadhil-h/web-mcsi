@@ -97,6 +97,13 @@ export default Vue.extend({
         this.getPage()
         this.getAwardGroups()
         this.getAwards()
+    },
+    updated() {
+        const dots = document.getElementsByClassName('VueCarousel-dot')
+        for (let index = 0; index < dots.length; index += 1) {
+            const element: any = dots[index];
+            element.title= '';
+        }
     }
 })
 </script>
