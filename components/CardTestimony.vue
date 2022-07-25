@@ -17,18 +17,18 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-	name: 'card-testimony',
-    props: {
-        person: String,
-        avatar: String,
-        position: String,
-        testimony: String
-    },
-    methods: {
-        onClick() {
-            this.$emit('click')
-        }
+  name: 'CardTestimony',
+  props: {
+    person: String,
+    avatar: String,
+    position: String,
+    testimony: String
+  },
+  methods: {
+    onClick () {
+      this.$emit('click')
     }
+  }
 })
 </script>
 <style lang="scss" scoped>

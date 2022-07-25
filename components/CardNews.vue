@@ -9,15 +9,15 @@ b-card.card-news(:img-src="image")
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-	name: 'card-business-unit',
-    props: {
-        id: Number,
-        image: String,
-        title: String,
-        description: String,
-        author: String,
-        timestamp: String,
-    }
+  name: 'CardBusinessUnit',
+  props: {
+    id: Number,
+    image: String,
+    title: String,
+    description: String,
+    author: String,
+    timestamp: String
+  }
 })
 </script>
 <style lang="scss" scoped>

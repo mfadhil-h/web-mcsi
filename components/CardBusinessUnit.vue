@@ -11,17 +11,17 @@ b-card.card-business-unit(:img-src="image" no-body)
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-	name: 'card-business-unit',
-    props: {
-        image: String,
-        label: String,
-        description: String
-    },
-    methods: {
-        onClick() {
-            this.$emit('click')
-        }
+  name: 'CardBusinessUnit',
+  props: {
+    image: String,
+    label: String,
+    description: String
+  },
+  methods: {
+    onClick () {
+      this.$emit('click')
     }
+  }
 })
 </script>
 <style lang="scss" scoped>

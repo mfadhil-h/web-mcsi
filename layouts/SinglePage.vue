@@ -56,40 +56,40 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import headerMenuId, { translatedMenu } from "./menu.js";
-import McsiFooter from "@/components/McsiFooter.vue";
-import type { Engine } from "tsparticles-engine"; // TS Particles
-import { loadFull } from "tsparticles"; // TS Particles
-import particleOptions from "~/utilities/ParticleOptions";
+import Vue from 'vue'
+import type { Engine } from 'tsparticles-engine' // TS Particles
+import { loadFull } from 'tsparticles' // TS Particles
+import headerMenuId, { translatedMenu } from './menu.js'
+import McsiFooter from '@/components/McsiFooter.vue'
+import particleOptions from '~/utilities/ParticleOptions'
 export default Vue.extend({
-  name: "SinglePageLayout",
+  name: 'SinglePageLayout',
   components: {
-    McsiFooter,
+    McsiFooter
   },
   data: () => {
     return {
-      logoColor: require("@/static/logo-color.png"),
-      logoWhite: require("@/static/logo-color.png"),
+      logoColor: require('@/static/logo-color.png'),
+      logoWhite: require('@/static/logo-color.png'),
       menu: headerMenuId,
       options: particleOptions,
       scrollPosition: 0,
-      scrollPositionBound: 80,
-    };
+      scrollPositionBound: 80
+    }
+  },
+  mounted () {
+    this.menu = translatedMenu(this)
+    window.addEventListener('scroll', this.onScroll)
   },
   methods: {
-    async particlesInit(engine: Engine): Promise<void> {
-      await loadFull(engine);
+    async particlesInit (engine: Engine): Promise<void> {
+      await loadFull(engine)
     },
-    onScroll(e: any) {
-      this.scrollPosition = e.target.documentElement.scrollTop;
-    },
-  },
-  mounted() {
-    this.menu = translatedMenu(this);
-    window.addEventListener("scroll", this.onScroll);
-  },
-});
+    onScroll (e: any) {
+      this.scrollPosition = e.target.documentElement.scrollTop
+    }
+  }
+})
 </script>
 <style lang="scss" scoped>
 .layout {

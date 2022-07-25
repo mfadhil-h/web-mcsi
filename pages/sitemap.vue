@@ -19,29 +19,29 @@ import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 
 export default Vue.extend({
-    name: 'sitemap',
-    layout: 'SinglePage',
-    components: {
-        PageHeader,
-    },
-    data: () => {
-        return {
-            page: {}
-        }
-    },
-    methods: {
-        async getPage() {
-            try {
-                let page = await this.$axios.$get('/api/page-sitemap?populate=*')
-                this.page = page.data.attributes
-            } catch (error) { } 
-        },
-        micromark,
-        strapiImage
-    },
-    mounted() {
-        this.getPage()
+  name: 'Sitemap',
+  components: {
+    PageHeader
+  },
+  layout: 'SinglePage',
+  data: () => {
+    return {
+      page: {}
     }
+  },
+  mounted () {
+    this.getPage()
+  },
+  methods: {
+    async getPage () {
+      try {
+        const page = await this.$axios.$get('/api/page-sitemap?populate=*')
+        this.page = page.data.attributes
+      } catch (error) { }
+    },
+    micromark,
+    strapiImage
+  }
 })
 </script>
 <style scoped>

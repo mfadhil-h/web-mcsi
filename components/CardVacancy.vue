@@ -8,18 +8,18 @@ b-card.card-vacancy
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-	name: 'card-vacancy',
-    props: {
-        title: String,
-        type: String,
-        date: String,
-        link: String
-    },
-    methods: {
-        onClick() {
-            this.$emit('click')
-        }
+  name: 'CardVacancy',
+  props: {
+    title: String,
+    type: String,
+    date: String,
+    link: String
+  },
+  methods: {
+    onClick () {
+      this.$emit('click')
     }
+  }
 })
 </script>
 <style lang="scss" scoped>
@@ -40,7 +40,7 @@ export default Vue.extend({
         font-size: 16px;
         letter-spacing: -5%;
         line-height: 24px;
-        margin-bottom: .5rem;   
+        margin-bottom: .5rem;
     }
     .card-vacancy__link {
         margin-top: 1.5rem;

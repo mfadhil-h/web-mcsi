@@ -18,28 +18,28 @@ import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 
 export default Vue.extend({
-    name: 'terms-conditions',
-    layout: 'SinglePage',
-    components: {
-        PageHeader,
-    },
-    data: () => {
-        return {
-            page: {}
-        }
-    },
-    methods: {
-        async getPage() {
-            try {
-                let page = await this.$axios.$get('/api/page-term-condition?populate=*')
-                this.page = page.data.attributes
-            } catch (error) { } 
-        },
-        micromark,
-        strapiImage
-    },
-    mounted() {
-        this.getPage()
+  name: 'TermsConditions',
+  components: {
+    PageHeader
+  },
+  layout: 'SinglePage',
+  data: () => {
+    return {
+      page: {}
     }
+  },
+  mounted () {
+    this.getPage()
+  },
+  methods: {
+    async getPage () {
+      try {
+        const page = await this.$axios.$get('/api/page-term-condition?populate=*')
+        this.page = page.data.attributes
+      } catch (error) { }
+    },
+    micromark,
+    strapiImage
+  }
 })
 </script>

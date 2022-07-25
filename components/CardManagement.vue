@@ -9,17 +9,17 @@ b-card.card-management
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-	name: 'card-management',
-    props: {
-        name: String,
-        position: String,
-        id: Number
-    },
-    methods: {
-        onClick() {
-            this.$emit('click')
-        }
+  name: 'CardManagement',
+  props: {
+    name: String,
+    position: String,
+    id: Number
+  },
+  methods: {
+    onClick () {
+      this.$emit('click')
     }
+  }
 })
 </script>
 <style lang="scss" scoped>

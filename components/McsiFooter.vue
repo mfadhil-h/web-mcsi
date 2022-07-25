@@ -66,40 +66,40 @@ b-container.mcsi-footer(fluid)
       b-col Copyright © 2022 PT MCS Internasional - All Rights Reserved
 </template>
 <script lang="ts">
-import Vue from "vue";
-import { strapiImage } from "@/utilities/StrapiImage";
+import Vue from 'vue'
+import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-  name: "footer",
+  name: 'Footer',
   data: () => {
     return {
       footerInfo: {},
       footerLinkCol2: [] as any,
-      patternTr: require("@/static/pattern-tr.png"),
-      patternBl: require("@/static/pattern-bl.png"),
-    };
+      patternTr: require('@/static/pattern-tr.png'),
+      patternBl: require('@/static/pattern-bl.png')
+    }
+  },
+  mounted () {
+    this.footerLinkCol2 = [
+      { label: this.$t('privacyPolicy') as string, link: '/privacy-policy' },
+      { label: this.$t('termConditions') as string, link: '/terms-conditions' },
+      { label: this.$t('contactUs') as string, link: '/contact' },
+      { label: this.$t('sitemap') as string, link: '/sitemap' }
+    ]
+    this.getFooter()
   },
   methods: {
-    async getFooter() {
+    async getFooter () {
       try {
-        let footerInfo = await this.$axios.$get("/api/footer?populate=*");
-        this.footerInfo = footerInfo.data.attributes;
+        const footerInfo = await this.$axios.$get('/api/footer?populate=*')
+        this.footerInfo = footerInfo.data.attributes
       } catch (error) {}
     },
-    openSocial(url: string) {
-      window.open(url, "_blank");
-    },  
-    strapiImage,
-  },
-  mounted() {
-    this.footerLinkCol2 = [
-      { label: this.$t("privacyPolicy") as string, link: "/privacy-policy" },
-      { label: this.$t("termConditions") as string, link: "/terms-conditions" },
-      { label: this.$t("contactUs") as string, link: "/contact" },
-      { label: this.$t("sitemap") as string, link: '/sitemap'}
-    ];
-    this.getFooter();
-  },
-});
+    openSocial (url: string) {
+      window.open(url, '_blank')
+    },
+    strapiImage
+  }
+})
 </script>
 <style lang="scss" scoped>
 .mcsi-footer {
@@ -156,21 +156,21 @@ export default Vue.extend({
   width: auto;
 }
 </style>
-<i18n> 
-{   
-  "id": {     
+<i18n>
+{
+  "id": {
     "source": "Sumber Informasi",
     "privacyPolicy":"Kebijakan Privasi",
     "termConditions":"Syarat dan Ketentuan",
     "contactUs":"Hubungi Kami",
     "sitemap": "Peta Situs"
-  },   
-  "en": {     
+  },
+  "en": {
     "source": "Source",
     "privacyPolicy":"Privacy Policy",
     "termConditions":"Term and Conditions",
     "contactUs":"Contact Us",
     "sitemap": "Site map"
-   } 
-} 
+   }
+}
 </i18n>

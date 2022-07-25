@@ -14,7 +14,7 @@
                     .category__label(@click="getBlogs")
                         font-awesome-icon.fw.mr-2(icon="tag")
                         span All tags
-                    .category__label(v-for="(category, index) of blogCategories" :key="index" @click="getFilteredBlogs(category.attributes.category)") 
+                    .category__label(v-for="(category, index) of blogCategories" :key="index" @click="getFilteredBlogs(category.attributes.category)")
                         font-awesome-icon.fw.mr-2(icon="tag")
                         span {{category.attributes.category}}
             b-col(cols="12" lg="8")
@@ -22,9 +22,9 @@
                     b-col(cols="12" lg="6" v-for="(blog, index) of blogs" :key="index")
                         card-news(
                             :id="blog.id"
-                            :image="strapiImage($axios.defaults.baseURL, blog.attributes.featuredImage)" 
-                            :title="blog.attributes.title" 
-                            :description="blog.attributes.contentShort" 
+                            :image="strapiImage($axios.defaults.baseURL, blog.attributes.featuredImage)"
+                            :title="blog.attributes.title"
+                            :description="blog.attributes.contentShort"
                             :timestamp="dayjs(blog.attributes.publishedAt).format('DD-MMM-YYYY')"
                             :author="blog.attributes.author"
                         )
@@ -37,53 +37,53 @@ import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 import Thumbnail from '@/components/Thumbnail.vue'
 export default Vue.extend({
-    name: 'company-profile',
-    layout: 'SinglePage',
-    components: {
-        CardNews,
-        PageHeader,
-        Thumbnail
-    },
-    data: () => {
-        return {
-            blogCategories: [],
-            blogs: [],
-            page: {}
-        }
-    },
-    methods: {
-        dayjs,
-        async getBlogCategories() {
-            try {
-                let blogCategories = await this.$axios.$get('/api/blog-categories?populate=*')
-                this.blogCategories = blogCategories.data
-            } catch (error) { }
-        },
-        async getBlogs() {
-            try {
-                let blogs = await this.$axios.$get('/api/blogs?populate=*')
-                this.blogs = blogs.data
-            } catch (error) { }
-        },
-        async getFilteredBlogs(filter: string) {
-            try {
-                let blogs = await this.$axios.$get(`/api/blogs?populate=*&filters[category][category][$contains]=${filter}`)
-                this.blogs = blogs.data
-            } catch (error) { }
-        },
-        async getPage() {
-            try {
-                let page = await this.$axios.$get('/api/page-blog?populate=*')
-                this.page = page.data.attributes
-            } catch (error) { } 
-        },
-        strapiImage
-    },
-    mounted() {
-        this.getPage()
-        this.getBlogCategories()
-        this.getBlogs()
+  name: 'CompanyProfile',
+  components: {
+    CardNews,
+    PageHeader,
+    Thumbnail
+  },
+  layout: 'SinglePage',
+  data: () => {
+    return {
+      blogCategories: [],
+      blogs: [],
+      page: {}
     }
+  },
+  mounted () {
+    this.getPage()
+    this.getBlogCategories()
+    this.getBlogs()
+  },
+  methods: {
+    dayjs,
+    async getBlogCategories () {
+      try {
+        const blogCategories = await this.$axios.$get('/api/blog-categories?populate=*')
+        this.blogCategories = blogCategories.data
+      } catch (error) { }
+    },
+    async getBlogs () {
+      try {
+        const blogs = await this.$axios.$get('/api/blogs?populate=*')
+        this.blogs = blogs.data
+      } catch (error) { }
+    },
+    async getFilteredBlogs (filter: string) {
+      try {
+        const blogs = await this.$axios.$get(`/api/blogs?populate=*&filters[category][category][$contains]=${filter}`)
+        this.blogs = blogs.data
+      } catch (error) { }
+    },
+    async getPage () {
+      try {
+        const page = await this.$axios.$get('/api/page-blog?populate=*')
+        this.page = page.data.attributes
+      } catch (error) { }
+    },
+    strapiImage
+  }
 })
 </script>
 <style lang="scss" scoped>

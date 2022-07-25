@@ -52,54 +52,54 @@ import { strapiImage } from '@/utilities/StrapiImage'
 import Videotron from '@/components/Videotron.vue'
 import YoutubePlayer from '@/components/YoutubePlayer.vue'
 export default Vue.extend({
-	name: 'IndexPage',
-	layout: 'SinglePage',
-	components: {
-		Videotron,
-		YoutubePlayer
-	},
-	data: () => {
-		return {
-			companies: [],
-			companyDescription: '',
-			numberDescription: '',
-			page: {}
-		}
-	},
-	methods: {
-		async getCompanyGroup() {
-            try {
-                let companies = await this.$axios.$get('/api/company-groups?populate=*')
-                this.companies = companies.data
-            } catch (error) { } 
-        },
-		async getPage() {
-            try {
-                let page = await this.$axios.$get('/api/page-home?populate=*')
-                this.page = page.data.attributes
-            } catch (error) { } 
-        },
-		micromark,
-		onClickArrow() {
-			document.getElementById('scrollTarget')?.scrollIntoView({behavior: 'smooth'})
-		},
-		showModalCompanyGroupDescription(description: string) {
-            this.companyDescription = description
-            this.$bvModal.show('modal-company-group')
-        },
-		showModalNumbers(description: string) {
-			this.numberDescription = description
-			this.$bvModal.show('modal-numbers')
-		},
-		showModalVideoYoutube() {
-			this.$bvModal.show('modal-video-youtube')
-		},
-		strapiImage
-	},
-	mounted() {
-		this.getCompanyGroup()
-		this.getPage()
-	}
+  name: 'IndexPage',
+  components: {
+    Videotron,
+    YoutubePlayer
+  },
+  layout: 'SinglePage',
+  data: () => {
+    return {
+      companies: [],
+      companyDescription: '',
+      numberDescription: '',
+      page: {}
+    }
+  },
+  mounted () {
+    this.getCompanyGroup()
+    this.getPage()
+  },
+  methods: {
+    async getCompanyGroup () {
+      try {
+        const companies = await this.$axios.$get('/api/company-groups?populate=*')
+        this.companies = companies.data
+      } catch (error) { }
+    },
+    async getPage () {
+      try {
+        const page = await this.$axios.$get('/api/page-home?populate=*')
+        this.page = page.data.attributes
+      } catch (error) { }
+    },
+    micromark,
+    onClickArrow () {
+      document.getElementById('scrollTarget')?.scrollIntoView({ behavior: 'smooth' })
+    },
+    showModalCompanyGroupDescription (description: string) {
+      this.companyDescription = description
+      this.$bvModal.show('modal-company-group')
+    },
+    showModalNumbers (description: string) {
+      this.numberDescription = description
+      this.$bvModal.show('modal-numbers')
+    },
+    showModalVideoYoutube () {
+      this.$bvModal.show('modal-video-youtube')
+    },
+    strapiImage
+  }
 })
 </script>
 <style lang="scss" scoped>

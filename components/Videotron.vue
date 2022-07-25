@@ -6,29 +6,29 @@
 			.display-2 {{header1}}
 			.display-1 {{header2}}
 			font-awesome-icon.labels__arrow-down(icon="arrow-down" @click="onClickArrow")
-			b-button.play-button(size="lg" variant="outline-primary" @click="onClickPlay") 
+			b-button.play-button(size="lg" variant="outline-primary" @click="onClickPlay")
 				span Play Video
 				font-awesome-icon.ml-4(icon="play")
 </template>
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-	name: 'videotron-image',
-	props: {
-		header1: String,
-		header2: String,
-		video: String,
-		videoImage: String,
-		youtubeLink: String
-	},
-	methods: {
-		onClickArrow() {
-			this.$emit('onClickArrow')
-		},
-		onClickPlay() {
-			this.$emit('onClickPlay')
-		}
-	}
+  name: 'VideotronImage',
+  props: {
+    header1: String,
+    header2: String,
+    video: String,
+    videoImage: String,
+    youtubeLink: String
+  },
+  methods: {
+    onClickArrow () {
+      this.$emit('onClickArrow')
+    },
+    onClickPlay () {
+      this.$emit('onClickPlay')
+    }
+  }
 })
 </script>
 <style lang="scss" scoped>

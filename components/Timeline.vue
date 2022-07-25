@@ -9,16 +9,16 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-	name: 'timeline',
-    props: {
-        icon: String,
-        right: Boolean
-    },
-    methods: {
-        onClick() {
-            this.$emit('click')
-        }
+  name: 'Timeline',
+  props: {
+    icon: String,
+    right: Boolean
+  },
+  methods: {
+    onClick () {
+      this.$emit('click')
     }
+  }
 })
 </script>
 <style scoped>

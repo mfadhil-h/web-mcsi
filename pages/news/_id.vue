@@ -17,30 +17,30 @@ import { micromark } from 'micromark'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-    name: 'news-detail',
-    layout: 'SinglePage',
-    components: {
-        PageHeader
-    },
-    data: () => {
-        return {
-            blog: {}
-        }
-    },
-    methods: {
-        dayjs,
-        async getBlog() {
-            try {
-                let blog = await this.$axios.$get(`/api/blogs/${this.$route.params.id}?populate=*`)
-                this.blog = blog.data
-            } catch (error) { }
-        },
-        micromark,
-        strapiImage
-    },
-    mounted() {
-        this.getBlog()
+  name: 'NewsDetail',
+  components: {
+    PageHeader
+  },
+  layout: 'SinglePage',
+  data: () => {
+    return {
+      blog: {}
     }
+  },
+  mounted () {
+    this.getBlog()
+  },
+  methods: {
+    dayjs,
+    async getBlog () {
+      try {
+        const blog = await this.$axios.$get(`/api/blogs/${this.$route.params.id}?populate=*`)
+        this.blog = blog.data
+      } catch (error) { }
+    },
+    micromark,
+    strapiImage
+  }
 })
 </script>
 <style lang="scss" scoped>

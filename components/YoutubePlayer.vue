@@ -1,21 +1,21 @@
 <template lang="pug">
 .youtube-video-container
     iframe(
-        width="560" 
-        height="315" 
-        :src="src" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        width="560"
+        height="315"
+        :src="src"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen)
 </template>
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-	name: 'youtube-player',
-    props: {
-        src: String
-    }
+  name: 'YoutubePlayer',
+  props: {
+    src: String
+  }
 })
 </script>
 <style lang="scss" scoped>

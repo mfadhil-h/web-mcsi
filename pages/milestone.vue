@@ -9,10 +9,10 @@
     b-container
         .milestone
             timeline.timeline(
-                v-for="(item, index) of milestones" 
-                :key="index" 
-                :title="item.attributes.title" 
-                icon="calendar" 
+                v-for="(item, index) of milestones"
+                :key="index"
+                :title="item.attributes.title"
+                icon="calendar"
                 :timestamp="dayjs(item.attributes.date).format('YYYY')"
                 :right="index%2==0"
                 @click="showModalMilestone(strapiImage($axios.defaults.baseURL, item.attributes.image), item.attributes.date, item.attributes.title, item.attributes.description)")
@@ -20,7 +20,7 @@
                 .timeline__details
                     .timeline__title {{item.attributes.title}}
                     small.text-muted.timeline__timestamp {{dayjs(item.attributes.date).format('YYYY')}}
-                    .timeline__description 
+                    .timeline__description
                         p.mb-0 {{item.attributes.description.substring(0,36)+" ..."}}
                         .timeline__link
                             span Selengkapnya
@@ -39,48 +39,48 @@ import * as dayjs from 'dayjs'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-    name: 'milestone',
-    layout: 'SinglePage',
-    components: {
-        PageHeader,
-    },
-    data: () => {
-        return {
-            milestones: [],
-            milestoneSelected: {},
-            page: {}
-        }
-    },
-    methods: {
-        dayjs,
-        async getMilestones() {
-            try {
-                let milestones = await this.$axios.$get('/api/milestones?populate=*&sort[0]=order')
-                this.milestones = milestones.data
-                console.log(this.milestones)
-            } catch (error) { } 
-        },
-        async getPage() {
-            try {
-                let page = await this.$axios.$get('/api/page-milestone?populate=*')
-                this.page = page.data.attributes
-            } catch (error) { } 
-        },
-        showModalMilestone(image: string, date: string, title: string, description: string) {
-            this.milestoneSelected = {
-                image: image,
-                date: date,
-                title: title,
-                description: description
-            }
-            this.$bvModal.show('modal-milestone')
-        },
-        strapiImage
-    },
-    mounted() {
-        this.getPage()
-        this.getMilestones()
+  name: 'Milestone',
+  components: {
+    PageHeader
+  },
+  layout: 'SinglePage',
+  data: () => {
+    return {
+      milestones: [],
+      milestoneSelected: {},
+      page: {}
     }
+  },
+  mounted () {
+    this.getPage()
+    this.getMilestones()
+  },
+  methods: {
+    dayjs,
+    async getMilestones () {
+      try {
+        const milestones = await this.$axios.$get('/api/milestones?populate=*&sort[0]=order')
+        this.milestones = milestones.data
+        console.log(this.milestones)
+      } catch (error) { }
+    },
+    async getPage () {
+      try {
+        const page = await this.$axios.$get('/api/page-milestone?populate=*')
+        this.page = page.data.attributes
+      } catch (error) { }
+    },
+    showModalMilestone (image: string, date: string, title: string, description: string) {
+      this.milestoneSelected = {
+        image,
+        date,
+        title,
+        description
+      }
+      this.$bvModal.show('modal-milestone')
+    },
+    strapiImage
+  }
 })
 </script>
 <style lang="scss" scoped>
@@ -118,7 +118,7 @@ export default Vue.extend({
             opacity: .7;
         }
     }
-    
+
 }
 .milestone-detail {
     .milestone-detail__image {

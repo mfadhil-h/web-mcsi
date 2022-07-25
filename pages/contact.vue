@@ -50,54 +50,54 @@ import Vue from 'vue'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-    name: 'contact',
-    layout: 'SinglePage',
-    components: {
-        PageHeader,
-    },
-    data: () => {
-        return {
-            contactCategories: [],
-            contactCategorySelected: '',
-            contactEmail: '',
-            message: {
-                name: '',
-                phone: '',
-                email: '',
-                subject: '',
-                message: ''
-            },
-            page: {},
-        }
-    },
-    methods: {
-        async getContactCategories() {
-            try {
-                let contactCategories = await this.$axios.$get('/api/contact-categories')
-                this.contactCategories = contactCategories.data
-                console.log('cat', this.contactCategories)
-            } catch (error) { }
-        },
-        async getPage() {
-            try {
-                let page = await this.$axios.$get('/api/page-contact-us?populate=*')
-                this.page = page.data.attributes
-            } catch (error) { } 
-        },
-        sendEmail(to: string, category: string, subject: string, message: string, name: string, phone: string, email: string) {
-            let mailLink = 'mailto:'
-                            + to
-                            + '?subject=' + encodeURIComponent(category) + ' - ' + encodeURIComponent(subject)
-                            + '&body=' +  encodeURIComponent(name) + ' - (' + encodeURIComponent(phone) + ', ' + encodeURIComponent(email) + ')%0D%0D'
-                            + encodeURIComponent(message);
-            window.location.href = mailLink
-        },
-        strapiImage
-    },
-    mounted() {
-        this.getPage()
-        this.getContactCategories()
+  name: 'Contact',
+  components: {
+    PageHeader
+  },
+  layout: 'SinglePage',
+  data: () => {
+    return {
+      contactCategories: [],
+      contactCategorySelected: '',
+      contactEmail: '',
+      message: {
+        name: '',
+        phone: '',
+        email: '',
+        subject: '',
+        message: ''
+      },
+      page: {}
     }
+  },
+  mounted () {
+    this.getPage()
+    this.getContactCategories()
+  },
+  methods: {
+    async getContactCategories () {
+      try {
+        const contactCategories = await this.$axios.$get('/api/contact-categories')
+        this.contactCategories = contactCategories.data
+        console.log('cat', this.contactCategories)
+      } catch (error) { }
+    },
+    async getPage () {
+      try {
+        const page = await this.$axios.$get('/api/page-contact-us?populate=*')
+        this.page = page.data.attributes
+      } catch (error) { }
+    },
+    sendEmail (to: string, category: string, subject: string, message: string, name: string, phone: string, email: string) {
+      const mailLink = 'mailto:' +
+                            to +
+                            '?subject=' + encodeURIComponent(category) + ' - ' + encodeURIComponent(subject) +
+                            '&body=' + encodeURIComponent(name) + ' - (' + encodeURIComponent(phone) + ', ' + encodeURIComponent(email) + ')%0D%0D' +
+                            encodeURIComponent(message)
+      window.location.href = mailLink
+    },
+    strapiImage
+  }
 })
 </script>
 <style lang="scss" scoped>

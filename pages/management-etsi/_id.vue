@@ -8,7 +8,7 @@
                     .profile__name {{management.attributes.name}}
                     .profile__position {{management.attributes.position}}
                     .profile__description(v-html="micromark(management.attributes.description)")
-                b-button.mt-4(variant="outline-secondary" @click="goBack") 
+                b-button.mt-4(variant="outline-secondary" @click="goBack")
                     font-awesome-icon.fw(icon="arrow-left")
                     span.ml-2 Back to Management
 </template>
@@ -20,32 +20,32 @@ import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 
 export default Vue.extend({
-    name: 'orgchart-etsi-id',
-    layout: 'SinglePage',
-    components: {
-        PageHeader,
-    },
-    data: () => {
-        return {
-            management: {} as any
-        }
-    },
-    methods: {
-        async getManagement() {
-            try {
-                let managements = await this.$axios.$get(`/api/organization-chart-etsis/${this.$route.params.id}?populate=*`)
-                this.management = managements.data
-            } catch (error) { }
-        },
-        goBack() {
-            this.$router.go(-1)
-        },
-        micromark,
-        strapiImage
-    },
-    mounted() {
-        this.getManagement()
+  name: 'OrgchartEtsiId',
+  components: {
+    PageHeader
+  },
+  layout: 'SinglePage',
+  data: () => {
+    return {
+      management: {} as any
     }
+  },
+  mounted () {
+    this.getManagement()
+  },
+  methods: {
+    async getManagement () {
+      try {
+        const managements = await this.$axios.$get(`/api/organization-chart-etsis/${this.$route.params.id}?populate=*`)
+        this.management = managements.data
+      } catch (error) { }
+    },
+    goBack () {
+      this.$router.go(-1)
+    },
+    micromark,
+    strapiImage
+  }
 })
 </script>
 <style lang="scss" scoped>

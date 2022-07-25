@@ -9,7 +9,7 @@ export default {
   head: {
     title: 'MCS Internasional',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'id'
     },
     meta: [
       { charset: 'utf-8' },
@@ -69,7 +69,7 @@ export default {
   },
   axios: {
     proxy: false,
-    baseUrl: process.env.NODE_ENV == "dev" ? 'http://localhost:1337' : "/"
+    baseUrl: process.env.NODE_ENV == 'dev' ? 'http://localhost:1337' : '/'
   },
 
   publicRuntimeConfig: {

@@ -8,17 +8,17 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-	name: 'page-header',
-	data: () => {
-		return {
+  name: 'PageHeader',
+  props: {
+    heading1: String,
+    heading2: String,
+    image: String
+  },
+  data: () => {
+    return {
 
-		}
-	},
-    props: {
-        heading1: String,
-        heading2: String,
-        image: String
     }
+  }
 })
 </script>
 <style lang="scss" scoped>
@@ -28,7 +28,7 @@ export default Vue.extend({
 .page-header__image {
     filter: brightness(50%);
     height: auto; max-height: 360px;
-    width: 100%; 
+    width: 100%;
     object-fit: cover;
 }
 .page-header__title {

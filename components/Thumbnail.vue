@@ -7,17 +7,17 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-	name: 'thumbnail',
-    props: {
-        image: String,
-        heading: String,
-        subheading: String
-    },
-    methods: {
-        onClick() {
-            this.$emit('click')
-        }
+  name: 'Thumbnail',
+  props: {
+    image: String,
+    heading: String,
+    subheading: String
+  },
+  methods: {
+    onClick () {
+      this.$emit('click')
     }
+  }
 })
 </script>
 <style lang="scss" scoped>
