@@ -1,9 +1,11 @@
 // 0. Variables
 $bp-reading: 800px;
+$bp-screen: 991px;
 $primary: #CC0000;
 $secondary: #154D6D;
 $font-family: 'Open Sans', 'Roboto', 'Arial', sans-serif;
-$header-height: 80px;
+$header-height: 116px;
+$header-height-narrow: 80px;
 
 // Import Bootstrap SCSS
 @import 'bootstrap/scss/bootstrap.scss';
@@ -51,6 +53,9 @@ img {
 .navbar {
     height: $header-height;
     z-index: 99;
+    @media screen and (max-width: $bp-screen){
+        height: $header-height-narrow
+    }
 }
 .navbar.navbar--transparent {
     background: none !important;
@@ -66,6 +71,12 @@ img {
         font-weight: 700;
         padding-bottom: .5rem;
         border-bottom: 4px solid #CC0000;
+        border-left: none;
+        @media screen and (max-width: $bp-screen) {
+            border-bottom: none;
+            border-left: 4px solid #CC0000;
+            padding-left: 1rem;
+        }
     }
     .navbar-collapse {
         .nav-item {
@@ -100,6 +111,7 @@ img {
 }
 .navbar.navbar--sticky {
     margin-top: -$header-height;
+    box-shadow: 0 2px 8px 0 rgba(black, .2);
     a {
         color: #424242;
         text-decoration: none;
@@ -108,6 +120,12 @@ img {
         font-weight: 700;
         padding-bottom: .5rem;
         border-bottom: 4px solid #CC0000;
+        border-left: none;
+        @media screen and (max-width: $bp-screen) {
+            border-bottom: none;
+            border-left: 4px solid #CC0000;
+            padding-left: 1rem;
+        }
     }
     .navbar-collapse {
         .nav-item {
