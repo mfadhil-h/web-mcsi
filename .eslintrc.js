@@ -1,16 +1,17 @@
 module.exports = {
   root: true,
   env: {
-    browser: true,
     node: true
   },
-  extends: [
-    '@nuxtjs/eslint-config-typescript',
-    'plugin:nuxt/recommended'
+  'extends': [
+    'plugin:vue/essential',
+    'eslint:recommended'
   ],
-  plugins: [
-    'pug'
-  ],
-  // add your custom rules here
-  rules: {}
+  rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+  },
+  parserOptions: {
+    parser: 'babel-eslint'
+  }
 }
