@@ -26,52 +26,54 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { micromark } from 'micromark'
-import CardBusinessUnit from '@/components/CardBusinessUnit.vue'
-import PageHeader from '@/components/PageHeader.vue'
-import { strapiImage } from '@/utilities/StrapiImage'
+import Vue from "vue";
+import { micromark } from "micromark";
+import CardBusinessUnit from "@/components/CardBusinessUnit.vue";
+import PageHeader from "@/components/PageHeader.vue";
+import { strapiImage } from "@/utilities/StrapiImage";
 export default Vue.extend({
-  name: 'BusinessUnit',
+  name: "BusinessUnit",
   components: {
     CardBusinessUnit,
-    PageHeader
+    PageHeader,
   },
-  layout: 'SinglePage',
+  layout: "SinglePage",
   data: () => {
     return {
       businessUnits: [],
-      businessUnitDescription: '',
-      page: {}
-    }
+      businessUnitDescription: "",
+      page: {},
+    };
   },
-  mounted () {
-    this.getPage()
-    this.getBusinessUnits()
+  mounted() {
+    this.getPage();
+    this.getBusinessUnits();
   },
   methods: {
-    async getBusinessUnits () {
+    async getBusinessUnits() {
       try {
         const businessUnits = await this.$axios.$get(
-          '/api/business-units?populate=*'
-        )
-        this.businessUnits = businessUnits.data
+          "/api/business-units?populate=*"
+        );
+        this.businessUnits = businessUnits.data;
       } catch (error) {}
     },
-    async getPage () {
+    async getPage() {
       try {
-        const page = await this.$axios.$get('/api/page-business-unit?populate=*')
-        this.page = page.data.attributes
+        const page = await this.$axios.$get(
+          "/api/page-business-unit?populate=*"
+        );
+        this.page = page.data.attributes;
       } catch (error) {}
     },
     micromark,
-    showModalDescription (description: string) {
-      this.businessUnitDescription = description
-      this.$bvModal.show('modal-description')
+    showModalDescription(description: string) {
+      this.businessUnitDescription = description;
+      this.$bvModal.show("modal-description");
     },
-    strapiImage
-  }
-})
+    strapiImage,
+  },
+});
 </script>
 <style scoped>
 .modal-description__content >>> * {

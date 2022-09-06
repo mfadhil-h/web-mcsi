@@ -59,7 +59,7 @@
             .vision__label Nilai Perusahaan
             .vision__description {{ page.companyValueShort }}
           b-card-footer
-            .vision__link(v-b-modal.modal-company-value)
+            b-link.vision__link(:to="'/company-value'")
               span Selengkapnya
               font-awesome-icon.ml-2(icon="circle-arrow-right")
   b-modal#modal-vision(size="lg", hide-footer, centered, title="Visi")
@@ -84,37 +84,37 @@
     )
 </template>
 <script lang="ts">
-import Vue from 'vue'
-import { micromark } from 'micromark'
-import PageHeader from '@/components/PageHeader.vue'
-import { strapiImage } from '@/utilities/StrapiImage'
-import YoutubePlayer from '@/components/YoutubePlayer.vue'
+import Vue from "vue";
+import { micromark } from "micromark";
+import PageHeader from "@/components/PageHeader.vue";
+import { strapiImage } from "@/utilities/StrapiImage";
+import YoutubePlayer from "@/components/YoutubePlayer.vue";
 export default Vue.extend({
-  name: 'CompanyProfile',
+  name: "CompanyProfile",
   components: {
     PageHeader,
-    YoutubePlayer
+    YoutubePlayer,
   },
-  layout: 'SinglePage',
+  layout: "SinglePage",
   data: () => {
     return {
-      page: {}
-    }
+      page: {},
+    };
   },
-  mounted () {
-    this.getPage()
+  mounted() {
+    this.getPage();
   },
   methods: {
-    async getPage () {
+    async getPage() {
       try {
-        const page = await this.$axios.$get('/api/page-about?populate=*')
-        this.page = page.data.attributes
+        const page = await this.$axios.$get("/api/page-about?populate=*");
+        this.page = page.data.attributes;
       } catch (error) {}
     },
     micromark,
-    strapiImage
-  }
-})
+    strapiImage,
+  },
+});
 </script>
 <style lang="scss" scoped>
 .company-profile {

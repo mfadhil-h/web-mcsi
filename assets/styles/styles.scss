@@ -43,7 +43,7 @@ p {
 h1, h2, h3 {
     @extend .display-2;
     font-weight: bold;
-    margin-top: 48px;
+    margin-top: 24px;
 }
 img {
     max-width: 100%;
@@ -194,6 +194,19 @@ img {
         }
         .modal-body {
             padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+    }
+}
+
+// 99. Customs
+.page-company-value {
+    .value {
+        h3 {
+            color: $secondary;
+            margin-top: 0;
+        }
+        p {
+            margin-bottom: 0;
         }
     }
 }
