@@ -10,7 +10,7 @@
     "analyze": "nuxt build --analyze",
     "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
     "lint": "yarn lint:js",
-    "lintfix": "yarn lint:js --fix"
+    "lintfix": "prettier --write \"**/*.{js,json,vue,ts}\" && yarn lint:js --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -45,9 +45,12 @@
     "babel-loader": "^8.2.5",
     "cross-env": "^7.0.3",
     "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^3.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-pug": "^1.2.4",
     "eslint-plugin-vue": "^8.2.0",
+    "prettier": "^2.7.1",
     "pug": "^3.0.2",
     "pug-plain-loader": "^1.1.0",
     "sass": "^1.50.0",

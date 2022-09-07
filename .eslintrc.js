@@ -1,17 +1,26 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+     browser: true,
+     node: true
   },
-  'extends': [
-    'plugin:vue/essential',
-    'eslint:recommended'
+  extends: [
+     '@nuxtjs/eslint-config-typescript',
+     'plugin:nuxt/recommended',
+     'plugin:prettier/recommended'
   ],
+  plugins: ['prettier'],
+  // add your custom rules here
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
-  },
-  parserOptions: {
-    parser: 'babel-eslint'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'prettier/prettier': [
+      // or whatever plugin that is causing the clash
+      'error',
+      {
+          tabWidth: 3,
+          endOfLine: 'auto'
+      }
+    ]
   }
 }
