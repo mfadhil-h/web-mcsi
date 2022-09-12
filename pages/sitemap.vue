@@ -1,25 +1,28 @@
 <template lang="pug">
 .sitemap
-    PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
-    b-container(fluid)
-        b-container.section.section--reading.text-center
-            b-card.section__bg(no-body v-if="page")
-                .section__title {{page.sectionTitle}}
-                .section__body {{page.sectionDescription}}
-        b-container.section.section--reading
-            b-card.card-sitemap(v-if="page.sitemap")
-                p.font-weight-bold Peta Situs
-                .sitemap(v-html="micromark(page.sitemap)")
+   PageHeader(
+      :image='strapiImage($axios.defaults.baseURL, page.headerBackground)',
+      :heading1='page.header1',
+      :heading2='page.header2',
+      v-if='page.headerBackground'
+   )
+   b-container(fluid)
+      b-container.section.section--reading.text-center
+         b-card.section__bg(no-body, v-if='page')
+            .section__title {{ page.sectionTitle }}
+            .section__body {{ page.sectionDescription }}
+      b-container.section.section--reading
+         b-card.card-sitemap(v-if='page.sitemap')
+            p.font-weight-bold {{ $t("sitemap") }}
+            .sitemap(v-html='micromark(page.sitemap)')
 </template>
-
 <script lang="ts">
 import Vue from 'vue'
 import { micromark } from 'micromark'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
-
 export default Vue.extend({
-   name: 'Sitemap',
+   name: 'PageSitemap',
    components: {
       PageHeader
    },
@@ -60,3 +63,13 @@ export default Vue.extend({
    opacity: 0.5;
 }
 </style>
+<i18n>
+{
+   "id": {
+      "sitemap": "Peta Situs"
+   },
+   "en": {
+      "sitemap": "Site Map"
+   }
+}
+</i18n>
