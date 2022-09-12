@@ -1,27 +1,29 @@
 <template lang="pug">
 .page-company-value
-  PageHeader(
-    :image="strapiImage($axios.defaults.baseURL, page.headerBackground)",
-    :heading1="page.header1",
-    :heading2="page.header2",
-    v-if="page.headerBackground != null"
-  )
-  b-container.mt-4.py-4(fluid)
-    b-row
-      b-col.column__image(cols="12", md="6", v-if="page.imageLeft")
-        b-img.mb-4(:src="strapiImage($axios.defaults.baseURL, page.imageLeft)")
-      b-col.column__values(cols="12", md="6", v-if="page.value1")
-        .value(v-html="micromark(page.value1)")
-        .value(v-html="micromark(page.value2)")
-        .value(v-html="micromark(page.value3)")
-        .value(v-html="micromark(page.value4)")
-      .py-4
-    page-nav(
-      left-text="Profil Singkat",
-      left-button-text="Kembali",
-      @clickLeft="goToAbout",
-      hide-right
-    )
+   PageHeader(
+      :image='strapiImage($axios.defaults.baseURL, page.headerBackground)',
+      :heading1='page.header1',
+      :heading2='page.header2',
+      v-if='page.headerBackground'
+   )
+   b-container.mt-4.py-4(fluid)
+      b-row
+         b-col.column__image(cols='12', md='6', v-if='page.imageLeft')
+            b-img.mb-4(
+               :src='strapiImage($axios.defaults.baseURL, page.imageLeft)'
+            )
+         b-col.column__values(cols='12', md='6', v-if='page.value1')
+            .value(v-html='micromark(page.value1)')
+            .value(v-html='micromark(page.value2)')
+            .value(v-html='micromark(page.value3)')
+            .value(v-html='micromark(page.value4)')
+         .py-4
+      page-nav(
+         left-text='Profil Singkat',
+         left-button-text='Kembali',
+         @clickLeft='goToAbout',
+         hide-right
+      )
 </template>
 <script lang="ts">
 import Vue from 'vue'
