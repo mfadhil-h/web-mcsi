@@ -1,75 +1,72 @@
 <template lang="pug">
 b-container.mcsi-footer(fluid)
-  b-img.mcsi-footer__pattern-tr(:src="patternTr")
-  b-img.mcsi-footer__pattern-bl(:src="patternBl")
-  b-container(v-if="footerInfo")
-    b-row.py-5
-      b-col.mb-4.text-center(cols="12", md="4")
-        a(
-          :href="footerInfo.youtube",
-          target="blank",
-          v-if="footerInfo.youtube"
-        )
-          b-img.logo-lighthouse(
-            :src="strapiImage($axios.defaults.baseURL, footerInfo.lighthouseLogo)",
-            v-if="footerInfo.lighthouseLogo"
-          )
-      b-col.mb-4(cols="12", md="4")
-        .mcsi-footer__item-title {{ $t('source') }}
-        NuxtLink.mcsi-footer__item(
-          v-for="(item,index) of footerLinkCol2",
-          :key="index"
-          :to="item.link"
-        ) {{ item.label }}
-        .mcsi_footer__social
-          a.mr-4(
-            :href="footerInfo.facebook",
-            target="blank",
-            v-if="footerInfo.facebook"
-          )
-            font-awesome-icon.fw(:icon="['fab', 'facebook']")
-          a.mr-4(
-            :href="footerInfo.twitter",
-            target="blank",
-            v-if="footerInfo.twitter"
-          )
-            font-awesome-icon.fw(:icon="['fab', 'twitter']")
-          a.mr-4(
-            :href="footerInfo.instagram",
-            target="blank",
-            v-if="footerInfo.instagram"
-          )
-            font-awesome-icon.fw(:icon="['fab', 'instagram']")
-          a.mr-4(
-            :href="footerInfo.tiktok",
-            target="blank",
-            v-if="footerInfo.tiktok"
-          )
-            font-awesome-icon.fw(:icon="['fab', 'tiktok']")
-          //- a.mr-4(:href="footerInfo.youtube" target="blank" v-if="footerInfo.youtube")
-            font-awesome-icon.fw(:icon="['fab', 'youtube']")
-          a.mr-4(
-            :href="footerInfo.linkedin",
-            target="blank",
-            v-if="footerInfo.linkedin"
-          )
-            font-awesome-icon.fw(:icon="['fab', 'linkedin']")
-      b-col.mb-4(cols="12", md="4", v-if="footerInfo.address")
-        .mcsi-footer__item-title {{ footerInfo.address.label }}
-        .mcsi-footer__item.mb-0 {{ footerInfo.address.addressLine1 }}
-        .mcsi-footer__item.mb-0 {{ footerInfo.address.addressLine2 }}
-        .mcsi-footer__item {{ footerInfo.address.addressLine3 }}
-        .mcsi-footer__item Phone: {{ footerInfo.address.phone }}
-        .mcsi-footer__item Fax: {{ footerInfo.address.fax }}
-        .mcsi-footer__item Email: {{ footerInfo.address.email }}
-    b-row.mcsi-footer__copyright.pb-4
-      b-col Copyright © 2022 PT MCS Internasional - All Rights Reserved
+   b-img.mcsi-footer__pattern-tr(:src='patternTr')
+   b-img.mcsi-footer__pattern-bl(:src='patternBl')
+   b-container(v-if='footerInfo')
+      b-row.py-5
+         b-col.mb-4.text-center(cols='12', md='4')
+            a(
+               :href='footerInfo.youtube',
+               target='blank',
+               v-if='footerInfo.youtube'
+            )
+               b-img.logo-lighthouse(
+                  :src='strapiImage($axios.defaults.baseURL, footerInfo.lighthouseLogo)',
+                  v-if='footerInfo.lighthouseLogo'
+               )
+         b-col.mb-4(cols='12', md='4')
+            .mcsi-footer__item-title {{ $t("source") }}
+            NuxtLink.mcsi-footer__item(:to='"/privacy-policy"') {{ $t("privacyPolicy") }}
+            NuxtLink.mcsi-footer__item(:to='"/terms-conditions"') {{ $t("termsConditions") }}
+            NuxtLink.mcsi-footer__item(:to='"/contact"') {{ $t("contactUs") }}
+            NuxtLink.mcsi-footer__item(:to='"/sitemap"') {{ $t("sitemap") }}
+            .mcsi_footer__social
+               a.mr-4(
+                  :href='footerInfo.facebook',
+                  target='blank',
+                  v-if='footerInfo.facebook'
+               )
+                  font-awesome-icon.fw(:icon='["fab", "facebook"]')
+               a.mr-4(
+                  :href='footerInfo.twitter',
+                  target='blank',
+                  v-if='footerInfo.twitter'
+               )
+                  font-awesome-icon.fw(:icon='["fab", "twitter"]')
+               a.mr-4(
+                  :href='footerInfo.instagram',
+                  target='blank',
+                  v-if='footerInfo.instagram'
+               )
+                  font-awesome-icon.fw(:icon='["fab", "instagram"]')
+               a.mr-4(
+                  :href='footerInfo.tiktok',
+                  target='blank',
+                  v-if='footerInfo.tiktok'
+               )
+                  font-awesome-icon.fw(:icon='["fab", "tiktok"]')
+               a.mr-4(
+                  :href='footerInfo.linkedin',
+                  target='blank',
+                  v-if='footerInfo.linkedin'
+               )
+                  font-awesome-icon.fw(:icon='["fab", "linkedin"]')
+         b-col.mb-4(cols='12', md='4', v-if='footerInfo.address')
+            .mcsi-footer__item-title {{ footerInfo.address.label }}
+            .mcsi-footer__item.mb-0 {{ footerInfo.address.addressLine1 }}
+            .mcsi-footer__item.mb-0 {{ footerInfo.address.addressLine2 }}
+            .mcsi-footer__item {{ footerInfo.address.addressLine3 }}
+            .mcsi-footer__item Phone: {{ footerInfo.address.phone }}
+            .mcsi-footer__item Fax: {{ footerInfo.address.fax }}
+            .mcsi-footer__item Email: {{ footerInfo.address.email }}
+      b-row.mcsi-footer__copyright.pb-4
+         b-col {{ $t("copyright") }}
 </template>
 <script lang="ts">
 import Vue from 'vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-   name: 'Footer',
+   name: 'McsiFooter',
    data: () => {
       return {
          footerInfo: {},
@@ -79,15 +76,6 @@ export default Vue.extend({
       }
    },
    mounted() {
-      this.footerLinkCol2 = [
-         { label: this.$t('privacyPolicy') as string, link: '/privacy-policy' },
-         {
-            label: this.$t('termConditions') as string,
-            link: '/terms-conditions'
-         },
-         { label: this.$t('contactUs') as string, link: '/contact' },
-         { label: this.$t('sitemap') as string, link: '/sitemap' }
-      ]
       this.getFooter()
    },
    methods: {
@@ -164,16 +152,18 @@ export default Vue.extend({
   "id": {
     "source": "Sumber Informasi",
     "privacyPolicy":"Kebijakan Privasi",
-    "termConditions":"Syarat dan Ketentuan",
+    "termsConditions":"Syarat dan Ketentuan",
     "contactUs":"Hubungi Kami",
-    "sitemap": "Peta Situs"
+    "sitemap": "Peta Situs",
+    "copyright": "© 2022 PT MCS Internasional - Hak Cipta Dilindungi Undang-undang"
   },
   "en": {
     "source": "Source",
     "privacyPolicy":"Privacy Policy",
-    "termConditions":"Term and Conditions",
+    "termsConditions":"Terms and Conditions",
     "contactUs":"Contact Us",
-    "sitemap": "Site map"
+    "sitemap": "Site map",
+    "copyright": "Copyright © 2022 PT MCS Internasional - All Rights Reserved"
    }
 }
 </i18n>
