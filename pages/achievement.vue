@@ -1,46 +1,46 @@
 <template lang="pug">
 .achievement
-  PageHeader(
-    :image="strapiImage($axios.defaults.baseURL, page.headerBackground)",
-    :heading1="page.header1",
-    :heading2="page.header2",
-    v-if="page.headerBackground != null"
-  )
-  b-container(fluid)
-    b-container.section.section--reading.text-center(v-if="page")
-      b-card.section__bg(no-body)
-        .section__title {{ page.sectionTitle }}
-        .section__body {{ page.sectionDescription }}
-  b-container.section
-    no-ssr
-      div(v-for="(group, index) of awardGroups", :key="index")
-        b-card.section__bg(no-body)
-          .display-2 {{ group.attributes.awardPeriod }}
-        carousel.carousel(
-          autoplay,
-          :autoplayTimeout="3000",
-          loop,
-          paginationActiveColor="#CC0000FF",
-          paginationColor="#CC000066",
-          :perPageCustom="[ [768, 3], [1024, 4], ]"
-        )
-          slide.carousel__slide(
-            v-for="(award, index) of filterAward(group.id)",
-            :key="index"
-          )
-            Thumbnail(
-              :image="strapiImage($axios.defaults.baseURL, award.attributes.image)",
-              :heading="award.attributes.name",
-              :subheading="award.attributes.year",
-              @click="showModalAward(strapiImage($axios.defaults.baseURL, award.attributes.image), award.attributes.year, award.attributes.name, award.attributes.description)"
+   PageHeader(
+      :image='strapiImage($axios.defaults.baseURL, page.headerBackground)',
+      :heading1='page.header1',
+      :heading2='page.header2',
+      v-if='page.headerBackground != null'
+   )
+   b-container(fluid)
+      b-container.section.section--reading.text-center(v-if='page')
+         b-card.section__bg(no-body)
+            .section__title {{ page.sectionTitle }}
+            .section__body {{ page.sectionDescription }}
+   b-container.section
+      no-ssr
+         div(v-for='(group, index) of awardGroups', :key='index')
+            b-card.section__bg(no-body)
+               .display-2 {{ group.attributes.awardPeriod }}
+            carousel.carousel(
+               autoplay,
+               :autoplayTimeout='3000',
+               loop,
+               paginationActiveColor='#CC0000FF',
+               paginationColor='#CC000066',
+               :perPageCustom='[ [768, 3], [1024, 4], ]'
             )
-  b-modal#modal-award(size="lg", hide-footer, centered)
-    b-container.award(fluid)
-      .text-center
-        b-img.award__image(:src="dataSelected.image")
-        .award__label {{ dataSelected.label }}
-        .award__year {{ dataSelected.year }}
-      .award__description {{ dataSelected.description }}
+               slide.carousel__slide(
+                  v-for='(award, index) of filterAward(group.id)',
+                  :key='index'
+               )
+                  Thumbnail(
+                     :image='strapiImage($axios.defaults.baseURL, award.attributes.image)',
+                     :heading='award.attributes.name',
+                     :subheading='award.attributes.year',
+                     @click='showModalAward(strapiImage($axios.defaults.baseURL, award.attributes.image), award.attributes.year, award.attributes.name, award.attributes.description)'
+                  )
+   b-modal#modal-award(size='lg', hide-footer, centered)
+      b-container.award(fluid)
+         .text-center
+            b-img.award__image(:src='dataSelected.image')
+            .award__label {{ dataSelected.label }}
+            .award__year {{ dataSelected.year }}
+         .award__description {{ dataSelected.description }}
 </template>
 
 <script lang="ts">
@@ -49,7 +49,7 @@ import PageHeader from '@/components/PageHeader.vue'
 import Thumbnail from '@/components/Thumbnail.vue'
 import { strapiImage } from '~/utilities/StrapiImage'
 export default Vue.extend({
-   name: 'Achievement',
+   name: 'PageAchievement',
    components: {
       PageHeader,
       Thumbnail
@@ -101,7 +101,8 @@ export default Vue.extend({
       },
       filterAward(awardGroupId: number) {
          const result = this.awards.filter(
-            (award: any) => award.attributes.award_group.data.id == awardGroupId
+            (award: any) =>
+               award.attributes.award_group.data.id === awardGroupId
          )
          return result
       },
