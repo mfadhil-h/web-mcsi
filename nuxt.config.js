@@ -34,6 +34,7 @@ export default {
 
    // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
    plugins: [
+      '~/plugins/axios.js',
       '~/plugins/fontawesome.js',
       { src: '~/plugins/ui-components.js', ssr: false }
    ],
@@ -63,7 +64,16 @@ export default {
 
    i18n: {
       vueI18nLoader: true,
-      locales: ['id', 'en'],
+      locales: [
+         {
+            code: 'id',
+            name: 'ID'
+         },
+         {
+            code: 'en',
+            name: 'EN'
+         }
+      ],
       defaultLocale: 'id',
       vueI18n: {
          fallbackLocale: 'id',

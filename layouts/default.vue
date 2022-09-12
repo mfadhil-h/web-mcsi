@@ -1,16 +1,16 @@
 <template lang="pug">
 .default
-  .default__container
-    h3.default__message
-      span Halaman tidak ditemukan!
-      small.ml-4 404
-  b-button.mt-4(type="button", @click="goBack") Kembali
+   .default__container
+      h3.default__message
+         span Halaman tidak ditemukan!
+         small.ml-4 404
+   b-button.mt-4(type='button', @click='goBack') Kembali
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-   name: 'Default',
+   name: 'DefaultLayout',
    methods: {
       goBack() {
          this.$router.go(-1)

@@ -25,6 +25,25 @@
                         :key='index',
                         :to='item.link'
                      ) {{ item.label }}
+               b-nav-item-dropdown 
+                  template(v-slot:button-content)
+                     span(v-if='$i18n.locale === "id"')
+                        b-img.lang__flag(:src='require("@/static/id.png")')
+                        span.text-uppercase {{ $i18n.locale }}
+                     span(v-if='$i18n.locale === "en"')
+                        b-img.lang__flag(:src='require("@/static/en.png")')
+                        span.text-uppercase {{ $i18n.locale }}
+                  b-dropdown-item(
+                     v-for='locale in locales',
+                     :key='locale.code',
+                     @click='switchLocale(locale.code)'
+                  )
+                     span(v-if='locale.code === "id"')
+                        b-img.lang__flag(:src='require("@/static/id.png")')
+                        span {{ locale.name }}
+                     span(v-if='locale.code === "en"')
+                        b-img.lang__flag(:src='require("@/static/en.png")')
+                        span {{ locale.name }}
    //- 01.2 Sticky Navbar
    Transition
       b-navbar.navbar.navbar--sticky(
@@ -51,6 +70,25 @@
                            :key='index',
                            :to='item.link'
                         ) {{ item.label }}
+                  b-nav-item-dropdown 
+                     template(v-slot:button-content)
+                        span(v-if='$i18n.locale === "id"')
+                           b-img.lang__flag(:src='require("@/static/id.png")')
+                           span.text-uppercase {{ $i18n.locale }}
+                        span(v-if='$i18n.locale === "en"')
+                           b-img.lang__flag(:src='require("@/static/en.png")')
+                           span.text-uppercase {{ $i18n.locale }}
+                     b-dropdown-item(
+                        v-for='locale in locales',
+                        :key='locale.code',
+                        @click='switchLocale(locale.code)'
+                     )
+                        span(v-if='locale.code === "id"')
+                           b-img.lang__flag(:src='require("@/static/id.png")')
+                           span {{ locale.name }}
+                        span(v-if='locale.code === "en"')
+                           b-img.lang__flag(:src='require("@/static/en.png")')
+                           span {{ locale.name }}
    //- 02. Body
    .mcsi-body
       Nuxt
@@ -72,6 +110,7 @@ export default Vue.extend({
    },
    data: () => {
       return {
+         locales: {},
          logoColor: require('@/static/logo-color.png'),
          logoWhite: require('@/static/logo-color.png'),
          menu: headerMenuId,
@@ -83,7 +122,7 @@ export default Vue.extend({
    mounted() {
       this.menu = translatedMenu(this)
       window.addEventListener('scroll', this.onScroll)
-      localStorage.lang = 'ID'
+      this.locales = this.$i18n.locales
    },
    methods: {
       async particlesInit(engine: Engine): Promise<void> {
@@ -91,6 +130,10 @@ export default Vue.extend({
       },
       onScroll(e: any) {
          this.scrollPosition = e.target.documentElement.scrollTop
+      },
+      switchLocale(code: string) {
+         this.$i18n.setLocale(code)
+         localStorage.lang = code
       }
    }
 })
@@ -111,7 +154,12 @@ export default Vue.extend({
       width: auto;
    }
 }
-
+// Language Switcher
+.lang__flag {
+   height: 24px;
+   margin-right: 1rem;
+   width: 24px;
+}
 // Header animation
 .v-enter-active,
 .v-leave-active {
