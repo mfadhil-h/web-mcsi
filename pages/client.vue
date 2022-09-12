@@ -1,55 +1,55 @@
 <template lang="pug">
 .client-page
-  PageHeader(
-    :image="strapiImage($axios.defaults.baseURL, page.headerBackground)",
-    :heading1="page.header1",
-    :heading2="page.header2",
-    v-if="page.headerBackground != null"
-  )
-  b-container(fluid)
-    b-container.section.section--reading.text-center
-      b-row
-        b-col(cols="12")
-          .section__title {{ page.sectionTitle }}
-          .section__body {{ page.sectionDescription }}
-    b-container.section.section--reading
-      carousel(
-        autoplay,
-        :autoplayTimeout="3000",
-        loop,
-        paginationActiveColor="#CC0000FF",
-        paginationColor="#CC000066",
-        :perPageCustom="[ [0, 2], [768, 3], [1024, 4], ]"
-      )
-        slide.client(v-for="(client, index) of clients", :key="index")
-          a(:href="client.attributes.link", target="blank")
-            b-img.client__logo(
-              :src="strapiImage($axios.defaults.baseURL, client.attributes.logo)",
-              :alt="client.attributes.name"
+   PageHeader(
+      :image='strapiImage($axios.defaults.baseURL, page.headerBackground)',
+      :heading1='page.header1',
+      :heading2='page.header2',
+      v-if='page.headerBackground'
+   )
+   b-container(fluid)
+      b-container.section.section--reading.text-center
+         b-row
+            b-col(cols='12')
+               .section__title {{ page.sectionTitle }}
+               .section__body {{ page.sectionDescription }}
+      b-container.section.section--reading
+         carousel(
+            autoplay,
+            :autoplayTimeout='3000',
+            loop,
+            paginationActiveColor='#CC0000FF',
+            paginationColor='#CC000066',
+            :perPageCustom='[ [0, 2], [768, 3], [1024, 4], ]'
+         )
+            slide.client(v-for='(client, index) of clients', :key='index')
+               a(:href='client.attributes.link', target='blank')
+                  b-img.client__logo(
+                     :src='strapiImage($axios.defaults.baseURL, client.attributes.logo)',
+                     :alt='client.attributes.name'
+                  )
+      b-container.section.section--reading(v-if='testimonies')
+         carousel(
+            autoplay,
+            :autoplayTimeout='3000',
+            loop,
+            paginationActiveColor='#CC0000FF',
+            paginationColor='#CC000066',
+            :perPageCustom='[ [0, 1], [768, 2], ]'
+         )
+            slide.testimony(
+               v-for='(testimony, index) of testimonies',
+               :key='index'
             )
-    b-container.section.section--reading(v-if="testimonies")
-      carousel(
-        autoplay,
-        :autoplayTimeout="3000",
-        loop,
-        paginationActiveColor="#CC0000FF",
-        paginationColor="#CC000066",
-        :perPageCustom="[ [0, 1], [768, 2], ]"
-      )
-        slide.testimony(
-          v-for="(testimony, index) of testimonies",
-          :key="index"
-        )
-          card-testimony.testimony__card(
-            :key="index",
-            :person="testimony.attributes.person",
-            :avatar="strapiImage($axios.defaults.baseURL, testimony.attributes.avatar)",
-            :position="testimony.attributes.position",
-            :testimony="testimony.attributes.testimony",
-            @click="showModalTestimony(testimony.attributes.testimony)"
-          )
-  b-modal#modal-testimony(size="lg", hide-footer, centered)
-    p.text-justify {{ testimonySelected }}
+               card-testimony.testimony__card(
+                  :key='index',
+                  :person='testimony.attributes.person',
+                  :avatar='strapiImage($axios.defaults.baseURL, testimony.attributes.avatar)',
+                  :position='testimony.attributes.position',
+                  :testimony='testimony.attributes.testimony',
+                  @click='showModalTestimony(testimony.attributes.testimony)'
+               )
+   b-modal#modal-testimony(size='lg', hide-footer, centered)
+      p.text-justify {{ testimonySelected }}
 </template>
 
 <script lang="ts">
@@ -58,7 +58,7 @@ import CardTestimony from '@/components/CardTestimony.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-   name: 'Client',
+   name: 'PageClient',
    components: {
       CardTestimony,
       PageHeader

@@ -1,18 +1,18 @@
 <template lang="pug">
 .testimony-detail
-    b-card.card-testimony(no-body)
-        b-card-body
-            b-img.card-testimony__avatar(:src="avatar")
-            font-awesome-icon.fa-2xl.card-testimony__quote(icon="quote-left")
-            .card-testimony__person {{person}}
-            .card-testimony__position {{position}}
-            .card-testimony__testimony
-                span {{testimony.substring(0,250)}}
-                span(v-if="testimony.length > 250") ...
-        b-card-footer
-            .card-testimony__link(@click="onClick")
-                span Selengkapnya
-                font-awesome-icon.ml-2(icon="circle-arrow-right")
+   b-card.card-testimony(no-body)
+      b-card-body
+         b-img.card-testimony__avatar(:src='avatar')
+         font-awesome-icon.fa-2xl.card-testimony__quote(icon='quote-left')
+         .card-testimony__person {{ person }}
+         .card-testimony__position {{ position }}
+         .card-testimony__testimony
+            span {{ testimony.substring(0, 250) }}
+            span(v-if='testimony.length > 250') ...
+      b-card-footer
+         .card-testimony__link(@click='onClick')
+            span {{ $t("more") }}
+            font-awesome-icon.ml-2(icon='circle-arrow-right')
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -83,3 +83,13 @@ export default Vue.extend({
    }
 }
 </style>
+<i18n>
+{
+   "id": {
+      "more": "Selengkapnya"
+   },
+   "en": {
+      "more": "View More"
+   }
+}
+</i18n>
