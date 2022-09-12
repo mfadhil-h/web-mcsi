@@ -1,52 +1,66 @@
 <template lang="pug">
 .organization
-    PageHeader(
-        :image="strapiImage($axios.defaults.baseURL, page.headerBackground)"
-        :heading1="page.header1"
-        :heading2="page.header2"
-        v-if="page.headerBackground!=null")
-    b-container(fluid)
-        b-container.section.section--reading.text-center(v-if="page")
-            b-card.section__bg(no-body)
-                .section__title {{page.sectionTitle}}
-                .section__body {{page.sectionDescription}}
-    b-container.section
-        b-card.section__bg(no-body)
-            h3.mb-4 Dewan Komisaris dan Direksi
-        b-row.mb-4
-            b-col(cols="6" md="3" v-for="(person, index) of filterOrganization(people,'commissioner-director')" :key="index" v-if="people")
-                thumbnail(
-                    :image="strapiImage($axios.defaults.baseURL, person.attributes.image)"
-                    :heading="person.attributes.name"
-                    :subheading="person.attributes.position"
-                    @click="showModalProfile(strapiImage($axios.defaults.baseURL, person.attributes.image), person.attributes.position, person.attributes.name, person.attributes.description)")
-        b-card.section__bg(no-body)
-            h3.mb-4 Manajemen
-        b-row
-            b-col(cols="6" md="3" v-for="(person, index) of filterOrganization(people,'manager')" :key="index" v-if="people")
-                thumbnail(
-                    :image="strapiImage($axios.defaults.baseURL, person.attributes.image)"
-                    :heading="person.attributes.name"
-                    :subheading="person.attributes.position"
-                    @click="showModalProfile(strapiImage($axios.defaults.baseURL, person.attributes.image), person.attributes.position, person.attributes.name, person.attributes.description)")
-    //- Link to MCSI Org Chart
-    b-container.section
-        b-card.section__bg(no-body)
-            h3.mb-4 Organisasi Terkait
-            b-link(:to="'/organization-mcsi'")
-                font-awesome-icon.fa-fw(icon="sitemap")
-                span.ml-2 Struktur Organisasi MCSI
-    b-modal(id="modal-profile" size="lg" hide-footer centered)
-        b-container(fluid).profile
-            b-row
-                b-col(cols="12" sm="4")
-                    b-img.profile__image(:src="personSelected.image")
-                b-col(cols="12" sm="8")
-                    .profile__position {{personSelected.position}}
-                    .profile__name {{personSelected.name}}
-            b-row.profile__description
-                b-col(cols="12") {{personSelected.description}}
-
+   PageHeader(
+      :image='strapiImage($axios.defaults.baseURL, page.headerBackground)',
+      :heading1='page.header1',
+      :heading2='page.header2',
+      v-if='page.headerBackground != null'
+   )
+   b-container(fluid)
+      b-container.section.section--reading.text-center(v-if='page')
+         b-card.section__bg(no-body)
+            .section__title {{ page.sectionTitle }}
+            .section__body {{ page.sectionDescription }}
+   b-container.section
+      b-card.section__bg(no-body)
+         h3.mb-4 {{ $t("sectionCommissioner") }}
+      b-row.mb-4
+         b-col(
+            cols='6',
+            md='3',
+            v-for='(person, index) of filterOrganization(people,"commissioner-director")',
+            :key='index',
+            v-if='people'
+         )
+            thumbnail(
+               :image='strapiImage($axios.defaults.baseURL, person.attributes.image)',
+               :heading='person.attributes.name',
+               :subheading='person.attributes.position',
+               @click='showModalProfile(strapiImage($axios.defaults.baseURL, person.attributes.image), person.attributes.position, person.attributes.name, person.attributes.description)'
+            )
+      b-card.section__bg(no-body)
+         h3.mb-4 {{ $t("sectionManagement") }}
+      b-row
+         b-col(
+            cols='6',
+            md='3',
+            v-for='(person, index) of filterOrganization(people,"manager")',
+            :key='index',
+            v-if='people'
+         )
+            thumbnail(
+               :image='strapiImage($axios.defaults.baseURL, person.attributes.image)',
+               :heading='person.attributes.name',
+               :subheading='person.attributes.position',
+               @click='showModalProfile(strapiImage($axios.defaults.baseURL, person.attributes.image), person.attributes.position, person.attributes.name, person.attributes.description)'
+            )
+   //- Link to MCSI Org Chart
+   b-container.section
+      b-card.section__bg(no-body)
+         h3.mb-4 {{ $t("relatedOrganization") }}
+         b-link(:to='"/organization-mcsi"')
+            font-awesome-icon.fa-fw(icon='sitemap')
+            span.ml-2 {{ $t("relatedOrganizationValue") }}
+   b-modal#modal-profile(size='lg', hide-footer, centered)
+      b-container.profile(fluid)
+         b-row
+            b-col(cols='12', sm='4')
+               b-img.profile__image(:src='personSelected.image')
+            b-col(cols='12', sm='8')
+               .profile__position {{ personSelected.position }}
+               .profile__name {{ personSelected.name }}
+         b-row.profile__description
+            b-col(cols='12') {{ personSelected.description }}
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -90,7 +104,7 @@ export default Vue.extend({
       },
       filterOrganization(people: any, group: string) {
          return people.filter(
-            (person: any) => person.attributes.organizationGroup == group
+            (person: any) => person.attributes.organizationGroup === group
          )
       },
       showModalProfile(
@@ -143,3 +157,19 @@ export default Vue.extend({
    }
 }
 </style>
+<i18n>
+{
+   "id": {
+      "sectionCommissioner": "Dewan Komisaris dan Direksi",
+      "sectionManagement": "Manajemen",
+      "relatedOrganization": "Organisasi Terkait",
+      "relatedOrganizationValue": "Struktur Organisasi MCSI"
+   },
+   "en": {
+      "sectionCommissioner": "Board of Commissioner and Directors",
+      "sectionManagement": "Management",
+      "relatedOrganization": "Related Organization",
+      "relatedOrganizationValue": "MCSI Organization Chart"
+   }
+}
+</i18n>
