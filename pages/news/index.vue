@@ -15,10 +15,10 @@
       b-row
          b-col(cols='12', lg='3')
             b-card.category
-               .category__header Tags
+               .category__header {{ $t("tags") }}
                .category__label(@click='getBlogs')
                   font-awesome-icon.fw.mr-2(icon='tag')
-                  span All tags
+                  span {{ $t("tagsAll") }}
                .category__label(
                   v-for='(category, index) of blogCategories',
                   :key='index',
@@ -123,3 +123,15 @@ export default Vue.extend({
    }
 }
 </style>
+<i18n>
+{
+   "id": {
+      "tags" : "Label",
+      "tagsAll" : "Semua Label"
+   },
+   "en": {
+      "tags" : "Tags",
+      "tagsAll" : "All Tags"
+   }
+}
+</i18n>

@@ -1,10 +1,10 @@
 <template lang="pug">
-b-card.card-news(:img-src="image")
-    NuxtLink.card-news__title(:to="`/news/${id}`") {{title}}
-    .card-news__description {{description}}
-    .card-news__meta
-        .card-news__timestamp {{timestamp}}
-        .card-news__author By {{author}}
+b-card.card-news(:img-src='image')
+   NuxtLink.card-news__title(:to='`/news/${id}`') {{ title }}
+   .card-news__description {{ description }}
+   .card-news__meta
+      .card-news__timestamp {{ timestamp }}
+      .card-news__author {{ $t("author") }} {{ author }}
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -55,3 +55,13 @@ export default Vue.extend({
    }
 }
 </style>
+<i18n>
+{
+   "id": {
+      "author": "Oleh"
+   },
+   "en": {
+      "author": "By"
+   }
+}
+</i18n>

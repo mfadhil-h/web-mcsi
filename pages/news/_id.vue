@@ -1,13 +1,16 @@
 <template lang="pug">
 .news-detail
-    PageHeader(:image="strapiImage(this.$axios.defaults.baseURL, blog.attributes.featuredImage)" v-if="blog.attributes")
-    b-container(fluid)
-        b-container.section.section--reading
-            b-card.section__bg(no-body)
-                .news(v-if="blog.attributes")
-                    .news__title {{blog.attributes.title}}
-                    .news__attr By {{blog.attributes.author}}, published at {{dayjs(blog.attributes.publishedAt).format('DD-MMM-YYYY')}}
-                    .news__html(v-html="micromark(blog.attributes.content)")
+   PageHeader(
+      :image='strapiImage(this.$axios.defaults.baseURL, blog.attributes.featuredImage)',
+      v-if='blog.attributes'
+   )
+   b-container(fluid)
+      b-container.section.section--reading
+         b-card.section__bg(no-body)
+            .news(v-if='blog.attributes')
+               .news__title {{ blog.attributes.title }}
+               .news__attr {{ $t("author") }} {{ blog.attributes.author }}, {{ $t("published") }} {{ dayjs(blog.attributes.publishedAt).format("DD-MMM-YYYY") }}
+               .news__html(v-html='micromark(blog.attributes.content)')
 </template>
 
 <script lang="ts">
@@ -65,3 +68,15 @@ export default Vue.extend({
    }
 }
 </style>
+<i18n>
+{
+   "id": {
+      "author": "Ditulis oleh",
+      "published": "pada"
+   },
+   "en": {
+      "author": "Published by",
+      "published": "at"
+   }
+}
+</i18n>
