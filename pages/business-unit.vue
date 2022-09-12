@@ -1,28 +1,28 @@
 <template lang="pug">
 .business-unit
-  PageHeader(
-    :image="strapiImage($axios.defaults.baseURL, page.headerBackground)",
-    :heading1="page.header1",
-    :heading2="page.header2",
-    v-if="page.headerBackground != null"
-  )
-  b-container(fluid)
-    b-container.section.section--reading.text-center
-      b-row
-        b-col(cols="12")
-          .section__title {{ page.sectionTitle }}
-          .section__body {{ page.sectionDescription }}
-      b-card-group.mt-5(deck)
-        card-business-unit(
-          v-for="(unit,index) of businessUnits",
-          :key="index",
-          :label="unit.attributes.name",
-          :description="unit.attributes.descriptionShort",
-          :image="strapiImage($axios.defaults.baseURL, unit.attributes.image)",
-          @click="showModalDescription(unit.attributes.descriptionLong)"
-        )
-  b-modal#modal-description(size="lg", hide-footer, centered)
-    .modal-description__content(v-html="micromark(businessUnitDescription)")
+   PageHeader(
+      :image='strapiImage($axios.defaults.baseURL, page.headerBackground)',
+      :heading1='page.header1',
+      :heading2='page.header2',
+      v-if='page.headerBackground'
+   )
+   b-container(fluid)
+      b-container.section.section--reading.text-center
+         b-row
+            b-col(cols='12')
+               .section__title {{ page.sectionTitle }}
+               .section__body {{ page.sectionDescription }}
+         b-card-group.mt-5(deck)
+            card-business-unit(
+               v-for='(unit,index) of businessUnits',
+               :key='index',
+               :label='unit.attributes.name',
+               :description='unit.attributes.descriptionShort',
+               :image='strapiImage($axios.defaults.baseURL, unit.attributes.image)',
+               @click='showModalDescription(unit.attributes.descriptionLong)'
+            )
+   b-modal#modal-description(size='lg', hide-footer, centered)
+      .modal-description__content(v-html='micromark(businessUnitDescription)')
 </template>
 
 <script lang="ts">

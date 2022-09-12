@@ -1,12 +1,12 @@
 <template lang="pug">
-b-card.card-business-unit(:img-src="image" no-body)
-    b-card-body
-        .card-business-unit__label {{label}}
-        .card-business-unit__description.mb-4 {{description}}
-    b-card-footer
-        .card-business-unit__link(@click="onClick")
-            span Selengkapnya
-            font-awesome-icon.ml-2(icon="circle-arrow-right")
+b-card.card-business-unit(:img-src='image', no-body)
+   b-card-body
+      .card-business-unit__label {{ label }}
+      .card-business-unit__description.mb-4 {{ description }}
+   b-card-footer
+      .card-business-unit__link(@click='onClick')
+         span {{ $t("more") }}
+         font-awesome-icon.ml-2(icon='circle-arrow-right')
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -57,3 +57,13 @@ export default Vue.extend({
    }
 }
 </style>
+<i18n>
+{
+   "id": {
+      "more": "Selengkapnya"
+   },
+   "en": {
+      "more": "Read More"
+   }
+}
+</i18n>
