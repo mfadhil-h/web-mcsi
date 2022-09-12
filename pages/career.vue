@@ -1,60 +1,47 @@
 <template lang="pug">
 .career
-  PageHeader(
-    :image="strapiImage($axios.defaults.baseURL, page.headerBackground)",
-    :heading1="page.header1",
-    :heading2="page.header2",
-    v-if="page.headerBackground != null"
-  )
-  b-container(fluid)
-    b-container.section.section--reading.text-center
-      b-card.section__bg(no-body)
-        .section__title {{ page.sectionTitle }}
-        .section__body {{ page.sectionDescription }}
-  b-container.section
-    b-card.search(no-body)
-      b-form(inline)
-        .mx-auto
-          span.mr-2.mb-1 Filter search
-          b-form-select.mr-2(v-model="careerTypeSelected", v-if="careerTypes")
-            b-form-select-option(value="0") - Please select type -
-            b-form-select-option(
-              v-for="(careerType, index) of careerTypes",
-              :key="index",
-              :value="careerType.id"
-            ) {{ careerType.attributes.description }}
-          b-button(
-            variant="primary",
-            @click="filterCareer(careerTypeSelected)"
-          ) Search
-    b-row(v-if="isFilteredCareers == false")
-      b-col(
-        cols="12",
-        md="4",
-        v-for="(career, index) of careers",
-        :key="index"
-      )
-        card-vacancy(
-          :title="career.attributes.jobTitle",
-          :type="career.attributes.career_type.data.attributes.description",
-          :date="dayjs(career.attributes.publishedAt).format('DD-MMM-YYYY')",
-          :link="career.attributes.link",
-          @click="openJobPage(career.attributes.link)"
-        )
-    b-row(v-if="isFilteredCareers == true")
-      b-col(
-        cols="12",
-        md="4",
-        v-for="(career, index) of filteredCareers",
-        :key="index"
-      )
-        card-vacancy(
-          :title="career.attributes.jobTitle",
-          :type="career.attributes.career_type.data.attributes.description",
-          :date="dayjs(career.attributes.publishedAt).format('DD-MMM-YYYY')",
-          :link="career.attributes.link",
-          @click="openJobPage(career.attributes.link)"
-        )
+   PageHeader(
+      :image='strapiImage($axios.defaults.baseURL, page.headerBackground)',
+      :heading1='page.header1',
+      :heading2='page.header2',
+      v-if='page.headerBackground'
+   )
+   b-container(fluid, v-if='page')
+      b-container.section.section--reading.text-center
+         b-card.section__bg(no-body)
+            .section__title {{ page.sectionTitle }}
+            .section__body {{ page.sectionDescription }}
+   b-container.section
+      b-card.search(no-body)
+         b-form(inline)
+            .mx-auto
+               span.mr-2.mb-1 {{ $t("filterSearch") }}
+               b-form-select.mr-2(
+                  v-model='careerTypeSelected',
+                  v-if='careerTypes',
+                  @change='getCareers(careerTypeSelected)'
+               )
+                  b-form-select-option(value='-1') {{ $t("filterSearchPlaceholder") }}
+                  b-form-select-option(
+                     v-for='(careerType, index) of careerTypes',
+                     :key='index',
+                     :value='careerType.id'
+                  ) {{ careerType.attributes.description }}
+      b-row
+         b-col(
+            cols='12',
+            md='4',
+            v-for='(career, index) of careers',
+            :key='index'
+         )
+            card-vacancy(
+               :title='career.attributes.jobTitle',
+               :type='career.attributes.career_type.data.attributes.description',
+               :date='dayjs(career.attributes.publishedAt).format("DD-MMM-YYYY")',
+               :link='career.attributes.link',
+               @click='openJobPage(career.attributes.link)',
+               v-if='career.attributes.jobTitle'
+            )
 </template>
 
 <script lang="ts">
@@ -74,16 +61,14 @@ export default Vue.extend({
       return {
          careers: [],
          careerTypes: [],
-         careerTypeSelected: 0,
-         filteredCareers: [],
-         isFilteredCareers: false,
+         careerTypeSelected: -1,
          page: {}
       }
    },
    mounted() {
       this.getPage()
       this.getCareerTypes()
-      this.getCareers()
+      this.getCareers(-1)
    },
    methods: {
       dayjs,
@@ -93,12 +78,19 @@ export default Vue.extend({
             this.careerTypes = careerTypes.data.data
          } catch (error) {}
       },
-      async getCareers() {
+      async getCareers(filter: number) {
          try {
-            const careers = await this.$axios.get(
-               '/api/careers?populate=*&filters[isOpen][$eq]=true'
-            )
-            this.careers = careers.data.data
+            if (filter == -1) {
+               const result = await this.$axios.get(
+                  `/api/careers?populate=*&filters[isOpen][$eq]=true`
+               )
+               this.careers = result.data.data
+            } else if (filter != -1) {
+               const result = await this.$axios.get(
+                  `/api/careers?populate=*&filters[isOpen][$eq]=true&filters[career_type][id][$eq]=${filter}`
+               )
+               this.careers = result.data.data
+            }
          } catch (error) {}
       },
       async getPage() {
@@ -106,20 +98,6 @@ export default Vue.extend({
             const page = await this.$axios.$get('/api/page-career?populate=*')
             this.page = page.data.attributes
          } catch (error) {}
-      },
-      filterCareer(type: number) {
-         let tempCareers = this.careers
-         this.isFilteredCareers = false
-         if (type == 0) {
-            tempCareers = this.careers
-         }
-         if (type != 0) {
-            tempCareers = tempCareers.filter(
-               (career: any) => career.attributes.career_type.data.id == type
-            )
-            this.isFilteredCareers = true
-         }
-         this.filteredCareers = tempCareers
       },
       openJobPage(link: string) {
          window.open(link, '_blank')
@@ -136,3 +114,15 @@ export default Vue.extend({
    padding: 1rem 2rem;
 }
 </style>
+<i18n>
+{
+   "id": {
+      "filterSearch": "Filter Pencarian",
+      "filterSearchPlaceholder": "- Pilih salah satu -"
+   },
+   "en": {
+      "filterSearch": "Search Filter",
+      "filterSearchPlaceholder": "- Please select one -"
+   }
+}
+</i18n>

@@ -1,9 +1,9 @@
 <template lang="pug">
 b-card.card-vacancy
-    .card-vacancy__title {{title}}
-    .card-vacancy__meta {{type}}
-    .card-vacancy__meta Date Posted: {{date}}
-    b-button.card-vacancy__link(variant="primary" @click="onClick") Apply
+   .card-vacancy__title {{ title }}
+   .card-vacancy__meta {{ type }}
+   .card-vacancy__meta {{ $t("vacancyDate") }}: {{ date }}
+   b-button.card-vacancy__link(variant='primary', @click='onClick') {{ $t("vacancyButton") }}
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -47,3 +47,15 @@ export default Vue.extend({
    }
 }
 </style>
+<i18n>
+{
+   "id": {
+      "vacancyDate": "Tanggal Posting",
+      "vacancyButton": "Daftar"
+   },
+   "en": {
+      "vacancyDate": "Posted Date",
+      "vacancyButton": "Apply"
+   }
+}
+</i18n>
