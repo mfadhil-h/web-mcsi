@@ -1,56 +1,75 @@
 <template lang="pug">
 .contact
-    PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
-    b-container.section.section--reading.text-center
-        b-card.section__bg(no-body v-if="page")
-            .section__title {{page.sectionTitle}}
-            .section__body {{page.sectionDescription}}
-    b-container.section
-        b-card.contact__office.mb-4
+   PageHeader(
+      :image='strapiImage($axios.defaults.baseURL, page.headerBackground)',
+      :heading1='page.header1',
+      :heading2='page.header2',
+      v-if='page.headerBackground'
+   )
+   b-container.section.section--reading.text-center
+      b-card.section__bg(no-body, v-if='page')
+         .section__title {{ page.sectionTitle }}
+         .section__body {{ page.sectionDescription }}
+   b-container.section
+      b-card.contact__office.mb-4
+         b-row
+            b-col(cols='12', sm='6')
+               b-img.office__map(
+                  :src='strapiImage($axios.defaults.baseURL, page.mapImage)',
+                  v-if='page.mapImage != null'
+               )
+            b-col(cols='12', sm='6', v-if='page.headOffice')
+               .office__title {{ $t("addressEditorial") }}
+               .office__name.mb-2 {{ page.headOffice.label }}
+               .office__item {{ page.headOffice.addressLine1 }}
+               .office__item {{ page.headOffice.addressLine2 }}
+               .office__item {{ page.headOffice.addressLine3 }}
+               .office__item Phone: {{ page.headOffice.phone }}
+               .office__item Fax: {{ page.headOffice.fax }}
+               .office__item Email: {{ page.headOffice.email }}
+      b-card.contact__email
+         .email__heading {{ $t("emailEditorial") }}
+         b-form.email__form
             b-row
-                b-col(cols="12" sm="6")
-                    b-img.office__map(:src="strapiImage($axios.defaults.baseURL, page.mapImage)" v-if="page.mapImage!=null")
-                b-col(cols="12" sm="6" v-if="page.headOffice")
-                    .office__title Kantor Pusat
-                    .office__name.mb-2 {{page.headOffice.label}}
-                    .office__item {{page.headOffice.addressLine1}}
-                    .office__item {{page.headOffice.addressLine2}}
-                    .office__item {{page.headOffice.addressLine3}}
-                    .office__item Phone: {{page.headOffice.phone}}
-                    .office__item Fax: {{page.headOffice.fax}}
-                    .office__item Email: {{page.headOffice.email}}
-        b-card.contact__email
-            .email__heading Hubungi Kami Melalui Email
-            b-form.email__form
-                b-row
-                    b-col(cols="12" sm="6")
-                        b-form-group(label="Nama")
-                            b-form-input(type="text" v-model="message.name")
-                        b-form-group(label="Nomor Telepon")
-                            b-form-input(type="number"  v-model="message.phone")
-                        b-form-group(label="Email")
-                            b-form-input(type="email" v-model="message.email")
-                        b-form-group(label="Kategori")
-                            b-form-select(v-model="contactCategorySelected" v-if="contactCategories")
-                                b-form-select-option(value="0") - Pilih salah satu -
-                                b-form-select-option(v-for="(category, index) of contactCategories" :key="index" :value="category.attributes.description") {{category.attributes.description}}
-                    b-col(cols="12" sm="6")
-                        b-form-group(label="Judul")
-                            b-form-input(type="text"  v-model="message.subject")
-                        b-form-group(label="Pesan")
-                            b-form-textarea(type="text" rows="8" v-model="message.message")
-                b-button.float-right(
-                    variant="primary"
-                    size="lg"
-                    @click="sendEmail(page.headOffice.email, contactCategorySelected, message.subject, message.message, message.name, message.phone, message.email)") Kirim
+               b-col(cols='12', sm='6')
+                  b-form-group(:label='$t("emailName")')
+                     b-form-input(type='text', v-model='message.name')
+                  b-form-group(:label='$t("emailPhone")')
+                     b-form-input(type='number', v-model='message.phone')
+                  b-form-group(:label='$t("emailEmail")')
+                     b-form-input(type='email', v-model='message.email')
+                  b-form-group(:label='$t("emailCategory")')
+                     b-form-select(
+                        v-model='contactCategorySelected',
+                        v-if='contactCategories'
+                     )
+                        b-form-select-option(value='') {{ $t("emailCategoryPlaceholder") }}
+                        b-form-select-option(
+                           v-for='(category, index) of contactCategories',
+                           :key='index',
+                           :value='category.attributes.description'
+                        ) {{ category.attributes.description }}
+               b-col(cols='12', sm='6')
+                  b-form-group(:label='$t("emailSubject")')
+                     b-form-input(type='text', v-model='message.subject')
+                  b-form-group(:label='$t("emailMessage")')
+                     b-form-textarea(
+                        type='text',
+                        rows='8',
+                        v-model='message.message'
+                     )
+            b-button.float-right(
+               variant='primary',
+               size='lg',
+               @click='sendEmail(page.headOffice.email, contactCategorySelected, message.subject, message.message, message.name, message.phone, message.email)'
+            ) {{ $t("buttonSubmit") }}
 </template>
-
 <script lang="ts">
 import Vue from 'vue'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-   name: 'Contact',
+   name: 'PageContact',
    components: {
       PageHeader
    },
@@ -81,7 +100,6 @@ export default Vue.extend({
                '/api/contact-categories'
             )
             this.contactCategories = contactCategories.data
-            console.log('cat', this.contactCategories)
          } catch (error) {}
       },
       async getPage() {
@@ -156,3 +174,31 @@ export default Vue.extend({
    }
 }
 </style>
+<i18n>
+{
+   "id": {
+      "addressEditorial": "Kantor Pusat",
+      "emailEditorial": "Hubungi Kami Melalui Email",
+      "emailName": "Nama",
+      "emailPhone": "Nomor Telepon",
+      "emailEmail": "Email",
+      "emailCategory": "Kategori",
+      "emailCategoryPlaceholder": "- Pilih salah satu -",
+      "emailSubject": "Judul",
+      "emailMessage": "Pesan",
+      "buttonSubmit": "Kirim"
+   },
+   "en": {
+      "addressEditorial": "Head Office",
+      "emailEditorial": "Contact Us via Email",
+      "emailName": "Name",
+      "emailPhone": "Phone No",
+      "emailEmail": "Email",
+      "emailCategory": "Category",
+      "emailCategoryPlaceholder": "- Please select one -",
+      "emailSubject": "Subject",
+      "emailMessage": "Message",
+      "buttonSubmit": "Submit"
+   }
+}
+</i18n>
