@@ -26,57 +26,57 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { micromark } from "micromark";
-import CardBusinessUnit from "@/components/CardBusinessUnit.vue";
-import PageHeader from "@/components/PageHeader.vue";
-import { strapiImage } from "@/utilities/StrapiImage";
+import Vue from 'vue'
+import { micromark } from 'micromark'
+import CardBusinessUnit from '@/components/CardBusinessUnit.vue'
+import PageHeader from '@/components/PageHeader.vue'
+import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-  name: "BusinessUnit",
-  components: {
-    CardBusinessUnit,
-    PageHeader,
-  },
-  layout: "SinglePage",
-  data: () => {
-    return {
-      businessUnits: [],
-      businessUnitDescription: "",
-      page: {},
-    };
-  },
-  mounted() {
-    this.getPage();
-    this.getBusinessUnits();
-  },
-  methods: {
-    async getBusinessUnits() {
-      try {
-        const businessUnits = await this.$axios.$get(
-          "/api/business-units?populate=*"
-        );
-        this.businessUnits = businessUnits.data;
-      } catch (error) {}
-    },
-    async getPage() {
-      try {
-        const page = await this.$axios.$get(
-          "/api/page-business-unit?populate=*"
-        );
-        this.page = page.data.attributes;
-      } catch (error) {}
-    },
-    micromark,
-    showModalDescription(description: string) {
-      this.businessUnitDescription = description;
-      this.$bvModal.show("modal-description");
-    },
-    strapiImage,
-  },
-});
+   name: 'BusinessUnit',
+   components: {
+      CardBusinessUnit,
+      PageHeader
+   },
+   layout: 'SinglePage',
+   data: () => {
+      return {
+         businessUnits: [],
+         businessUnitDescription: '',
+         page: {}
+      }
+   },
+   mounted() {
+      this.getPage()
+      this.getBusinessUnits()
+   },
+   methods: {
+      async getBusinessUnits() {
+         try {
+            const businessUnits = await this.$axios.$get(
+               '/api/business-units?populate=*'
+            )
+            this.businessUnits = businessUnits.data
+         } catch (error) {}
+      },
+      async getPage() {
+         try {
+            const page = await this.$axios.$get(
+               '/api/page-business-unit?populate=*'
+            )
+            this.page = page.data.attributes
+         } catch (error) {}
+      },
+      micromark,
+      showModalDescription(description: string) {
+         this.businessUnitDescription = description
+         this.$bvModal.show('modal-description')
+      },
+      strapiImage
+   }
+})
 </script>
 <style scoped>
 .modal-description__content >>> * {
-  text-align: justify;
+   text-align: justify;
 }
 </style>

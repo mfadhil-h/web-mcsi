@@ -17,49 +17,51 @@ import { micromark } from 'micromark'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-  name: 'NewsDetail',
-  components: {
-    PageHeader
-  },
-  layout: 'SinglePage',
-  data: () => {
-    return {
-      blog: {}
-    }
-  },
-  mounted () {
-    this.getBlog()
-  },
-  methods: {
-    dayjs,
-    async getBlog () {
-      try {
-        const blog = await this.$axios.$get(`/api/blogs/${this.$route.params.id}?populate=*`)
-        this.blog = blog.data
-      } catch (error) { }
-    },
-    micromark,
-    strapiImage
-  }
+   name: 'NewsDetail',
+   components: {
+      PageHeader
+   },
+   layout: 'SinglePage',
+   data: () => {
+      return {
+         blog: {}
+      }
+   },
+   mounted() {
+      this.getBlog()
+   },
+   methods: {
+      dayjs,
+      async getBlog() {
+         try {
+            const blog = await this.$axios.$get(
+               `/api/blogs/${this.$route.params.id}?populate=*`
+            )
+            this.blog = blog.data
+         } catch (error) {}
+      },
+      micromark,
+      strapiImage
+   }
 })
 </script>
 <style lang="scss" scoped>
 .news {
-    .news__title {
-        font-size: 24px;
-        font-weight: 700;
-        letter-spacing: -5%;
-        line-height: 32px;
-    }
-    .news__attr {
-        color: rgba(black, .54);
-        font-size: 16px;
-        letter-spacing: -5%;
-        line-height: 24px;
-        margin-top: 1rem;
-    }
-    .news__html {
-        margin-top: 4rem;
-    }
+   .news__title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -5%;
+      line-height: 32px;
+   }
+   .news__attr {
+      color: rgba(black, 0.54);
+      font-size: 16px;
+      letter-spacing: -5%;
+      line-height: 24px;
+      margin-top: 1rem;
+   }
+   .news__html {
+      margin-top: 4rem;
+   }
 }
 </style>

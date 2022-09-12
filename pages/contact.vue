@@ -50,86 +50,109 @@ import Vue from 'vue'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-  name: 'Contact',
-  components: {
-    PageHeader
-  },
-  layout: 'SinglePage',
-  data: () => {
-    return {
-      contactCategories: [],
-      contactCategorySelected: '',
-      contactEmail: '',
-      message: {
-        name: '',
-        phone: '',
-        email: '',
-        subject: '',
-        message: ''
+   name: 'Contact',
+   components: {
+      PageHeader
+   },
+   layout: 'SinglePage',
+   data: () => {
+      return {
+         contactCategories: [],
+         contactCategorySelected: '',
+         contactEmail: '',
+         message: {
+            name: '',
+            phone: '',
+            email: '',
+            subject: '',
+            message: ''
+         },
+         page: {}
+      }
+   },
+   mounted() {
+      this.getPage()
+      this.getContactCategories()
+   },
+   methods: {
+      async getContactCategories() {
+         try {
+            const contactCategories = await this.$axios.$get(
+               '/api/contact-categories'
+            )
+            this.contactCategories = contactCategories.data
+            console.log('cat', this.contactCategories)
+         } catch (error) {}
       },
-      page: {}
-    }
-  },
-  mounted () {
-    this.getPage()
-    this.getContactCategories()
-  },
-  methods: {
-    async getContactCategories () {
-      try {
-        const contactCategories = await this.$axios.$get('/api/contact-categories')
-        this.contactCategories = contactCategories.data
-        console.log('cat', this.contactCategories)
-      } catch (error) { }
-    },
-    async getPage () {
-      try {
-        const page = await this.$axios.$get('/api/page-contact-us?populate=*')
-        this.page = page.data.attributes
-      } catch (error) { }
-    },
-    sendEmail (to: string, category: string, subject: string, message: string, name: string, phone: string, email: string) {
-      const mailLink = 'mailto:' +
-                            to +
-                            '?subject=' + encodeURIComponent(category) + ' - ' + encodeURIComponent(subject) +
-                            '&body=' + encodeURIComponent(name) + ' - (' + encodeURIComponent(phone) + ', ' + encodeURIComponent(email) + ')%0D%0D' +
-                            encodeURIComponent(message)
-      window.location.href = mailLink
-    },
-    strapiImage
-  }
+      async getPage() {
+         try {
+            const page = await this.$axios.$get(
+               '/api/page-contact-us?populate=*'
+            )
+            this.page = page.data.attributes
+         } catch (error) {}
+      },
+      sendEmail(
+         to: string,
+         category: string,
+         subject: string,
+         message: string,
+         name: string,
+         phone: string,
+         email: string
+      ) {
+         const mailLink =
+            'mailto:' +
+            to +
+            '?subject=' +
+            encodeURIComponent(category) +
+            ' - ' +
+            encodeURIComponent(subject) +
+            '&body=' +
+            encodeURIComponent(name) +
+            ' - (' +
+            encodeURIComponent(phone) +
+            ', ' +
+            encodeURIComponent(email) +
+            ')%0D%0D' +
+            encodeURIComponent(message)
+         window.location.href = mailLink
+      },
+      strapiImage
+   }
 })
 </script>
 <style lang="scss" scoped>
 .contact__office {
-    border: none;
-    box-shadow: 0 4px 8px 0 rgba(black, .1);
-    margin-bottom: 1.5rem;
-    .office__title {
-        font-size: 24px;
-        font-weight: 700;
-        line-height: 32px;
-        margin-bottom: 1rem;
-    }
-    .office__name {
-        font-weight: 700;
-    }
-    .office__map {
-        border-radius: 8px;
-        width: 100%; height: auto;
-    }
+   border: none;
+   box-shadow: 0 4px 8px 0 rgba(black, 0.1);
+   margin-bottom: 1.5rem;
+   .office__title {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 32px;
+      margin-bottom: 1rem;
+   }
+   .office__name {
+      font-weight: 700;
+   }
+   .office__map {
+      border-radius: 8px;
+      width: 100%;
+      height: auto;
+   }
 }
 .contact__email {
-    border: none;
-    box-shadow: 0 4px 8px 0 rgba(black, .1);
-    margin-bottom: 1.5rem;
-    .email__heading {
-        font-size: 24px;
-        line-height: 32px;
-        font-weight: bold;
-    }
-    .email__form {
-        margin-top: 1.5rem;
-    }
+   border: none;
+   box-shadow: 0 4px 8px 0 rgba(black, 0.1);
+   margin-bottom: 1.5rem;
+   .email__heading {
+      font-size: 24px;
+      line-height: 32px;
+      font-weight: bold;
+   }
+   .email__form {
+      margin-top: 1.5rem;
+   }
 }
 </style>

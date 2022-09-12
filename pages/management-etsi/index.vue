@@ -30,53 +30,61 @@ import CardManagement from '@/components/CardManagement.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-  name: 'OrgchartMcsi',
-  components: {
-    CardManagement,
-    PageHeader
-  },
-  layout: 'SinglePage',
-  data: () => {
-    return {
-      orgcharts: [],
-      page: {}
-    }
-  },
-  mounted () {
-    this.getPage()
-    this.getOrgCharts()
-  },
-  methods: {
-    filterOrgchart (orgcharts: any, isPresident: boolean) {
-      let result: any
-      if (isPresident == true) {
-        result = orgcharts.filter((orgchart: any) => orgchart.attributes.order == 1)
-      } else {
-        result = orgcharts.filter((orgchart: any) => orgchart.attributes.order > 1)
+   name: 'OrgchartMcsi',
+   components: {
+      CardManagement,
+      PageHeader
+   },
+   layout: 'SinglePage',
+   data: () => {
+      return {
+         orgcharts: [],
+         page: {}
       }
-      return result
-    },
-    async getPage () {
-      try {
-        const page = await this.$axios.$get('/api/page-organization-chart-etsi?populate=*')
-        this.page = page.data.attributes
-      } catch (error) { }
-    },
-    async getOrgCharts () {
-      try {
-        const orgcharts = await this.$axios.$get('/api/organization-chart-etsis?populate=*&sort[0]=order')
-        this.orgcharts = orgcharts.data
-      } catch (error) { }
-    },
-    goToPage (id: number) {
-      this.$router.push({ path: `management-etsi/${id}` })
-    },
-    strapiImage
-  }
+   },
+   mounted() {
+      this.getPage()
+      this.getOrgCharts()
+   },
+   methods: {
+      filterOrgchart(orgcharts: any, isPresident: boolean) {
+         let result: any
+         if (isPresident == true) {
+            result = orgcharts.filter(
+               (orgchart: any) => orgchart.attributes.order == 1
+            )
+         } else {
+            result = orgcharts.filter(
+               (orgchart: any) => orgchart.attributes.order > 1
+            )
+         }
+         return result
+      },
+      async getPage() {
+         try {
+            const page = await this.$axios.$get(
+               '/api/page-organization-chart-etsi?populate=*'
+            )
+            this.page = page.data.attributes
+         } catch (error) {}
+      },
+      async getOrgCharts() {
+         try {
+            const orgcharts = await this.$axios.$get(
+               '/api/organization-chart-etsis?populate=*&sort[0]=order'
+            )
+            this.orgcharts = orgcharts.data
+         } catch (error) {}
+      },
+      goToPage(id: number) {
+         this.$router.push({ path: `management-etsi/${id}` })
+      },
+      strapiImage
+   }
 })
 </script>
 <style lang="scss" scoped>
 .management__org-chart {
-    background-color: #EAEAEA;
+   background-color: #eaeaea;
 }
 </style>

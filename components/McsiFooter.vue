@@ -69,91 +69,94 @@ b-container.mcsi-footer(fluid)
 import Vue from 'vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-  name: 'Footer',
-  data: () => {
-    return {
-      footerInfo: {},
-      footerLinkCol2: [] as any,
-      patternTr: require('@/static/pattern-tr.png'),
-      patternBl: require('@/static/pattern-bl.png')
-    }
-  },
-  mounted () {
-    this.footerLinkCol2 = [
-      { label: this.$t('privacyPolicy') as string, link: '/privacy-policy' },
-      { label: this.$t('termConditions') as string, link: '/terms-conditions' },
-      { label: this.$t('contactUs') as string, link: '/contact' },
-      { label: this.$t('sitemap') as string, link: '/sitemap' }
-    ]
-    this.getFooter()
-  },
-  methods: {
-    async getFooter () {
-      try {
-        const footerInfo = await this.$axios.$get('/api/footer?populate=*')
-        this.footerInfo = footerInfo.data.attributes
-      } catch (error) {}
-    },
-    openSocial (url: string) {
-      window.open(url, '_blank')
-    },
-    strapiImage
-  }
+   name: 'Footer',
+   data: () => {
+      return {
+         footerInfo: {},
+         footerLinkCol2: [] as any,
+         patternTr: require('@/static/pattern-tr.png'),
+         patternBl: require('@/static/pattern-bl.png')
+      }
+   },
+   mounted() {
+      this.footerLinkCol2 = [
+         { label: this.$t('privacyPolicy') as string, link: '/privacy-policy' },
+         {
+            label: this.$t('termConditions') as string,
+            link: '/terms-conditions'
+         },
+         { label: this.$t('contactUs') as string, link: '/contact' },
+         { label: this.$t('sitemap') as string, link: '/sitemap' }
+      ]
+      this.getFooter()
+   },
+   methods: {
+      async getFooter() {
+         try {
+            const footerInfo = await this.$axios.$get('/api/footer?populate=*')
+            this.footerInfo = footerInfo.data.attributes
+         } catch (error) {}
+      },
+      openSocial(url: string) {
+         window.open(url, '_blank')
+      },
+      strapiImage
+   }
 })
 </script>
 <style lang="scss" scoped>
 .mcsi-footer {
-  position: relative;
-  background-image: linear-gradient(180deg, #cc0000 0%, #910000 100%);
-  .mcsi-footer__pattern-tr {
-    filter: opacity(0.8);
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 25%;
-    height: auto;
-  }
-  .mcsi-footer__pattern-bl {
-    filter: opacity(0.8);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 25%;
-    height: auto;
-  }
-  .mcsi-footer__item-title {
-    color: white;
-    display: block;
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-  }
-  .mcsi-footer__item {
-    color: rgba(white, 0.8);
-    display: block;
-    margin-bottom: 1rem;
-    text-decoration: none;
-    &:hover {
+   position: relative;
+   background-image: linear-gradient(180deg, #cc0000 0%, #910000 100%);
+   .mcsi-footer__pattern-tr {
+      filter: opacity(0.8);
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 25%;
+      height: auto;
+   }
+   .mcsi-footer__pattern-bl {
+      filter: opacity(0.8);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 25%;
+      height: auto;
+   }
+   .mcsi-footer__item-title {
       color: white;
-    }
-  }
-  .mcsi_footer__social {
-    a {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+   }
+   .mcsi-footer__item {
       color: rgba(white, 0.8);
+      display: block;
+      margin-bottom: 1rem;
+      text-decoration: none;
       &:hover {
-        color: white;
+         color: white;
       }
-    }
-  }
-  .mcsi-footer__copyright {
-    color: rgba(white, 0.8);
-    font-size: 12px;
-    text-align: center;
-  }
+   }
+   .mcsi_footer__social {
+      a {
+         color: rgba(white, 0.8);
+         &:hover {
+            color: white;
+         }
+      }
+   }
+   .mcsi-footer__copyright {
+      color: rgba(white, 0.8);
+      font-size: 12px;
+      text-align: center;
+   }
 }
 .logo-lighthouse {
-  height: 200px;
-  width: auto;
+   height: 200px;
+   width: auto;
 }
 </style>
 <i18n>

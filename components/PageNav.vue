@@ -16,56 +16,55 @@
           h3.page-nav__text {{ rightText }}
 </template>
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue'
 export default Vue.extend({
-  name: "PageNav",
-  props: {
-    leftButtonText: String,
-    leftText: String,
-    hideLeft: {
-      type: Boolean,
-      default: false,
-    },
-    rightButtonText: String,
-    rightText: String,
-    hideRight: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  computed: {
-    styleHideLeft() {
-      return this.hideLeft === true
-        ? "visibility: hidden"
-        : "visibility: visible";
-    },
-    styleHideRight() {
-      return this.hideRight === true
-        ? "visibility: hidden"
-        : "visibility: visible";
-    },
-  },
-  methods: {
-    clickLeft() {
-      this.$emit("clickLeft");
-    },
-    clickRight() {
-      this.$emit("clickRight");
-    },
-  },
-});
+   name: 'PageNav',
+   props: {
+      leftButtonText: String,
+      leftText: String,
+      hideLeft: {
+         type: Boolean,
+         default: false
+      },
+      rightButtonText: String,
+      rightText: String,
+      hideRight: {
+         type: Boolean,
+         default: false
+      }
+   },
+   computed: {
+      styleHideLeft() {
+         return this.hideLeft === true
+            ? 'visibility: hidden'
+            : 'visibility: visible'
+      },
+      styleHideRight() {
+         return this.hideRight === true
+            ? 'visibility: hidden'
+            : 'visibility: visible'
+      }
+   },
+   methods: {
+      clickLeft() {
+         this.$emit('clickLeft')
+      },
+      clickRight() {
+         this.$emit('clickRight')
+      }
+   }
+})
 </script>
 <style lang="scss">
 .page-nav {
-  .page-nav__button {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .page-nav__text {
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -1px;
-  }
+   .page-nav__button {
+      padding-left: 0;
+      padding-right: 0;
+   }
+   .page-nav__text {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -1px;
+   }
 }
 </style>
-

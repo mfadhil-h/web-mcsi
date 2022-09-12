@@ -42,122 +42,124 @@
       .milestone-detail__description {{ milestoneSelected.description }}
 </template>
 <script lang="ts">
-import Vue from "vue";
-import * as dayjs from "dayjs";
-import PageHeader from "@/components/PageHeader.vue";
-import { strapiImage } from "@/utilities/StrapiImage";
+import Vue from 'vue'
+import * as dayjs from 'dayjs'
+import PageHeader from '@/components/PageHeader.vue'
+import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-  name: "Milestone",
-  components: {
-    PageHeader,
-  },
-  layout: "SinglePage",
-  data: () => {
-    return {
-      milestones: [],
-      milestoneSelected: {},
-      page: {},
-    };
-  },
-  mounted() {
-    this.getPage();
-    this.getMilestones();
-  },
-  methods: {
-    dayjs,
-    async getMilestones() {
-      try {
-        const milestones = await this.$axios.$get(
-          "/api/milestones?populate=*&sort[0]=order"
-        );
-        this.milestones = milestones.data;
-        console.log(this.milestones);
-      } catch (error) {}
-    },
-    async getPage() {
-      try {
-        const page = await this.$axios.$get("/api/page-milestone?populate=*");
-        this.page = page.data.attributes;
-      } catch (error) {}
-    },
-    showModalMilestone(
-      image: string,
-      date: string,
-      title: string,
-      description: string
-    ) {
-      this.milestoneSelected = {
-        image,
-        date,
-        title,
-        description,
-      };
-      this.$bvModal.show("modal-milestone");
-    },
-    strapiImage,
-  },
-});
+   name: 'Milestone',
+   components: {
+      PageHeader
+   },
+   layout: 'SinglePage',
+   data: () => {
+      return {
+         milestones: [],
+         milestoneSelected: {},
+         page: {}
+      }
+   },
+   mounted() {
+      this.getPage()
+      this.getMilestones()
+   },
+   methods: {
+      dayjs,
+      async getMilestones() {
+         try {
+            const milestones = await this.$axios.$get(
+               '/api/milestones?populate=*&sort[0]=order'
+            )
+            this.milestones = milestones.data
+            console.log(this.milestones)
+         } catch (error) {}
+      },
+      async getPage() {
+         try {
+            const page = await this.$axios.$get(
+               '/api/page-milestone?populate=*'
+            )
+            this.page = page.data.attributes
+         } catch (error) {}
+      },
+      showModalMilestone(
+         image: string,
+         date: string,
+         title: string,
+         description: string
+      ) {
+         this.milestoneSelected = {
+            image,
+            date,
+            title,
+            description
+         }
+         this.$bvModal.show('modal-milestone')
+      },
+      strapiImage
+   }
+})
 </script>
 <style lang="scss" scoped>
 .timeline {
-  cursor: default;
-  .timeline__image {
-    border-radius: 8px;
-    display: inline-block;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-    object-fit: cover;
-    vertical-align: top;
-    width: 120px;
-    height: 120px;
-    @media screen and (min-width: 1200px) {
-      margin-bottom: 0;
-    }
-  }
-  .timeline__details {
-    display: inline-block;
-    vertical-align: top;
-    .timeline__title {
-      cursor: default;
-      font-weight: 700;
-      margin-top: 0;
-      color: inherit;
-    }
-    .timeline__description {
-      margin-top: 1rem;
-      overflow: hidden;
-      width: 100%;
-    }
-    .timeline__link {
-      font-size: 14px;
-      margin-top: 0.5rem;
-      opacity: 0.7;
-    }
-  }
+   cursor: default;
+   .timeline__image {
+      border-radius: 8px;
+      display: inline-block;
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+      object-fit: cover;
+      vertical-align: top;
+      width: 120px;
+      height: 120px;
+      @media screen and (min-width: 1200px) {
+         margin-bottom: 0;
+      }
+   }
+   .timeline__details {
+      display: inline-block;
+      vertical-align: top;
+      .timeline__title {
+         cursor: default;
+         font-weight: 700;
+         margin-top: 0;
+         color: inherit;
+      }
+      .timeline__description {
+         margin-top: 1rem;
+         overflow: hidden;
+         width: 100%;
+      }
+      .timeline__link {
+         font-size: 14px;
+         margin-top: 0.5rem;
+         opacity: 0.7;
+      }
+   }
 }
 .milestone-detail {
-  .milestone-detail__image {
-    margin-bottom: 2rem;
-    max-width: 320px;
-    width: 100%;
-    height: auto;
-  }
-  .milestone-detail__title {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -1px;
-    line-height: 32px;
-    margin-bottom: 0.5rem;
-  }
-  .milestone-detail__date {
-    color: rgba(black, 0.7);
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 24px;
-    margin-bottom: 2rem;
-  }
-  .milestone-detail__description {
-    margin-top: 2rem;
-  }
+   .milestone-detail__image {
+      margin-bottom: 2rem;
+      max-width: 320px;
+      width: 100%;
+      height: auto;
+   }
+   .milestone-detail__title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 32px;
+      margin-bottom: 0.5rem;
+   }
+   .milestone-detail__date {
+      color: rgba(black, 0.7);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 24px;
+      margin-bottom: 2rem;
+   }
+   .milestone-detail__description {
+      margin-top: 2rem;
+   }
 }
 </style>

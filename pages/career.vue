@@ -64,75 +64,75 @@ import CardVacancy from '@/components/CardVacancy.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-  name: 'CompanyGroup',
-  components: {
-    CardVacancy,
-    PageHeader
-  },
-  layout: 'SinglePage',
-  data: () => {
-    return {
-      careers: [],
-      careerTypes: [],
-      careerTypeSelected: 0,
-      filteredCareers: [],
-      isFilteredCareers: false,
-      page: {}
-    }
-  },
-  mounted () {
-    this.getPage()
-    this.getCareerTypes()
-    this.getCareers()
-  },
-  methods: {
-    dayjs,
-    async getCareerTypes () {
-      try {
-        const careerTypes = await this.$axios.get('/api/career-types')
-        this.careerTypes = careerTypes.data.data
-      } catch (error) {}
-    },
-    async getCareers () {
-      try {
-        const careers = await this.$axios.get(
-          '/api/careers?populate=*&filters[isOpen][$eq]=true'
-        )
-        this.careers = careers.data.data
-      } catch (error) {}
-    },
-    async getPage () {
-      try {
-        const page = await this.$axios.$get('/api/page-career?populate=*')
-        this.page = page.data.attributes
-      } catch (error) {}
-    },
-    filterCareer (type: number) {
-      let tempCareers = this.careers
-      this.isFilteredCareers = false
-      if (type == 0) {
-        tempCareers = this.careers
+   name: 'CompanyGroup',
+   components: {
+      CardVacancy,
+      PageHeader
+   },
+   layout: 'SinglePage',
+   data: () => {
+      return {
+         careers: [],
+         careerTypes: [],
+         careerTypeSelected: 0,
+         filteredCareers: [],
+         isFilteredCareers: false,
+         page: {}
       }
-      if (type != 0) {
-        tempCareers = tempCareers.filter(
-          (career: any) => career.attributes.career_type.data.id == type
-        )
-        this.isFilteredCareers = true
-      }
-      this.filteredCareers = tempCareers
-    },
-    openJobPage (link: string) {
-      window.open(link, '_blank')
-    },
-    strapiImage
-  }
+   },
+   mounted() {
+      this.getPage()
+      this.getCareerTypes()
+      this.getCareers()
+   },
+   methods: {
+      dayjs,
+      async getCareerTypes() {
+         try {
+            const careerTypes = await this.$axios.get('/api/career-types')
+            this.careerTypes = careerTypes.data.data
+         } catch (error) {}
+      },
+      async getCareers() {
+         try {
+            const careers = await this.$axios.get(
+               '/api/careers?populate=*&filters[isOpen][$eq]=true'
+            )
+            this.careers = careers.data.data
+         } catch (error) {}
+      },
+      async getPage() {
+         try {
+            const page = await this.$axios.$get('/api/page-career?populate=*')
+            this.page = page.data.attributes
+         } catch (error) {}
+      },
+      filterCareer(type: number) {
+         let tempCareers = this.careers
+         this.isFilteredCareers = false
+         if (type == 0) {
+            tempCareers = this.careers
+         }
+         if (type != 0) {
+            tempCareers = tempCareers.filter(
+               (career: any) => career.attributes.career_type.data.id == type
+            )
+            this.isFilteredCareers = true
+         }
+         this.filteredCareers = tempCareers
+      },
+      openJobPage(link: string) {
+         window.open(link, '_blank')
+      },
+      strapiImage
+   }
 })
 </script>
 <style lang="scss" scoped>
 .search {
-  background-color: #cacaca;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  padding: 1rem 2rem;
+   background-color: #cacaca;
+   border-radius: 8px;
+   margin-bottom: 2rem;
+   padding: 1rem 2rem;
 }
 </style>

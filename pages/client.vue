@@ -58,72 +58,74 @@ import CardTestimony from '@/components/CardTestimony.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 export default Vue.extend({
-  name: 'Client',
-  components: {
-    CardTestimony,
-    PageHeader
-  },
-  layout: 'SinglePage',
-  data: () => {
-    return {
-      clients: [],
-      testimonies: [],
-      testimonySelected: '',
-      page: {}
-    }
-  },
-  mounted () {
-    this.getClients()
-    this.getPage()
-    this.getTestimonies()
-  },
-  updated () {
-    const dots = document.getElementsByClassName('VueCarousel-dot')
-    for (let index = 0; index < dots.length; index += 1) {
-      const element: any = dots[index]
-      element.title = ''
-    }
-  },
-  methods: {
-    async getClients () {
-      try {
-        const clients = await this.$axios.$get(
-          '/api/clients?populate=*&sort[0]=order'
-        )
-        this.clients = clients.data
-      } catch (error) {}
-    },
-    async getPage () {
-      try {
-        const page = await this.$axios.$get('/api/page-client?populate=*')
-        this.page = page.data.attributes
-      } catch (error) {}
-    },
-    async getTestimonies () {
-      try {
-        const testimonies = await this.$axios.$get('/api/testimonies?populate=*')
-        this.testimonies = testimonies.data
-      } catch (error) {}
-    },
-    showModalTestimony (description: string) {
-      this.testimonySelected = description
-      this.$bvModal.show('modal-testimony')
-    },
-    strapiImage
-  }
+   name: 'Client',
+   components: {
+      CardTestimony,
+      PageHeader
+   },
+   layout: 'SinglePage',
+   data: () => {
+      return {
+         clients: [],
+         testimonies: [],
+         testimonySelected: '',
+         page: {}
+      }
+   },
+   mounted() {
+      this.getClients()
+      this.getPage()
+      this.getTestimonies()
+   },
+   updated() {
+      const dots = document.getElementsByClassName('VueCarousel-dot')
+      for (let index = 0; index < dots.length; index += 1) {
+         const element: any = dots[index]
+         element.title = ''
+      }
+   },
+   methods: {
+      async getClients() {
+         try {
+            const clients = await this.$axios.$get(
+               '/api/clients?populate=*&sort[0]=order'
+            )
+            this.clients = clients.data
+         } catch (error) {}
+      },
+      async getPage() {
+         try {
+            const page = await this.$axios.$get('/api/page-client?populate=*')
+            this.page = page.data.attributes
+         } catch (error) {}
+      },
+      async getTestimonies() {
+         try {
+            const testimonies = await this.$axios.$get(
+               '/api/testimonies?populate=*'
+            )
+            this.testimonies = testimonies.data
+         } catch (error) {}
+      },
+      showModalTestimony(description: string) {
+         this.testimonySelected = description
+         this.$bvModal.show('modal-testimony')
+      },
+      strapiImage
+   }
 })
 </script>
 <style lang="scss" scoped>
 .client {
-  text-align: center;
-  .client__logo {
-    height: 80px;
-    object-fit: contain;
-  }
+   text-align: center;
+   .client__logo {
+      height: 80px;
+      object-fit: contain;
+   }
 }
 .testimony {
-  .testimony__card {
-    margin: 0.5rem 1rem;
-  }
+   .testimony__card {
+      margin: 0.5rem 1rem;
+   }
 }
 </style>

@@ -51,84 +51,96 @@ import PageHeader from '@/components/PageHeader.vue'
 import { strapiImage } from '@/utilities/StrapiImage'
 import Thumbnail from '@/components/Thumbnail.vue'
 export default Vue.extend({
-  name: 'ManagementMcsi',
-  components: {
-    PageHeader,
-    Thumbnail
-  },
-  layout: 'SinglePage',
-  data: () => {
-    return {
-      page: {},
-      people: [],
-      personSelected: {}
-    }
-  },
-  mounted () {
-    this.getPage()
-    this.getPeople()
-  },
-  methods: {
-    async getPage () {
-      try {
-        const page = await this.$axios.$get('/api/page-organization-mcsi?populate=*')
-        this.page = page.data.attributes
-      } catch (error) { }
-    },
-    async getPeople () {
-      try {
-        const people = await this.$axios.$get('/api/organization-mcsis?populate=*')
-        this.people = people.data
-      } catch (error) { }
-    },
-    filterOrganization (people: any, group: string) {
-      return people.filter((person: any) => person.attributes.organizationGroup == group)
-    },
-    showModalProfile (image: string, position: string, name: string, description: string) {
-      this.personSelected = {
-        image,
-        position,
-        name,
-        description
+   name: 'ManagementMcsi',
+   components: {
+      PageHeader,
+      Thumbnail
+   },
+   layout: 'SinglePage',
+   data: () => {
+      return {
+         page: {},
+         people: [],
+         personSelected: {}
       }
-      this.$bvModal.show('modal-profile')
-    },
-    strapiImage
-  }
+   },
+   mounted() {
+      this.getPage()
+      this.getPeople()
+   },
+   methods: {
+      async getPage() {
+         try {
+            const page = await this.$axios.$get(
+               '/api/page-organization-mcsi?populate=*'
+            )
+            this.page = page.data.attributes
+         } catch (error) {}
+      },
+      async getPeople() {
+         try {
+            const people = await this.$axios.$get(
+               '/api/organization-mcsis?populate=*'
+            )
+            this.people = people.data
+         } catch (error) {}
+      },
+      filterOrganization(people: any, group: string) {
+         return people.filter(
+            (person: any) => person.attributes.organizationGroup == group
+         )
+      },
+      showModalProfile(
+         image: string,
+         position: string,
+         name: string,
+         description: string
+      ) {
+         this.personSelected = {
+            image,
+            position,
+            name,
+            description
+         }
+         this.$bvModal.show('modal-profile')
+      },
+      strapiImage
+   }
 })
 </script>
 <style lang="scss" scoped>
 .management__org-chart {
-    background-color: #EAEAEA;
+   background-color: #eaeaea;
 }
 .section {
-    .section__title {
-        color: black;
-    }
+   .section__title {
+      color: black;
+   }
 }
 .profile {
-    .profile__image {
-        margin-bottom: 2rem;
-        max-width: 320px;
-        width: 100%; height: auto;
-    }
-    .profile__name {
-        font-size: 28px;
-        font-weight: 700;
-        letter-spacing: -1px;
-        line-height: 32px;
-        margin-bottom: .5rem;
-    }
-    .profile__position {
-        color: rgba(black, .7);
-        font-size: 20px;
-        font-weight: 500;
-        line-height: 24px;
-        margin-bottom: 2rem;
-    }
+   .profile__image {
+      margin-bottom: 2rem;
+      max-width: 320px;
+      width: 100%;
+      height: auto;
+   }
+   .profile__name {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 32px;
+      margin-bottom: 0.5rem;
+   }
+   .profile__position {
+      color: rgba(black, 0.7);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 24px;
+      margin-bottom: 2rem;
+   }
 
-    .profile__description {
-        margin-top: 2rem;
-    }
+   .profile__description {
+      margin-top: 2rem;
+   }
 }
 </style>

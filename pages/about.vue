@@ -84,102 +84,102 @@
     )
 </template>
 <script lang="ts">
-import Vue from "vue";
-import { micromark } from "micromark";
-import PageHeader from "@/components/PageHeader.vue";
-import { strapiImage } from "@/utilities/StrapiImage";
-import YoutubePlayer from "@/components/YoutubePlayer.vue";
+import Vue from 'vue'
+import { micromark } from 'micromark'
+import PageHeader from '@/components/PageHeader.vue'
+import { strapiImage } from '@/utilities/StrapiImage'
+import YoutubePlayer from '@/components/YoutubePlayer.vue'
 export default Vue.extend({
-  name: "CompanyProfile",
-  components: {
-    PageHeader,
-    YoutubePlayer,
-  },
-  layout: "SinglePage",
-  data: () => {
-    return {
-      page: {},
-    };
-  },
-  mounted() {
-    this.getPage();
-  },
-  methods: {
-    async getPage() {
-      try {
-        const page = await this.$axios.$get("/api/page-about?populate=*");
-        this.page = page.data.attributes;
-      } catch (error) {}
-    },
-    micromark,
-    strapiImage,
-  },
-});
+   name: 'CompanyProfile',
+   components: {
+      PageHeader,
+      YoutubePlayer
+   },
+   layout: 'SinglePage',
+   data: () => {
+      return {
+         page: {}
+      }
+   },
+   mounted() {
+      this.getPage()
+   },
+   methods: {
+      async getPage() {
+         try {
+            const page = await this.$axios.$get('/api/page-about?populate=*')
+            this.page = page.data.attributes
+         } catch (error) {}
+      },
+      micromark,
+      strapiImage
+   }
+})
 </script>
 <style lang="scss" scoped>
 .company-profile {
-  .company__image {
-    margin-bottom: 1.5rem;
-    width: 100%;
-    height: auto;
-  }
-  .company__vision {
-    background: rgba(#eaeaea, 0.5);
-    padding-left: 0;
-    padding-right: 0;
-    position: relative;
-    .ribbon {
-      position: absolute;
-      top: 200px;
-      background-color: #cc0000;
-      height: 20px;
+   .company__image {
+      margin-bottom: 1.5rem;
       width: 100%;
-    }
-  }
+      height: auto;
+   }
+   .company__vision {
+      background: rgba(#eaeaea, 0.5);
+      padding-left: 0;
+      padding-right: 0;
+      position: relative;
+      .ribbon {
+         position: absolute;
+         top: 200px;
+         background-color: #cc0000;
+         height: 20px;
+         width: 100%;
+      }
+   }
 }
 .vision {
-  border-radius: 16px;
-  box-shadow: 0 4px 8px 0 rgba(black, 0.1);
-  text-align: center;
-  .vision__icon {
-    background-color: #eaeaea;
-    border-radius: 32px;
-    height: 64px;
-    width: 64px;
-    margin: 0 auto;
-    position: relative;
-    .icon__fa {
-      color: #154d6d;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
-  .vision__label {
-    color: #cc0000;
-    font-size: 20px;
-    font-weight: 700;
-    margin-top: 1.5rem;
-  }
-  .vision__description {
-    margin-top: 3rem;
-    text-align: justify;
-  }
-  .vision__link {
-    color: rgba(black, 0.6);
-    float: left;
-    font-size: 14px;
-    transition-duration: 100ms;
-    &:hover {
+   border-radius: 16px;
+   box-shadow: 0 4px 8px 0 rgba(black, 0.1);
+   text-align: center;
+   .vision__icon {
+      background-color: #eaeaea;
+      border-radius: 32px;
+      height: 64px;
+      width: 64px;
+      margin: 0 auto;
+      position: relative;
+      .icon__fa {
+         color: #154d6d;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+      }
+   }
+   .vision__label {
       color: #cc0000;
-      transition-duration: 300ms;
-    }
-  }
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 1.5rem;
+   }
+   .vision__description {
+      margin-top: 3rem;
+      text-align: justify;
+   }
+   .vision__link {
+      color: rgba(black, 0.6);
+      float: left;
+      font-size: 14px;
+      transition-duration: 100ms;
+      &:hover {
+         color: #cc0000;
+         transition-duration: 300ms;
+      }
+   }
 }
 </style>
 <style scoped>
 .modal-vision__content >>> * {
-  text-align: justify;
+   text-align: justify;
 }
 </style>
