@@ -1,48 +1,79 @@
 <template lang="pug">
 .index
-	videotron(
-		:video-image="strapiImage($axios.defaults.baseURL, page.videoImage)"
-		:video="strapiImage($axios.defaults.baseURL, page.video)"
-		:header1="page.header1"
-		:header2="page.header2"
-		@onClickArrow="onClickArrow"
-		@onClickPlay="showModalVideoYoutube"
-		v-if="page.videoImage!=null"
-	)
-	b-container.section(id="scrollTarget")
-		b-card.section__bg(no-body)
-			.display-1 {{page.sectionBusinessUnitTitle}}
-			.display-2 {{page.sectionBusinessUnitDescription}}
-	b-container.p-0(fluid)
-		b-row(no-gutters v-if="companies")
-			b-col.company-group(cols="12" sm="6" v-for="(company, index) of companies" :key="index")
-				b-img.company-group__image(:src="strapiImage($axios.defaults.baseURL, company.attributes.image)")
-				.company-group__labels
-					b-img.company-group__icon(:src="strapiImage($axios.defaults.baseURL, company.attributes.icon)")
-					.company-group__label
-						.company-group__name {{company.attributes.name}}
-						.company-group__description(v-html="micromark(company.attributes.descriptionHtml.substring(0,120)+' ...')")
-						.company-group__read-more(@click="showModalCompanyGroupDescription(company.attributes.descriptionHtml)")
-							span Selengkapnya
-							font-awesome-icon.fw.title__arrow.ml-2(icon="circle-arrow-right")
-	b-container.section--numbers(fluid)
-		video-background.section--numbers__background(:src="strapiImage($axios.defaults.baseURL, page.sectionNumbersBackground)" v-if="page.sectionNumbersBackground")
-		.section--numbers__panels
-			b-container.section
-				.display-1.text-white {{page.sectionNumbersTitle}}
-				.display-2.text-white {{page.sectionNumbersDescription}}
-				b-row.mt-5(v-if="page.numbers")
-					b-col(v-for="(number, index) of page.numbers" cols="6" md="3" :key="index")
-						b-card.panel(@click="showModalNumbers(number.description)")
-							.panel__line1 {{number.line1}}
-							.panel__number {{number.number}}
-							.panel__line2 {{number.line2}}
-	b-modal.modal-company-group(id="modal-company-group" size="lg" hide-footer centered)
-		.company-group__description-full(v-html="micromark(companyDescription)")
-	b-modal.modal-numbers(id="modal-numbers" size="lg" hide-footer centered)
-		.numbers__description(v-html="micromark(numberDescription)")
-	b-modal.modal-video-youtube(id="modal-video-youtube" size="xl" hide-footer centered)
-		youtube-player(:src="page.youtubeLink")
+   videotron(
+      :video-image='strapiImage($axios.defaults.baseURL, page.videoImage)',
+      :video='strapiImage($axios.defaults.baseURL, page.video)',
+      :header1='page.header1',
+      :header2='page.header2',
+      @onClickArrow='onClickArrow',
+      @onClickPlay='showModalVideoYoutube',
+      v-if='page.videoImage'
+   )
+   b-container#scrollTarget.section
+      b-card.section__bg(no-body)
+         .display-1 {{ page.sectionBusinessUnitTitle }}
+         .display-2 {{ page.sectionBusinessUnitDescription }}
+   b-container.p-0(fluid)
+      b-row(no-gutters, v-if='companies')
+         b-col.company-group(
+            cols='12',
+            sm='6',
+            v-for='(company, index) of companies',
+            :key='index'
+         )
+            b-img.company-group__image(
+               :src='strapiImage($axios.defaults.baseURL, company.attributes.image)'
+            )
+            .company-group__labels
+               b-img.company-group__icon(
+                  :src='strapiImage($axios.defaults.baseURL, company.attributes.icon)'
+               )
+               .company-group__label
+                  .company-group__name {{ company.attributes.name }}
+                  .company-group__description(
+                     v-html='micromark(company.attributes.descriptionHtml.substring(0, 120) + " ...")'
+                  )
+                  .company-group__read-more(
+                     @click='showModalCompanyGroupDescription(company.attributes.descriptionHtml)'
+                  )
+                     span {{ $t("more") }}
+                     font-awesome-icon.fw.title__arrow.ml-2(
+                        icon='circle-arrow-right'
+                     )
+   b-container.section--numbers(fluid)
+      video-background.section--numbers__background(
+         :src='strapiImage($axios.defaults.baseURL, page.sectionNumbersBackground)',
+         v-if='page.sectionNumbersBackground'
+      )
+      .section--numbers__panels
+         b-container.section
+            .display-1.text-white {{ page.sectionNumbersTitle }}
+            .display-2.text-white {{ page.sectionNumbersDescription }}
+            b-row.mt-5(v-if='page.numbers')
+               b-col(
+                  v-for='(number, index) of page.numbers',
+                  cols='6',
+                  md='3',
+                  :key='index'
+               )
+                  b-card.panel(@click='showModalNumbers(number.description)')
+                     .panel__line1 {{ number.line1 }}
+                     .panel__number {{ number.number }}
+                     .panel__line2 {{ number.line2 }}
+   b-modal#modal-company-group.modal-company-group(
+      size='lg',
+      hide-footer,
+      centered
+   )
+      .company-group__description-full(v-html='micromark(companyDescription)')
+   b-modal#modal-numbers.modal-numbers(size='lg', hide-footer, centered)
+      .numbers__description(v-html='micromark(numberDescription)')
+   b-modal#modal-video-youtube.modal-video-youtube(
+      size='xl',
+      hide-footer,
+      centered
+   )
+      youtube-player(:src='page.youtubeLink')
 </template>
 
 <script lang="ts">
@@ -211,3 +242,13 @@ export default Vue.extend({
    text-align: justify;
 }
 </style>
+<i18n>
+{
+   "id": {
+      "more": "Selengkapnya"
+   },
+   "en": {
+      "more": "Read More"
+   }
+}
+</i18n>
