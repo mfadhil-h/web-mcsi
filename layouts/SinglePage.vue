@@ -18,12 +18,15 @@
          b-collapse#nav-collapse(is-nav)
             b-navbar-nav.ml-auto
                div(v-for='(item, index) of menu', :key='index')
-                  b-nav-item(v-if='!item.children', :to='item.link') {{ item.label }}
+                  b-nav-item(
+                     v-if='!item.children',
+                     :to='localePath(item.link)'
+                  ) {{ item.label }}
                   b-nav-item-dropdown(:text='item.label', v-if='item.children')
                      b-dropdown-item(
                         v-for='(item, index) of item.children',
                         :key='index',
-                        :to='item.link'
+                        :to='localePath(item.link)'
                      ) {{ item.label }}
                b-nav-item-dropdown 
                   template(v-slot:button-content)
@@ -60,7 +63,10 @@
             b-collapse#nav-collapse(is-nav)
                b-navbar-nav.ml-auto
                   div(v-for='(item, index) of menu', :key='index')
-                     b-nav-item(v-if='!item.children', :to='item.link') {{ item.label }}
+                     b-nav-item(
+                        v-if='!item.children',
+                        :to='localePath(item.link)'
+                     ) {{ item.label }}
                      b-nav-item-dropdown(
                         :text='item.label',
                         v-if='item.children'
@@ -68,7 +74,7 @@
                         b-dropdown-item(
                            v-for='(item, index) of item.children',
                            :key='index',
-                           :to='item.link'
+                           :to='localePath(item.link)'
                         ) {{ item.label }}
                   b-nav-item-dropdown 
                      template(v-slot:button-content)
@@ -120,9 +126,9 @@ export default Vue.extend({
       }
    },
    mounted() {
+      this.locales = this.$i18n.locales
       this.menu = translatedMenu(this)
       window.addEventListener('scroll', this.onScroll)
-      this.locales = this.$i18n.locales
    },
    methods: {
       async particlesInit(engine: Engine): Promise<void> {
@@ -134,6 +140,7 @@ export default Vue.extend({
       switchLocale(code: string) {
          this.$i18n.setLocale(code)
          localStorage.lang = code
+         this.menu = translatedMenu(this)
       }
    }
 })

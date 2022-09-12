@@ -59,49 +59,49 @@ export function translatedMenu(app) {
       },
       {
          label: app.$t('aboutUs'),
-         link: '/profile',
+         link: '/',
          children: [
             {
                label: app.$t('shortProfile'),
-               link: '/about'
+               link: '/about/'
             },
             {
                label: app.$t('businessUnit'),
-               link: '/business-unit'
+               link: '/business-unit/'
             },
             {
                label: app.$t('MCSIManagement'),
-               link: '/management-mcsi'
+               link: '/management-mcsi/'
             },
             {
                label: app.$t('MCSIOrgChart'),
-               link: '/organization-mcsi'
+               link: '/organization-mcsi/'
             },
             {
                label: app.$t('milestone'),
-               link: '/milestone'
+               link: '/milestone/'
             },
             {
                label: app.$t('achievement'),
-               link: '/achievement'
+               link: '/achievement/'
             }
          ]
       },
       {
          label: app.$t('newsAndInsight'),
-         link: '/news'
+         link: '/news/'
       },
       {
          label: app.$t('client'),
-         link: '/client'
+         link: '/client/'
       },
       {
          label: app.$t('career'),
-         link: '/career'
+         link: '/career/'
       },
       {
          label: app.$t('contactUs'),
-         link: '/contact'
+         link: '/contact/'
       }
    ]
 }

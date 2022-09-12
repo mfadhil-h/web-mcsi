@@ -79,7 +79,8 @@ export default {
          fallbackLocale: 'id',
          messages: { id, en }
       },
-      detectBrowserLanguage: false
+      detectBrowserLanguage: false,
+      strategy: 'prefix'
    },
    axios: {
       proxy: false,
