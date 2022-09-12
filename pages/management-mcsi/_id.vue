@@ -1,25 +1,25 @@
 <template lang="pug">
 .management-detail
-  PageHeader(
-    :image="strapiImage($axios.defaults.baseURL, management.attributes.image)",
-    v-if="management.attributes"
-  )
-  b-container(fluid)
-    b-container.section.section--reading
-      b-card.section__bg(no-body)
-        .profile(v-if="management.attributes")
-          .profile__name {{ management.attributes.name }}
-          .profile__position {{ management.attributes.position }}
-          .profile__description(
-            v-html="micromark(management.attributes.description)"
-          )
-    .py-4
-      page-nav(
-        left-text="Manajemen",
-        left-button-text="Kembali",
-        @clickLeft="goBack",
-        hide-right
-      )
+   PageHeader(
+      :image='strapiImage($axios.defaults.baseURL, management.attributes.image)',
+      v-if='management.attributes'
+   )
+   b-container(fluid)
+      b-container.section.section--reading
+         b-card.section__bg(no-body)
+            .profile(v-if='management.attributes')
+               .profile__name {{ management.attributes.name }}
+               .profile__position {{ management.attributes.position }}
+               .profile__description(
+                  v-html='micromark(management.attributes.description)'
+               )
+      .py-4
+         page-nav(
+            :left-text='$t("navLabel")',
+            :left-button-text='$t("nav")',
+            @clickLeft='goBack',
+            hide-right
+         )
 </template>
 
 <script lang="ts">
@@ -102,3 +102,15 @@ export default Vue.extend({
    letter-spacing: -1px;
 }
 </style>
+<i18n>
+{
+   "id": {
+      "nav": "Kembali",
+      "navLabel": "Manajemen"
+   },
+   "en": {
+      "nav": "Back",
+      "navLabel": "Management"
+   }
+}
+</i18n>

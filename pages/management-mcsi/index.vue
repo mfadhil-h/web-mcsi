@@ -1,28 +1,40 @@
 <template lang="pug">
 .management
-    PageHeader(:image="strapiImage($axios.defaults.baseURL, page.headerBackground)" :heading1="page.header1" :heading2="page.header2" v-if="page.headerBackground!=null")
-    b-container(fluid)
-        b-container.section.section--reading.text-center(v-if="page")
-            b-card.section__bg(no-body)
-                .section__title {{page.sectionTitle}}
-                .section__body {{page.sectionDescription}}
-    b-container(fluid).management__org-chart
-        b-container.section
-            b-row
-                b-col(cols="12" md="6" offset-md="3")
-                    card-management(
-                        v-if="filterOrgchart(orgcharts, true)[0]"
-                        :name="filterOrgchart(orgcharts, true)[0].attributes.name"
-                        :position="filterOrgchart(orgcharts, true)[0].attributes.position"
-                        :id="filterOrgchart(orgcharts, true)[0].id"
-                        @click="goToPage(filterOrgchart(orgcharts, true)[0].id)")
-            b-row(v-if="filterOrgchart(orgcharts, false)")
-                b-col(cols="12" md="6" v-for="(orgchart, index) of filterOrgchart(orgcharts, false)" :key="index")
-                    card-management(
-                        :name="orgchart.attributes.name"
-                        :position="orgchart.attributes.position"
-                        :id="orgchart.id"
-                        @click="goToPage(orgchart.id)")
+   PageHeader(
+      :image='strapiImage($axios.defaults.baseURL, page.headerBackground)',
+      :heading1='page.header1',
+      :heading2='page.header2',
+      v-if='page.headerBackground'
+   )
+   b-container(fluid)
+      b-container.section.section--reading.text-center(v-if='page')
+         b-card.section__bg(no-body)
+            .section__title {{ page.sectionTitle }}
+            .section__body {{ page.sectionDescription }}
+   b-container.management__org-chart(fluid)
+      b-container.section
+         b-row
+            b-col(cols='12', md='6', offset-md='3')
+               card-management(
+                  v-if='filterOrgchart(orgcharts, true)[0]',
+                  :name='filterOrgchart(orgcharts, true)[0].attributes.name',
+                  :position='filterOrgchart(orgcharts, true)[0].attributes.position',
+                  :id='filterOrgchart(orgcharts, true)[0].id',
+                  @click='goToPage(filterOrgchart(orgcharts, true)[0].id)'
+               )
+         b-row(v-if='filterOrgchart(orgcharts, false)')
+            b-col(
+               cols='12',
+               md='6',
+               v-for='(orgchart, index) of filterOrgchart(orgcharts, false)',
+               :key='index'
+            )
+               card-management(
+                  :name='orgchart.attributes.name',
+                  :position='orgchart.attributes.position',
+                  :id='orgchart.id',
+                  @click='goToPage(orgchart.id)'
+               )
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -49,9 +61,9 @@ export default Vue.extend({
    methods: {
       filterOrgchart(orgcharts: any, isPresident: boolean) {
          let result: any
-         if (isPresident == true) {
+         if (isPresident === true) {
             result = orgcharts.filter(
-               (orgchart: any) => orgchart.attributes.order == 1
+               (orgchart: any) => orgchart.attributes.order === 1
             )
          } else {
             result = orgcharts.filter(
