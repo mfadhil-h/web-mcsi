@@ -1,14 +1,21 @@
 <template lang="pug">
 .videotron
-	video-background.videotron__video(:src="video" :poster="videoImage")
-	.videotron__labels
-		b-container
-			.display-2 {{header1}}
-			.display-1 {{header2}}
-			font-awesome-icon.labels__arrow-down(icon="arrow-down" @click="onClickArrow")
-			b-button.play-button(size="lg" variant="outline-primary" @click="onClickPlay")
-				span Play Video
-				font-awesome-icon.ml-4(icon="play")
+   video-background.videotron__video(:src='video', :poster='videoImage')
+   .videotron__labels
+      b-container
+         .display-2 {{ header1 }}
+         .display-1 {{ header2 }}
+         font-awesome-icon.labels__arrow-down(
+            icon='arrow-down',
+            @click='onClickArrow'
+         )
+         b-button.play-button(
+            size='lg',
+            variant='outline-primary',
+            @click='onClickPlay'
+         )
+            span {{ $t("playVideoButton") }}
+            font-awesome-icon.ml-4(icon='play')
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -70,3 +77,13 @@ export default Vue.extend({
    }
 }
 </style>
+<i18n>
+{
+   "id": {
+      "playVideoButton": "Putar Video"
+   },
+   "en": {
+      "playVideoButton": "Play Video"
+   }
+}
+</i18n>
