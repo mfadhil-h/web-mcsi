@@ -18,8 +18,9 @@
             :key='index',
             :title='item.attributes.title',
             icon='calendar',
-            :timestamp='dayjs(item.attributes.date).format("YYYY")',
             :inverted='index % 2 == 0',
+            :timestamp='dayjs(item.attributes.date).format("YYYY")',
+            variant='secondary',
             @click='showModalMilestone(strapiImage($axios.defaults.baseURL, item.attributes.image), item.attributes.date, item.attributes.title, item.attributes.description)'
          )
             b-img.timeline__image(

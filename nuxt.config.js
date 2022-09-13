@@ -34,7 +34,7 @@ export default {
 
    // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
    plugins: [
-      '~/plugins/axios.js',
+      // '~/plugins/axios.js',
       '~/plugins/fontawesome.js',
       { src: '~/plugins/ui-components.js', ssr: false }
    ],
@@ -79,8 +79,8 @@ export default {
          fallbackLocale: 'id',
          messages: { id, en }
       },
-      detectBrowserLanguage: false,
-      strategy: 'prefix'
+      detectBrowserLanguage: false
+      // strategy: 'prefix'
    },
    axios: {
       proxy: false,

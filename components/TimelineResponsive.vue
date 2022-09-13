@@ -1,11 +1,11 @@
 <template lang="pug">
 .container
-  ul.timeline
-    li(:class="classTimelineInverted")
-      .timeline-badge(:class="classBadge")
-        font-awesome-icon(:icon="icon")
-      .timeline-panel
-        slot
+   ul.timeline
+      li(:class='classTimelineInverted')
+         .timeline-badge(:class='classBadge')
+            font-awesome-icon(:icon='icon')
+         .timeline-panel(@click='onClick')
+            slot
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -53,6 +53,11 @@ export default Vue.extend({
       },
       classTimelineInverted() {
          return this.inverted === true ? 'timeline-inverted' : ''
+      }
+   },
+   methods: {
+      onClick() {
+         this.$emit('click')
       }
    }
 })

@@ -28,7 +28,7 @@
                         :key='index',
                         :to='localePath(item.link)'
                      ) {{ item.label }}
-               b-nav-item-dropdown 
+               //- b-nav-item-dropdown 
                   template(v-slot:button-content)
                      span(v-if='$i18n.locale === "id"')
                         b-img.lang__flag(:src='require("@/static/id.png")')
@@ -76,7 +76,7 @@
                            :key='index',
                            :to='localePath(item.link)'
                         ) {{ item.label }}
-                  b-nav-item-dropdown 
+                  //- b-nav-item-dropdown 
                      template(v-slot:button-content)
                         span(v-if='$i18n.locale === "id"')
                            b-img.lang__flag(:src='require("@/static/id.png")')
