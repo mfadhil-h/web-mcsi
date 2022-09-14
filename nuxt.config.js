@@ -34,7 +34,7 @@ export default {
 
    // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
    plugins: [
-      // '~/plugins/axios.js',
+      '~/plugins/axios.js',
       '~/plugins/fontawesome.js',
       { src: '~/plugins/ui-components.js', ssr: false }
    ],
@@ -44,14 +44,12 @@ export default {
 
    // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
    buildModules: [
-      // https://go.nuxtjs.dev/typescript
-      '@nuxt/typescript-build'
+      '@nuxt/typescript-build' // https://go.nuxtjs.dev/typescript
    ],
 
    // Modules: https://go.nuxtjs.dev/config-modules
    modules: [
-      // https://go.nuxtjs.dev/bootstrap
-      'bootstrap-vue/nuxt',
+      'bootstrap-vue/nuxt', // https://go.nuxtjs.dev/bootstrap
       '@nuxtjs/i18n',
       '@nuxtjs/axios'
    ],
