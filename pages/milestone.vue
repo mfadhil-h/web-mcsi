@@ -32,7 +32,7 @@
                .timeline__description
                   p.mb-0 {{ item.attributes.description.substring(0, 36) + " ..." }}
                   .timeline__link
-                     span Selengkapnya
+                     span {{ $t("more") }}
                      font-awesome-icon.fw.title__arrow.ml-2(
                         icon='circle-arrow-right'
                      )
@@ -166,3 +166,13 @@ export default Vue.extend({
    }
 }
 </style>
+<i18n>
+{
+   "id": {
+      "more": "Selengkapnya"
+   },
+   "en": {
+      "more": "Read More"
+   }
+}
+</i18n>
