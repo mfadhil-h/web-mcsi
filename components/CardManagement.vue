@@ -1,10 +1,10 @@
 <template lang="pug">
 b-card.card-management
-    .card-management__name {{name}}
-    .card-management__position {{position}}
-    .card-management__link(@click="onClick")
-        span Pendapat dari {{name}}
-        font-awesome-icon.link__arrow(icon="circle-arrow-right")
+   .card-management__name {{ name }}
+   .card-management__position {{ position }}
+   .card-management__link(@click='onClick')
+      span {{ $t("opinion") }} {{ name }}
+      font-awesome-icon.link__arrow(icon='circle-arrow-right')
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -73,3 +73,13 @@ export default Vue.extend({
    }
 }
 </style>
+<i18n>
+{
+   "id": {
+      "opinion": "Pendapat dari"
+   },
+   "en": {
+      "opinion": "Opinion from"
+   }
+}
+</i18n>

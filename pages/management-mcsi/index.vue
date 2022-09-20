@@ -62,10 +62,18 @@ export default Vue.extend({
       filterOrgchart(orgcharts: any, isPresident: boolean) {
          let result: any
          if (isPresident === true) {
-            result = orgcharts.filter(
-               (orgchart: any) => orgchart.attributes.order === 1
-            )
-         } else {
+            if (localStorage.lang === 'id') {
+               result = orgcharts.filter(
+                  (orgchart: any) => orgchart.attributes.order === 1
+               )
+            }
+            if (localStorage.lang === 'en') {
+               result = orgcharts.filter(
+                  (orgchart: any) => orgchart.attributes.order === -1
+               )
+            }
+         }
+         if (isPresident === false) {
             result = orgcharts.filter(
                (orgchart: any) => orgchart.attributes.order > 1
             )
