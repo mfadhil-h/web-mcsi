@@ -89,7 +89,7 @@ export default Vue.extend({
       "more": "Selengkapnya"
    },
    "en": {
-      "more": "View More"
+      "more": "Read More"
    }
 }
 </i18n>
