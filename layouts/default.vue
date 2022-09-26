@@ -4,7 +4,7 @@
       h3.default__message
          span Halaman tidak ditemukan!
          small.ml-4 404
-   b-button.mt-4(type='button', @click='goBack') Kembali
+      b-button.mt-4(type='button', @click='goBack') Kembali
 </template>
 
 <script lang="ts">
