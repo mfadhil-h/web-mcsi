@@ -13,13 +13,13 @@
                .profile__description(
                   v-html='micromark(management.attributes.description)'
                )
-      .py-4
-         page-nav(
-            :left-text='$t("navLabel")',
-            :left-button-text='$t("nav")',
-            @clickLeft='goBack',
-            hide-right
-         )
+         .py-4
+            page-nav(
+               :left-text='$t("navLabel")',
+               :left-button-text='$t("nav")',
+               @clickLeft='goBack',
+               hide-right
+            )
 </template>
 
 <script lang="ts">
@@ -33,7 +33,7 @@ export default Vue.extend({
    components: {
       PageHeader
    },
-   layout: 'SinglePage',
+   layout: 'BlankPage',
    data: () => {
       return {
          management: {} as any

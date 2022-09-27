@@ -11,6 +11,13 @@
                .news__title {{ blog.attributes.title }}
                .news__attr {{ $t("author") }} {{ blog.attributes.author }}, {{ $t("published") }} {{ dayjs(blog.attributes.publishedAt).format("DD-MMM-YYYY") }}
                .news__html(v-html='micromark(blog.attributes.content)')
+         .py-4
+            page-nav(
+               :left-text='$t("navLabel")',
+               :left-button-text='$t("nav")',
+               @clickLeft='goBack',
+               hide-right
+            )
 </template>
 
 <script lang="ts">
@@ -24,7 +31,7 @@ export default Vue.extend({
    components: {
       PageHeader
    },
-   layout: 'SinglePage',
+   layout: 'BlankPage',
    data: () => {
       return {
          blog: {}
@@ -42,6 +49,9 @@ export default Vue.extend({
             )
             this.blog = blog.data
          } catch (error) {}
+      },
+      goBack() {
+         this.$router.go(-1)
       },
       micromark,
       strapiImage
@@ -72,10 +82,14 @@ export default Vue.extend({
 {
    "id": {
       "author": "Ditulis oleh",
+      "nav": "Kembali",
+      "navLabel": "Berita",
       "published": "pada"
    },
    "en": {
       "author": "Published by",
+      "nav": "Back",
+      "navLabel": "News & Insight",
       "published": "at"
    }
 }

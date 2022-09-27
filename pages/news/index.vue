@@ -35,12 +35,12 @@
                   :key='index'
                )
                   card-news(
-                     :id='blog.id',
                      :image='strapiImage($axios.defaults.baseURL, blog.attributes.featuredImage)',
                      :title='blog.attributes.title',
                      :description='blog.attributes.contentShort',
                      :timestamp='dayjs(blog.attributes.publishedAt).format("DD-MMM-YYYY")',
-                     :author='blog.attributes.author'
+                     :author='blog.attributes.author',
+                     @click='goToPage(blog.id)'
                   )
 </template>
 <script lang="ts">
@@ -101,6 +101,9 @@ export default Vue.extend({
             const page = await this.$axios.$get('/api/page-blog?populate=*')
             this.page = page.data.attributes
          } catch (error) {}
+      },
+      goToPage(id: number) {
+         this.$router.push({ path: `news/${id}` })
       },
       strapiImage
    }

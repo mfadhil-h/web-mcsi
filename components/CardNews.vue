@@ -1,6 +1,6 @@
 <template lang="pug">
-b-card.card-news(:img-src='image')
-   NuxtLink.card-news__title(:to='`/news/${id}`') {{ title }}
+b-card.card-news(:img-src='image', @click='onClick')
+   .card-news__title {{ title }}
    .card-news__description {{ description }}
    .card-news__meta
       .card-news__timestamp {{ timestamp }}
@@ -11,12 +11,16 @@ import Vue from 'vue'
 export default Vue.extend({
    name: 'CardBusinessUnit',
    props: {
-      id: Number,
       image: String,
       title: String,
       description: String,
       author: String,
       timestamp: String
+   },
+   methods: {
+      onClick() {
+         this.$emit('click')
+      }
    }
 })
 </script>
@@ -28,6 +32,7 @@ export default Vue.extend({
    text-align: left;
    .card-news__title {
       cursor: default;
+      color: #cc0000;
       font-size: 16px;
       font-weight: 700;
       letter-spacing: -5%;

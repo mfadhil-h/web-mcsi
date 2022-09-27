@@ -17,7 +17,7 @@
             .value(v-html='micromark(page.value2)')
             .value(v-html='micromark(page.value3)')
             .value(v-html='micromark(page.value4)')
-         .py-4
+   b-container.py-4
       page-nav(
          left-text='Profil Singkat',
          left-button-text='Kembali',

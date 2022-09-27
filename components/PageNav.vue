@@ -1,19 +1,18 @@
 <template lang="pug">
 .page-nav
-  b-container
-    b-row
-      b-col(cols="6", :style="styleHideLeft", @click="clickLeft")
-        b-card
-          b-button.page-nav__button(variant="link")
-            font-awesome-icon.fa-fw(icon="arrow-left")
-            span.ml-2 {{ leftButtonText }}
-          .page-nav__text {{ leftText }}
-      b-col(cols="6", :style="styleHideRight", @click="clickRight")
-        b-card
-          b-button.page-nav__button(variant="link")
-            span.mr-2 {{ rightButtonText }}
-            font-awesome-icon.fa-fw(icon="arrow-right")
-          h3.page-nav__text {{ rightText }}
+   b-row
+      b-col(cols='6', :style='styleHideLeft', @click='clickLeft')
+         b-card
+            b-button.page-nav__button(variant='link')
+               font-awesome-icon.fa-fw(icon='arrow-left')
+               span.ml-2 {{ leftButtonText }}
+            .page-nav__text {{ leftText }}
+      b-col(cols='6', :style='styleHideRight', @click='clickRight')
+         b-card
+            b-button.page-nav__button(variant='link')
+               span.mr-2 {{ rightButtonText }}
+               font-awesome-icon.fa-fw(icon='arrow-right')
+            h3.page-nav__text {{ rightText }}
 </template>
 <script lang="ts">
 import Vue from 'vue'
