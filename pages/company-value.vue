@@ -19,8 +19,8 @@
             .value(v-html='micromark(page.value4)')
    b-container.py-4
       page-nav(
-         left-text='Profil Singkat',
-         left-button-text='Kembali',
+         :left-text='$t("navLabel")',
+         :left-button-text='$t("nav")',
          @clickLeft='goToAbout',
          hide-right
       )
@@ -85,3 +85,15 @@ $screen-bp: 768px;
    }
 }
 </style>
+<i18n>
+{
+   "id": {
+      "nav": "Kembali",
+      "navLabel": "Profil Singkat"
+   },
+   "en": {
+      "nav": "Back",
+      "navLabel": "Profile"
+   }
+}
+</i18n>

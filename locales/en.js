@@ -5,9 +5,9 @@ export default {
    businessUnit: 'Business Unit',
    MCSIManagement: 'Management',
    MCSIOrgChart: 'Organization Chart',
-   milestone: 'Milestone',
-   achievement: 'Certificate',
-   newsAndInsight: 'News & Insight',
+   milestone: 'Milestones',
+   achievement: 'Certificates',
+   newsAndInsight: 'News & Insights',
    client: 'Client',
    career: 'Career',
    contactUs: 'Contact Us'

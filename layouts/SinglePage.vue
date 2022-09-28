@@ -158,6 +158,7 @@ export default Vue.extend({
 .brand {
    .brand__logo {
       height: 48px;
+      object-fit: contain;
       width: auto;
    }
 }
