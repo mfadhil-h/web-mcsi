@@ -52,7 +52,7 @@ img {
 // 2. Header
 .navbar {
     height: $header-height;
-    z-index: 99;
+    z-index: 999;
     @media screen and (max-width: $bp-screen){
         height: $header-height-narrow
     }
