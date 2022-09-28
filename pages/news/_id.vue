@@ -7,10 +7,12 @@
    b-container(fluid)
       b-container.section.section--reading
          b-card.section__bg(no-body)
-            .news(v-if='blog.attributes')
+            .news(v-if='blogData.content')
                .news__title {{ blogData.title }}
                .news__attr {{ $t("author") }} {{ blogData.author }}, {{ $t("published") }} {{ dayjs(blogData.publishedAt).format("DD-MMM-YYYY") }}
                .news__html(v-html='micromark(blogData.content)')
+            .py-4.text-center(v-else)
+               .p {{ $t("notFound") }}
          .py-4
             page-nav(
                :left-text='$t("navLabel")',
@@ -120,13 +122,15 @@ export default Vue.extend({
       "author": "Ditulis oleh",
       "nav": "Kembali",
       "navLabel": "Berita",
-      "published": "pada"
+      "published": "pada",
+      "notFound": "Konten tidak ditemukan."
    },
    "en": {
       "author": "Published by",
       "nav": "Back",
       "navLabel": "News & Insight",
-      "published": "at"
+      "published": "at",
+      "notFound": "Content not found."
    }
 }
 </i18n>

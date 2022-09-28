@@ -7,13 +7,15 @@
    b-container(fluid)
       b-container.section.section--reading
          b-card.section__bg(no-body)
-            .profile(v-if='managementData')
+            .profile(v-if='managementData.description')
                .profile__name {{ managementData.name }}
                .profile__position {{ managementData.position }}
                .profile__description(
                   v-if='managementData.description',
                   v-html='micromark(managementData.description)'
                )
+            .py-4.text-center(v-else)
+               .p {{ $t("notFound") }}
          .py-4
             page-nav(
                :left-text='$t("navLabel")',
@@ -136,11 +138,13 @@ export default Vue.extend({
 {
    "id": {
       "nav": "Kembali",
-      "navLabel": "Manajemen"
+      "navLabel": "Manajemen",
+      "notFound": "Konten tidak ditemukan."
    },
    "en": {
       "nav": "Back",
-      "navLabel": "Management"
+      "navLabel": "Management",
+      "notFound": "Content not found."
    }
 }
 </i18n>
