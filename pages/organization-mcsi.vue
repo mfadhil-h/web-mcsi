@@ -94,7 +94,7 @@ export default Vue.extend({
       async getPeople() {
          try {
             const people = await this.$axios.$get(
-               '/api/organization-mcsis?populate=*'
+               '/api/organization-mcsis?populate=*&sort[0]=order'
             )
             this.people = people.data
          } catch (error) {}
