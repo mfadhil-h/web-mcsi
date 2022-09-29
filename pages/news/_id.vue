@@ -7,10 +7,12 @@
    b-container(fluid)
       b-container.section.section--reading
          b-card.section__bg(no-body)
-            .news(v-if='blog.attributes')
-               .news__title {{ blog.attributes.title }}
-               .news__attr {{ $t("author") }} {{ blog.attributes.author }}, {{ $t("published") }} {{ dayjs(blog.attributes.publishedAt).format("DD-MMM-YYYY") }}
-               .news__html(v-html='micromark(blog.attributes.content)')
+            .news(v-if='blogData.content')
+               .news__title {{ blogData.title }}
+               .news__attr {{ $t("author") }} {{ blogData.author }}, {{ $t("published") }} {{ dayjs(blogData.publishedAt).format("DD-MMM-YYYY") }}
+               .news__html(v-html='micromark(blogData.content)')
+            .py-4.text-center(v-else)
+               .p {{ $t("notFound") }}
          .py-4
             page-nav(
                :left-text='$t("navLabel")',
@@ -31,10 +33,11 @@ export default Vue.extend({
    components: {
       PageHeader
    },
-   layout: 'BlankPage',
+   layout: 'SinglePage',
    data: () => {
       return {
-         blog: {}
+         blog: {} as any,
+         blogData: {} as any
       }
    },
    mounted() {
@@ -44,14 +47,49 @@ export default Vue.extend({
       dayjs,
       async getBlog() {
          try {
-            const blog = await this.$axios.$get(
+            const resBlog = await this.$axios.$get(
                `/api/blogs/${this.$route.params.id}?populate=*`
             )
-            this.blog = blog.data
+            this.blog = resBlog.data
+            const blogData = {
+               author:
+                  resBlog.data.attributes.locale === localStorage.lang
+                     ? resBlog.data.attributes.author
+                     : resBlog.data.attributes.localizations.data.filter(
+                          (data: any) =>
+                             data.attributes.locale === localStorage.lang
+                       )[0].attributes.author,
+               content:
+                  resBlog.data.attributes.locale === localStorage.lang
+                     ? resBlog.data.attributes.content
+                     : resBlog.data.attributes.localizations.data.filter(
+                          (data: any) =>
+                             data.attributes.locale === localStorage.lang
+                       )[0].attributes.content,
+               publishedAt:
+                  resBlog.data.attributes.locale === localStorage.lang
+                     ? resBlog.data.attributes.publishedAt
+                     : resBlog.data.attributes.localizations.data.filter(
+                          (data: any) =>
+                             data.attributes.locale === localStorage.lang
+                       )[0].attributes.publishedAt,
+               title:
+                  resBlog.data.attributes.locale === localStorage.lang
+                     ? resBlog.data.attributes.title
+                     : resBlog.data.attributes.localizations.data.filter(
+                          (data: any) =>
+                             data.attributes.locale === localStorage.lang
+                       )[0].attributes.title
+            }
+            this.blogData = blogData
          } catch (error) {}
       },
       goBack() {
-         this.$router.go(-1)
+         const route =
+            localStorage.lang === 'id'
+               ? '/news'
+               : '/' + localStorage.lang + '/news'
+         this.$router.push(route)
       },
       micromark,
       strapiImage
@@ -84,13 +122,15 @@ export default Vue.extend({
       "author": "Ditulis oleh",
       "nav": "Kembali",
       "navLabel": "Berita",
-      "published": "pada"
+      "published": "pada",
+      "notFound": "Konten tidak ditemukan."
    },
    "en": {
       "author": "Published by",
       "nav": "Back",
       "navLabel": "News & Insight",
-      "published": "at"
+      "published": "at",
+      "notFound": "Content not found."
    }
 }
 </i18n>

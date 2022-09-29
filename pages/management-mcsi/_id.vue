@@ -7,12 +7,15 @@
    b-container(fluid)
       b-container.section.section--reading
          b-card.section__bg(no-body)
-            .profile(v-if='management.attributes')
-               .profile__name {{ management.attributes.name }}
-               .profile__position {{ management.attributes.position }}
+            .profile(v-if='managementData.description')
+               .profile__name {{ managementData.name }}
+               .profile__position {{ managementData.position }}
                .profile__description(
-                  v-html='micromark(management.attributes.description)'
+                  v-if='managementData.description',
+                  v-html='micromark(managementData.description)'
                )
+            .py-4.text-center(v-else)
+               .p {{ $t("notFound") }}
          .py-4
             page-nav(
                :left-text='$t("navLabel")',
@@ -33,10 +36,11 @@ export default Vue.extend({
    components: {
       PageHeader
    },
-   layout: 'BlankPage',
+   layout: 'SinglePage',
    data: () => {
       return {
-         management: {} as any
+         management: {} as any,
+         managementData: {} as any
       }
    },
    mounted() {
@@ -45,14 +49,42 @@ export default Vue.extend({
    methods: {
       async getManagement() {
          try {
-            const managements = await this.$axios.$get(
+            const resManagement = await this.$axios.$get(
                `/api/organization-chart-mcsis/${this.$route.params.id}?populate=*`
             )
-            this.management = managements.data
+            this.management = resManagement.data
+            const managementData = {
+               name:
+                  resManagement.data.attributes.locale === localStorage.lang
+                     ? resManagement.data.attributes.name
+                     : resManagement.data.attributes.localizations.data.filter(
+                          (data: any) =>
+                             data.attributes.locale === localStorage.lang
+                       )[0].attributes.name,
+               position:
+                  resManagement.data.attributes.locale === localStorage.lang
+                     ? resManagement.data.attributes.position
+                     : resManagement.data.attributes.localizations.data.filter(
+                          (data: any) =>
+                             data.attributes.locale === localStorage.lang
+                       )[0].attributes.position,
+               description:
+                  resManagement.data.attributes.locale === localStorage.lang
+                     ? resManagement.data.attributes.description
+                     : resManagement.data.attributes.localizations.data.filter(
+                          (data: any) =>
+                             data.attributes.locale === localStorage.lang
+                       )[0].attributes.description
+            }
+            this.managementData = managementData
          } catch (error) {}
       },
       goBack() {
-         this.$router.go(-1)
+         const route =
+            localStorage.lang === 'id'
+               ? '/management-mcsi'
+               : '/' + localStorage.lang + '/management-mcsi'
+         this.$router.push(route)
       },
       micromark,
       strapiImage
@@ -106,11 +138,13 @@ export default Vue.extend({
 {
    "id": {
       "nav": "Kembali",
-      "navLabel": "Manajemen"
+      "navLabel": "Manajemen",
+      "notFound": "Konten tidak ditemukan."
    },
    "en": {
       "nav": "Back",
-      "navLabel": "Management"
+      "navLabel": "Management",
+      "notFound": "Content not found."
    }
 }
 </i18n>
