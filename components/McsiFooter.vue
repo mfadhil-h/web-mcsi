@@ -158,7 +158,7 @@ export default Vue.extend({
     "copyright": "© 2022 PT MCS Internasional - Hak Cipta Dilindungi Undang-undang"
   },
   "en": {
-    "source": "Source",
+    "source": "Source of Information",
     "privacyPolicy":"Privacy Policy",
     "termsConditions":"Terms and Conditions",
     "contactUs":"Contact Us",
