@@ -21,7 +21,7 @@
       page-nav(
          :left-text='$t("navLabel")',
          :left-button-text='$t("nav")',
-         @clickLeft='goToAbout',
+         @clickLeft='goBack',
          hide-right
       )
 </template>
@@ -55,8 +55,12 @@ export default Vue.extend({
             this.page = page.data.attributes
          } catch (error) {}
       },
-      goToAbout() {
-         this.$router.push('/about')
+      goBack() {
+         const route =
+            localStorage.lang === 'id'
+               ? '/about'
+               : '/' + localStorage.lang + '/about'
+         this.$router.push(route)
       },
       micromark,
       strapiImage

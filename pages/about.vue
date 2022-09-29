@@ -59,7 +59,7 @@
                   .vision__label {{ $t("value") }}
                   .vision__description {{ page.companyValueShort }}
                b-card-footer
-                  b-link.vision__link(:to='"/company-value"')
+                  .vision__link(@click='goToCompanyValue')
                      span {{ $t("more") }}
                      font-awesome-icon.ml-2(icon='circle-arrow-right')
    b-modal#modal-vision(
@@ -121,6 +121,13 @@ export default Vue.extend({
             this.page = page.data.attributes
          } catch (error) {}
       },
+      goToCompanyValue() {
+         const route =
+            localStorage.lang === 'id'
+               ? '/company-value'
+               : '/' + localStorage.lang + '/company-value'
+         this.$router.push(route)
+      },
       micromark,
       strapiImage
    }
@@ -178,6 +185,7 @@ export default Vue.extend({
    }
    .vision__link {
       color: rgba(black, 0.6);
+      cursor: pointer;
       float: left;
       font-size: 14px;
       transition-duration: 100ms;
