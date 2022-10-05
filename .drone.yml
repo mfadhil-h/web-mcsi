@@ -16,7 +16,13 @@ steps:
   commands:
   - yarn install --frozen-lockfile --non-interactive --ignore-optional
   - yarn generate
-  - zip -r myarch.zip dist
+
+- name : create package
+  image: lunagod/drone-zip
+  settings:
+    input: 
+        - dist/**/* # 
+    output: release.zip
 
 - name: upload package
   image: appleboy/drone-scp
