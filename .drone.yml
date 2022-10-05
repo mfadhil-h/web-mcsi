@@ -14,7 +14,6 @@ steps:
 - name: build frontend
   image: node:lts
   commands:
-  - cd frontend
   - yarn install --frozen-lockfile --non-interactive --ignore-optional
   - yarn generate
   - zip -r myarch.zip dist
