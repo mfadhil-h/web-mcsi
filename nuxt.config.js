@@ -44,12 +44,14 @@ export default {
 
    // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
    buildModules: [
+      '@nuxtjs/google-analytics', // https://google-analytics.nuxtjs.org/setup
       '@nuxt/typescript-build' // https://go.nuxtjs.dev/typescript
    ],
 
    // Modules: https://go.nuxtjs.dev/config-modules
    modules: [
       'bootstrap-vue/nuxt', // https://go.nuxtjs.dev/bootstrap
+      '@nuxtjs/google-gtag', // https://github.com/nuxt-community/google-gtag-module
       '@nuxtjs/i18n',
       '@nuxtjs/axios'
    ],
@@ -80,20 +82,27 @@ export default {
       detectBrowserLanguage: false
       // strategy: 'prefix'
    },
+   googleAnalytics: {
+      id: 'G-0F2X9FF5ZB' // Based on MCSI predefined GTag ID
+   },
+   'google-gtag': {
+      id: 'G-0F2X9FF5ZB' // Based on MCSI predefined GTag ID
+   },
    axios: {
       proxy: false,
       baseUrl: process.env.NODE_ENV === 'dev' ? 'http://localhost:1337' : '/'
    },
-
    publicRuntimeConfig: {
       axios: {
          browserBaseURL: process.env.BROWSER_BASE_URL
       }
    },
-
    privateRuntimeConfig: {
       axios: {
          baseURL: process.env.BASE_URL
+      },
+      googleAnalytics: {
+         id: process.env.GOOGLE_ANALYTICS_ID
       }
    },
 
