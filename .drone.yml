@@ -1,0 +1,34 @@
+kind: pipeline
+type: docker
+name: Generate Website
+
+clone:
+  disable: true
+
+steps:
+- name: clone source
+  image: docker:git
+  commands:
+  - git clone --depth 1 https://bitbucket.org/acehgayo/mcsi-website.git .
+  
+- name: build frontend
+  image: node:lts
+  commands:
+  - cd frontend
+  - yarn install --frozen-lockfile --non-interactive --ignore-optional
+  - yarn generate
+  - zip -r myarch.zip dist
+
+- name: upload package
+  image: appleboy/drone-scp
+  settings:
+    username: root
+    host: 128.199.125.78
+    key:
+      from_secret: ssh_key_do_multiuse
+    command_timeout: 10m
+    port: 22
+    target: /home/pipeline/mcsi
+    source: /drone/src/myarch.zip
+    strip_components: 2
+      
