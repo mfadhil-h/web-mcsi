@@ -15,7 +15,6 @@ steps:
   - apk update
   - apk add zip
   - zip -r mcsi-fe-$(date +"%Y%m%d").zip dist
-  - ls *.zip
 
 - name: upload package
   image: appleboy/drone-scp
@@ -26,7 +25,7 @@ steps:
       from_secret: ssh_key_do_multiuse
     command_timeout: 10m
     port: 22
-    target: /home/pipeline/mcsi
+    target: /home/reverse-proxy/public
     source: /drone/src/*.zip
     strip_components: 2
       
