@@ -21,7 +21,7 @@ steps:
   image: lunagod/drone-zip
   settings:
     input: 
-        - dist/**/* # 
+        - ./dist
     output: release.zip
 
 - name: upload package
