@@ -18,11 +18,11 @@ steps:
   - yarn generate
 
 - name : create package
-  image: lunagod/drone-zip
-  settings:
-    input: 
-        - ./dist
-    output: release.zip
+  image: alpine
+  commands:
+  - apk update
+  - apk add zip
+  - zip -r package.zip dist
 
 - name: upload package
   image: appleboy/drone-scp
@@ -34,6 +34,6 @@ steps:
     command_timeout: 10m
     port: 22
     target: /home/pipeline/mcsi
-    source: /drone/src/myarch.zip
+    source: /drone/src/package.zip
     strip_components: 2
       
