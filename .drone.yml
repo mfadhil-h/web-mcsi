@@ -2,15 +2,7 @@ kind: pipeline
 type: docker
 name: Generate Website
 
-clone:
-  disable: true
-
 steps:
-- name: clone source
-  image: docker:git
-  commands:
-  - git clone --depth 1 https://bitbucket.org/acehgayo/mcsi-website.git .
-  
 - name: build frontend
   image: node:lts
   commands:
@@ -22,7 +14,7 @@ steps:
   commands:
   - apk update
   - apk add zip
-  - zip -r package.zip dist
+  - zip -r mcsi-fe-$(date +"%Y%m%d").zip dist
 
 - name: upload package
   image: appleboy/drone-scp
@@ -34,6 +26,6 @@ steps:
     command_timeout: 10m
     port: 22
     target: /home/pipeline/mcsi
-    source: /drone/src/package.zip
+    source: /drone/src/mcsi*.zip
     strip_components: 2
       
