@@ -55,6 +55,10 @@ export default {
       '@nuxtjs/axios'
    ],
 
+   env: {
+      nodeEnv: process.env.NODE_ENV
+   },
+
    // Modify Bootstrap variables
    bootstrapVue: {
       bootstrapCSS: false,
@@ -83,7 +87,8 @@ export default {
    },
    axios: {
       proxy: false,
-      baseUrl: process.env.NODE_ENV === 'dev' ? 'http://localhost:1337' : '/'
+      baseUrl:
+         process.env.NODE_ENV === 'development' ? 'http://localhost:1337' : '/'
    },
    publicRuntimeConfig: {
       axios: {
@@ -93,9 +98,6 @@ export default {
    privateRuntimeConfig: {
       axios: {
          baseURL: process.env.BASE_URL
-      },
-      googleAnalytics: {
-         id: process.env.GOOGLE_ANALYTICS_ID
       }
    },
 
