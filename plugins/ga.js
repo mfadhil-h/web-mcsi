@@ -3,7 +3,7 @@ import VueGtag from 'vue-gtag'
 
 export default (context, inject) => {
    Vue.use(VueGtag, {
-      config: { id: 'G-CPHEGTM3CY' }
+      config: { id: 'G-0F2X9FF5ZB' }
    })
 
    context.$gtag = Vue.$gtag
