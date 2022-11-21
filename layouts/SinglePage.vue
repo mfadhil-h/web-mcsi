@@ -126,6 +126,7 @@ export default Vue.extend({
       }
    },
    mounted() {
+      this.initLocale()
       this.locales = this.$i18n.locales
       this.menu = translatedMenu(this)
       window.addEventListener('scroll', this.onScroll)
@@ -133,6 +134,12 @@ export default Vue.extend({
    methods: {
       async particlesInit(engine: Engine): Promise<void> {
          await loadFull(engine)
+      },
+      initLocale() {
+         if (!localStorage.lang || localStorage.lang === '') {
+            localStorage.lang = 'id'
+            this.$i18n.setLocale('id')
+         }
       },
       onScroll(e: any) {
          this.scrollPosition = e.target.documentElement.scrollTop
