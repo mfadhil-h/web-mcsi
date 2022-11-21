@@ -1,0 +1,37 @@
+kind: pipeline
+type: docker
+name: Generate Website
+
+steps:
+- name: build frontend
+  image: node:lts
+  commands:
+  - yarn install --frozen-lockfile --non-interactive --ignore-optional
+  - yarn generate
+
+- name : create package
+  image: alpine
+  commands:
+  - apk update
+  - apk add zip
+  - zip -r mcsi-fe-$(date +"%Y%m%d").zip dist
+
+- name: upload package
+  image: appleboy/drone-scp
+  settings:
+    username: root
+    host: 128.199.125.78
+    key:
+      from_secret: ssh_key_do_multiuse
+    command_timeout: 10m
+    port: 22
+    target: /home/reverse-proxy/public
+    source: /drone/src/*.zip
+    strip_components: 2
+
+- name: slack
+  image: plugins/slack
+  settings:
+    webhook: https://hooks.slack.com/services/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
+    
+      
