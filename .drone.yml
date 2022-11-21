@@ -10,11 +10,12 @@ steps:
   - yarn generate
 
 - name : create package
-  image: alpine
+  image: ubuntu
   commands:
-  - apk update
-  - apk add zip
-  - zip -r mcsi-fe-$(date +"%Y%m%d").zip dist
+  - apt update
+  - apt install zip -y
+  - cd dist
+  - zip -r mcsi-fe-$(date +"%Y%m%d").zip *
 
 - name: upload package
   image: appleboy/drone-scp
@@ -26,8 +27,8 @@ steps:
     command_timeout: 10m
     port: 22
     target: /home/reverse-proxy/public
-    source: /drone/src/*.zip
-    strip_components: 2
+    source: /drone/src/dist/mcsi*.zip
+    strip_components: 3
 
 - name: slack
   image: plugins/slack
