@@ -25,7 +25,7 @@ steps:
     key:
       from_secret: ssh_key_do_multiuse
     command_timeout: 10m
-    port: 22
+    port: 4548
     target: /home/reverse-proxy/public
     source: /drone/src/dist/mcsi*.zip
     strip_components: 3
