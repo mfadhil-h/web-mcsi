@@ -56,7 +56,7 @@ export default {
       '@nuxtjs/gtm' // https://www.npmjs.com/package/@nuxtjs/gtm
    ],
    gtm: {
-      id: 'GTM-K8CJ6RG'
+      id: 'GTM-N88CJQP'
    },
    env: {
       nodeEnv: process.env.NODE_ENV
