@@ -27,7 +27,7 @@
                .office__item Phone: {{ page.headOffice.phone }}
                .office__item Fax: {{ page.headOffice.fax }}
                .office__item Email: {{ page.headOffice.email }}
-      b-card.contact__email
+      //- b-card.contact__email
          .email__heading {{ $t("emailEditorial") }}
          b-form.email__form
             b-row

@@ -53,7 +53,6 @@ export default {
       '@nuxtjs/i18n',
       '@nuxtjs/axios'
    ],
-
    env: {
       nodeEnv: process.env.NODE_ENV
    },

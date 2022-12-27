@@ -100,6 +100,14 @@
       Nuxt
    //- 03. Footer
    McsiFooter
+   //- 04. Floating Button
+   .floating-button
+      b-button.btn-contact-us.mr-2(variant='secondary', @click='goToContactUs')
+         font-awesome-icon.fw.mr-2(:icon='["fas", "comment"]')
+         span {{ $t("contactUs") }}
+      b-button.btn-whatsapp(variant='success', @click='sendWhatsapp')
+         font-awesome-icon.fw.mr-2(:icon='["fab", "whatsapp"]')
+         span Whatsapp
 </template>
 
 <script lang="ts">
@@ -120,18 +128,48 @@ export default Vue.extend({
          logoColor: require('@/static/logo-color.png'),
          logoWhite: require('@/static/logo-color.png'),
          menu: headerMenuId,
+         message:
+            'Your presence is requested at the wedding of our happiest moment.',
          options: particleOptions,
          scrollPosition: 0,
-         scrollPositionBound: 80
+         scrollPositionBound: 80,
+         whatsapp: {
+            number: '',
+            initialMessage: ''
+         },
+         whatsappLink: 'https://wa.me/'
       }
    },
    mounted() {
       this.initLocale()
       this.locales = this.$i18n.locales
       this.menu = translatedMenu(this)
+      this.getWhatsapp()
       window.addEventListener('scroll', this.onScroll)
    },
    methods: {
+      goToContactUs() {
+         const route =
+            localStorage.lang === 'id'
+               ? '/contact'
+               : '/' + localStorage.lang + '/contact'
+         this.$router.push(route)
+      },
+      formatPhone(phone: string) {
+         return phone.substring(0, 1) === '0'
+            ? '62' + phone.substring(1)
+            : phone.substring(0, 2) === '62'
+            ? phone
+            : 'error'
+      },
+      async getWhatsapp() {
+         try {
+            const whatsapp = await this.$axios.$get('/api/whatsapp?populate=*')
+            this.whatsapp.number = whatsapp.data.attributes.number
+            this.whatsapp.initialMessage =
+               whatsapp.data.attributes.initialMessage
+         } catch (error) {}
+      },
       async particlesInit(engine: Engine): Promise<void> {
          await loadFull(engine)
       },
@@ -144,10 +182,24 @@ export default Vue.extend({
       onScroll(e: any) {
          this.scrollPosition = e.target.documentElement.scrollTop
       },
+      sendWhatsapp() {
+         const whatsappNumber = this.formatPhone(this.whatsapp.number)
+         let baseUrl = this.$axios.defaults.baseURL
+         if (baseUrl === '/')
+            baseUrl = location.protocol + '//' + location.hostname
+         const comWhatsappLink = encodeURI(
+            this.whatsappLink +
+               whatsappNumber +
+               '?text=' +
+               this.whatsapp.initialMessage
+         )
+         window.open(comWhatsappLink, '_blank')
+      },
       switchLocale(code: string) {
          this.$i18n.setLocale(code)
          localStorage.lang = code
          this.menu = translatedMenu(this)
+         this.getWhatsapp()
       }
    }
 })
@@ -158,7 +210,7 @@ export default Vue.extend({
       z-index: -10;
    }
    .mcsi-body {
-      z-index: 99;
+      z-index: 9999;
    }
 }
 // Brand
@@ -185,4 +237,31 @@ export default Vue.extend({
 .v-leave-to {
    opacity: 0;
 }
+// Floating Button
+.floating-button {
+   display: block;
+   position: fixed;
+   right: 1rem;
+   bottom: 1rem;
+   z-index: 99;
+   .btn-whatsapp {
+      background-color: '#25D366';
+      border-radius: 19px;
+      box-shadow: 0 2px 8px 0 rgba(black, 0.2);
+   }
+   .btn-contact-us {
+      border-radius: 19px;
+      box-shadow: 0 2px 8px 0 rgba(black, 0.2);
+   }
+}
 </style>
+<i18n>
+{
+   "id": {
+      "contactUs": "Hubungi Kami"
+   },
+   "en": {
+      "contactUs": "Contact Us"
+   }
+}
+</i18n>
