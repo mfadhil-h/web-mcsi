@@ -36,7 +36,6 @@ export default {
    plugins: [
       '~/plugins/axios.js',
       '~/plugins/fontawesome.js',
-      '~/plugins/ga.js',
       { src: '~/plugins/ui-components.js', ssr: false }
    ],
 
@@ -52,12 +51,9 @@ export default {
    modules: [
       'bootstrap-vue/nuxt', // https://go.nuxtjs.dev/bootstrap
       '@nuxtjs/i18n',
-      '@nuxtjs/axios',
-      '@nuxtjs/gtm' // https://www.npmjs.com/package/@nuxtjs/gtm
+      '@nuxtjs/axios'
    ],
-   gtm: {
-      id: 'GTM-K8CJ6RG'
-   },
+
    env: {
       nodeEnv: process.env.NODE_ENV
    },
