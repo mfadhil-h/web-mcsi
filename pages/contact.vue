@@ -27,7 +27,7 @@
                .office__item Phone: {{ page.headOffice.phone }}
                .office__item Fax: {{ page.headOffice.fax }}
                .office__item Email: {{ page.headOffice.email }}
-      b-card.contact__email
+      //- b-card.contact__email
          .email__heading {{ $t("emailEditorial") }}
          b-form.email__form
             b-row
@@ -61,8 +61,15 @@
             b-button.float-right(
                variant='primary',
                size='lg',
-               @click='sendEmail(message.name, message.phone, message.email, contactCategorySelected, message.subject, message.message)'
+               v-b-modal.modal-contact-confirm
             ) {{ $t("buttonSubmit") }}
+   b-modal#modal-contact-confirm(
+      :cancel-title='$t("confirmationCancel")',
+      cancel-variant='light',
+      :ok-title='$t("confirmationOk")',
+      @ok='sendEmail(message.name, message.phone, message.email, contactCategorySelected, message.subject, message.message)'
+   )
+      p {{ $t("confirmation") }}
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -136,37 +143,42 @@ export default Vue.extend({
             await this.$axios.$post('/api/contact-inboxes', {
                data: contactInbox
             })
-         } catch (error) {
-            console.log(error)
-         }
+            this.message = {
+               name: '',
+               phone: '',
+               email: '',
+               subject: '',
+               message: ''
+            }
+         } catch (error) {}
       },
-      sendEmail2(
-         // Send email using Outlook or other email app
-         to: string,
-         category: string,
-         subject: string,
-         message: string,
-         name: string,
-         phone: string,
-         email: string
-      ) {
-         const mailLink =
-            'mailto:' +
-            to +
-            '?subject=' +
-            encodeURIComponent(category) +
-            ' - ' +
-            encodeURIComponent(subject) +
-            '&body=' +
-            encodeURIComponent(name) +
-            ' - (' +
-            encodeURIComponent(phone) +
-            ', ' +
-            encodeURIComponent(email) +
-            ')%0D%0D' +
-            encodeURIComponent(message)
-         window.location.href = mailLink
-      },
+      // sendEmail2(
+      //    // Send email using Outlook or other email app
+      //    to: string,
+      //    category: string,
+      //    subject: string,
+      //    message: string,
+      //    name: string,
+      //    phone: string,
+      //    email: string
+      // ) {
+      //    const mailLink =
+      //       'mailto:' +
+      //       to +
+      //       '?subject=' +
+      //       encodeURIComponent(category) +
+      //       ' - ' +
+      //       encodeURIComponent(subject) +
+      //       '&body=' +
+      //       encodeURIComponent(name) +
+      //       ' - (' +
+      //       encodeURIComponent(phone) +
+      //       ', ' +
+      //       encodeURIComponent(email) +
+      //       ')%0D%0D' +
+      //       encodeURIComponent(message)
+      //    window.location.href = mailLink
+      // },
       strapiImage
    }
 })
@@ -209,7 +221,7 @@ export default Vue.extend({
 {
    "id": {
       "addressEditorial": "Kantor Pusat",
-      "emailEditorial": "Hubungi Kami Melalui Email",
+      "emailEditorial": "Hubungi Kami",
       "emailName": "Nama",
       "emailPhone": "Nomor Telepon",
       "emailEmail": "Email",
@@ -217,11 +229,14 @@ export default Vue.extend({
       "emailCategoryPlaceholder": "- Pilih salah satu -",
       "emailSubject": "Judul",
       "emailMessage": "Pesan",
-      "buttonSubmit": "Kirim"
+      "buttonSubmit": "Kirim",
+      "confirmation": "Konfirmasi mengirimkan pesan ini kepada kami?",
+      "confirmationOk": "Ya",
+      "confirmationCancel": "Tidak"
    },
    "en": {
       "addressEditorial": "Head Office",
-      "emailEditorial": "Contact Us via Email",
+      "emailEditorial": "Contact Us",
       "emailName": "Name",
       "emailPhone": "Phone No",
       "emailEmail": "Email",
@@ -229,7 +244,10 @@ export default Vue.extend({
       "emailCategoryPlaceholder": "- Please select one -",
       "emailSubject": "Subject",
       "emailMessage": "Message",
-      "buttonSubmit": "Submit"
+      "buttonSubmit": "Submit",
+      "confirmation": "Confirm to send this message to us?",
+      "confirmationOk": "Yes",
+      "confirmationCancel": "No"
    }
 }
 </i18n>
