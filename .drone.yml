@@ -5,6 +5,9 @@ name: Generate Website
 steps:
 - name: build frontend
   image: node:lts
+  environment:
+    RECAPTCHA_SITE_KEY:
+      from_secret: recaptcha_site_key
   commands:
   - yarn install --frozen-lockfile --non-interactive --ignore-optional
   - yarn generate
