@@ -27,7 +27,7 @@
                .office__item Phone: {{ page.headOffice.phone }}
                .office__item Fax: {{ page.headOffice.fax }}
                .office__item Email: {{ page.headOffice.email }}
-      //- b-card.contact__email
+      b-card.contact__email
          .email__heading {{ $t("emailEditorial") }}
          b-form.email__form
             b-row
@@ -61,7 +61,7 @@
             b-button.float-right(
                variant='primary',
                size='lg',
-               @click='sendEmail(page.headOffice.email, contactCategorySelected, message.subject, message.message, message.name, message.phone, message.email)'
+               @click='sendEmail(message.name, message.phone, message.email, contactCategorySelected, message.subject, message.message)'
             ) {{ $t("buttonSubmit") }}
 </template>
 <script lang="ts">
@@ -89,9 +89,13 @@ export default Vue.extend({
          page: {}
       }
    },
-   mounted() {
+   async mounted() {
       this.getPage()
       this.getContactCategories()
+      await this.$recaptcha.init()
+   },
+   async beforeDestroy() {
+      await this.$recaptcha.destroy()
    },
    methods: {
       async getContactCategories() {
@@ -110,7 +114,34 @@ export default Vue.extend({
             this.page = page.data.attributes
          } catch (error) {}
       },
-      sendEmail(
+      async sendEmail(
+         name: string,
+         phone: string,
+         email: string,
+         category: string,
+         subject: string,
+         message: string
+      ) {
+         try {
+            const token = await this.$recaptcha.execute('login')
+            const contactInbox = {
+               name,
+               phone,
+               email,
+               category,
+               subject,
+               message,
+               token
+            }
+            await this.$axios.$post('/api/contact-inboxes', {
+               data: contactInbox
+            })
+         } catch (error) {
+            console.log(error)
+         }
+      },
+      sendEmail2(
+         // Send email using Outlook or other email app
          to: string,
          category: string,
          subject: string,

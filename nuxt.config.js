@@ -51,18 +51,16 @@ export default {
    modules: [
       'bootstrap-vue/nuxt', // https://go.nuxtjs.dev/bootstrap
       '@nuxtjs/i18n',
-      '@nuxtjs/axios'
+      '@nuxtjs/axios',
+      '@nuxtjs/recaptcha'
    ],
    env: {
       nodeEnv: process.env.NODE_ENV
    },
-
-   // Modify Bootstrap variables
    bootstrapVue: {
       bootstrapCSS: false,
       bootstrapVueCSS: false
    },
-
    i18n: {
       vueI18nLoader: true,
       locales: [
@@ -91,6 +89,13 @@ export default {
    publicRuntimeConfig: {
       axios: {
          browserBaseURL: process.env.BROWSER_BASE_URL
+      },
+      recaptcha: {
+         version: 3,
+         siteKey:
+            process.env.NODE_ENV === 'development'
+               ? '6LeOhLMjAAAAAGx22PCEbHZuvxn4l-ibrHrr2iHV'
+               : process.env.RECAPTCHA_SITE_KEY
       }
    },
    privateRuntimeConfig: {
