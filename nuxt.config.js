@@ -79,7 +79,6 @@ export default {
          messages: { id, en }
       },
       detectBrowserLanguage: false
-      // strategy: 'prefix'
    },
    axios: {
       proxy: false,
@@ -92,10 +91,7 @@ export default {
       },
       recaptcha: {
          version: 3,
-         siteKey:
-            process.env.NODE_ENV === 'development'
-               ? '6LeOhLMjAAAAAGx22PCEbHZuvxn4l-ibrHrr2iHV'
-               : process.env.RECAPTCHA_SITE_KEY
+         siteKey: process.env.RECAPTCHA_SITE_KEY
       }
    },
    privateRuntimeConfig: {
